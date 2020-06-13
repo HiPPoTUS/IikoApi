@@ -1,5 +1,8 @@
 package com.example.iikoapi.general.merch
 
+import android.app.ActivityOptions
+import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +13,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
 import com.example.iikoapi.general.menuadapter.MenuRecycleViewAdapter
+import com.example.iikoapi.openedmenuitem.OpenedMenuItem
 import com.example.iikoapi.startapp.datatype.Product
 
-class MerchAdapter(private var items : List<Product>) : RecyclerView.Adapter<MerchAdapter.MerchViewHolder>() {
+class MerchAdapter(private var items : List<Product>, private  var context : Context) : RecyclerView.Adapter<MerchAdapter.MerchViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MerchViewHolder {
@@ -54,6 +58,15 @@ class MerchAdapter(private var items : List<Product>) : RecyclerView.Adapter<Mer
 
         holder.itemView.setOnClickListener {
             Log.d("tag", "tap $position")
+
+            val intent = Intent(context, OpenedMenuItem::class.java)
+//            intent.putExtra("image", items[position].image)
+//            intent.putExtra("name", items[position].name)
+            intent.putExtra("position", position)
+            intent.putExtra("comonPos", 0)
+            context.startActivity(intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_anim_right, R.anim.exit_anim_right).toBundle())
+
+
         }
 
     }

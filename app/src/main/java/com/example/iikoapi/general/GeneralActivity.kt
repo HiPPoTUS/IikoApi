@@ -30,9 +30,9 @@ class GeneralActivity : AppCompatActivity() {
         }
 
         if (intent.getIntExtra("back_from", 0) != 0)
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0)), "1").commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0), this), "1").commit()
         else
-            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(0), "1").commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(0, this), "1").commit()
 
 
 
@@ -49,7 +49,7 @@ class GeneralActivity : AppCompatActivity() {
             var fragmentTransaction = supportFragmentManager.beginTransaction()
 
             when (item.itemId) {
-                R.id.acces_menu -> {selectedFragment = MenuFragment(0); TAG = "1"}
+                R.id.acces_menu -> {selectedFragment = MenuFragment(0, this); TAG = "1"}
                 R.id.contacts -> {selectedFragment = ContactsFragment(this); TAG = "2"}
                 R.id.profile ->{ selectedFragment = ProfileFragment(); TAG = "3"}
                 R.id.basket ->{ selectedFragment = BasketFragment(); TAG = "4"}
@@ -79,7 +79,7 @@ class GeneralActivity : AppCompatActivity() {
             supportFragmentManager.
             beginTransaction().
             setCustomAnimations(R.anim.enter_anim_left,R.anim.exit_anim_left).
-            replace(R.id.fragment_container, MenuFragment(0), "1").
+            replace(R.id.fragment_container, MenuFragment(0, this), "1").
             commit()
 
         navigationView.menu.getItem(0).isChecked = true

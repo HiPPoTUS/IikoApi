@@ -1,5 +1,6 @@
 package com.example.iikoapi.general
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_menu.*
 
-class MenuFragment(var position : Int) : Fragment() {
+class MenuFragment(var position : Int, var contextMy: Context) : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -31,7 +32,7 @@ class MenuFragment(var position : Int) : Fragment() {
 //        viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
 //        viewPager2.adapter = MenuAdapter(dd.values.toList())
 
-        merch.adapter = MerchAdapter(getProdsByCategory()[0])
+        merch.adapter = MerchAdapter(getProdsByCategory()[0], contextMy)
 
         viewPager2.adapter = MenuAdapter(getProdsByCategory())
         viewPager2.setCurrentItem(position, false)
