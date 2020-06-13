@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.activity_general.*
 
 lateinit var bottoNnavigationView : BottomNavigationView
 
+//general Activity
+
 class GeneralActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
