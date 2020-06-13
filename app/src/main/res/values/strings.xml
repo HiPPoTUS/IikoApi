@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IikoApi</string>
+
+    <string name="title_activity_start">StartActivity</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="title_activity_maps">Map</string>
+</resources>
