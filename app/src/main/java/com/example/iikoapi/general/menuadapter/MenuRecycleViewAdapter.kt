@@ -3,9 +3,13 @@ package com.example.iikoapi.general.menuadapter
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -28,12 +32,8 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
     private var items: List<Product> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ProductViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.open_menu_item_for_recycler_view,
-                parent,
-                false
-            )
+        return ProductViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.open_menu_item_for_recycler_view, parent, false),
+            context
         )
     }
 
@@ -64,7 +64,7 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
     }
 
     class ProductViewHolder
-    constructor(itemView: View): RecyclerView.ViewHolder(itemView){
+    constructor(itemView: View, var context: Context): RecyclerView.ViewHolder(itemView){
 
         val produtc_image = itemView.product_image
         val product_name = itemView.product_name
@@ -93,6 +93,12 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
                 val orderItem = OrderItem().fromProduct(product)
                 hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
                 order.addToOrder(orderItem)
+
+                val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
+                toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+                toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+                toast.show()
+
                 setBadges()
             }
         }

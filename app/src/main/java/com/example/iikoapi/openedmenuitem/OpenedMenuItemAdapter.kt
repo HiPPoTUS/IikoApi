@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -116,6 +117,12 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             bezModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
             Log.d("AAAAAA",hlebModifiers.toString())
             order.addToOrder(orderItem)
+
+            val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
+            toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+            toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+            toast.show()
+
             setBadges()
 
         }

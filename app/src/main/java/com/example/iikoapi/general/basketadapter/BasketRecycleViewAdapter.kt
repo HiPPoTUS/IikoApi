@@ -4,7 +4,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.annotation.Nullable
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,7 +17,7 @@ import com.example.iikoapi.startapp.datatype.OrderItem
 import com.example.iikoapi.utils.setBadges
 import kotlinx.android.synthetic.main.card_view_for_basket.view.*
 
-class BasketRecycleViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>()
+class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket : TextView) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
     private var thisAdapter = this
 
@@ -28,7 +30,8 @@ class BasketRecycleViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>
                 parent,
                 false
             )
-        , thisAdapter, items)
+        , thisAdapter, items,
+        clear_basket, text_empty_basket)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
@@ -58,10 +61,8 @@ class BasketRecycleViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     class ProductViewHolder
-    constructor(itemView: View, thisAdapter : BasketRecycleViewAdapter, thisData : MutableList<OrderItem>): RecyclerView.ViewHolder(itemView){
+    constructor(itemView: View, private var thisAdapter: BasketRecycleViewAdapter, private var thisData: MutableList<OrderItem>, var clear_basket : Button, var text_empty_basket : TextView): RecyclerView.ViewHolder(itemView){
 
-        private var thisAdapter = thisAdapter
-        private var thisData = thisData
         private val item_image: ImageView = itemView.item_image
         private val item_name = itemView.item_name
         private val item_description = itemView.item_description
@@ -101,11 +102,18 @@ class BasketRecycleViewAdapter() : RecyclerView.Adapter<RecyclerView.ViewHolder>
                 thisAdapter.notifyItemChanged(position, Object())
 
                 if(item.amount == 0){
+
                     thisData.removeAt(position)
                     thisAdapter.notifyItemRemoved(position)
                     order.items.remove(item)
                     thisAdapter.notifyDataSetChanged()
                 }
+
+                if(order.items.isEmpty()){
+                    clear_basket.text = "Вернуться в меню"
+                    text_empty_basket.alpha = 1f
+                }
+
                 setBadges()
             }
 

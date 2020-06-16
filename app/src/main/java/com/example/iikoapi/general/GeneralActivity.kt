@@ -2,13 +2,18 @@ package com.example.iikoapi.general
 
 import android.os.Bundle
 import android.util.Log
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_general.*
+import kotlinx.android.synthetic.main.fragment_menu.*
+import kotlinx.android.synthetic.main.menu_recycler_view.*
+
 
 lateinit var bottoNnavigationView : BottomNavigationView
 
@@ -36,13 +41,6 @@ class GeneralActivity : AppCompatActivity() {
 
 
 
-//        var badge = navigationView.getOrCreateBadge(R.id.basket)
-//        badge.isVisible = true
-//// An icon only badge will be displayed unless a number is set:
-//        badge.number = 99
-
-
-
         bottoNnavigationView.setOnNavigationItemSelectedListener { item ->
             lateinit var selectedFragment : Fragment
             lateinit var TAG :String
@@ -52,7 +50,7 @@ class GeneralActivity : AppCompatActivity() {
                 R.id.acces_menu -> {selectedFragment = MenuFragment(0, this); TAG = "1"}
                 R.id.contacts -> {selectedFragment = ContactsFragment(this); TAG = "2"}
                 R.id.profile ->{ selectedFragment = ProfileFragment(); TAG = "3"}
-                R.id.basket ->{ selectedFragment = BasketFragment(); TAG = "4"}
+                R.id.basket ->{ selectedFragment = BasketFragment(this, navigationView); TAG = "4"}
 
             }
 
