@@ -60,6 +60,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
                 this.orgs = mapper.readValue(" {\"organisations\": $response}", OrgsResponse::class.java)
                 Log.d("orgs",orgs.toString())
                 getMenu(orgs.organisations.last().id)
+                getRestr(orgs.organisations.last().id)
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
@@ -77,7 +78,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             Request.Method.GET, url+link,
             Response.Listener { response ->
                 this.restr = mapper.readValue(response, DeliveryRestrictionsResponse::class.java)
-                Log.d("address",response.toString())
+                Log.d("restr",response.toString())
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")

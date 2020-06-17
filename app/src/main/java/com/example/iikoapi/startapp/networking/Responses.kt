@@ -65,8 +65,9 @@ data class OrgsResponse(
     var organisations: List<OrganisationInfo>
 )
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class DeliveryRestrictionsResponse(
-    var deliveryRegionsMap: String /*Ссылка на карту регионов обслуживания доставки*/,
+    var deliveryRegionsMapUrl: String /*Ссылка на карту регионов обслуживания доставки*/,
     var defaultDeliveryDurationInMinutes: Int /*Общая продолжительность доставки*/,
     var useSameDeliveryDuration: Boolean /*bool Признак того, что ресторан(ы) используют общие ограничения по времени доставки**/,
     var useSameMinSum: Boolean /*bool Признак того, что ресторан(ы) по всем зонам используют одинаковую минимальную сумму**/,
