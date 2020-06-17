@@ -103,7 +103,7 @@ data class Product (
     @SerializedName("seoTitle")
     var seoTitle: String? /* string SEO-заголовок*/,
     @SerializedName("prohibitedToSaleOn")
-    var prohibitedToSaleOn: List<String>? /*Список ID терминалов, на которых продукт запрещен к продаже*/,
+    var prohibitedToSaleOn: List<ID> /*Список ID терминалов, на которых продукт запрещен к продаже*/,
     @SerializedName("differentPricesOn")
     var differentPricesOn: List<CustomTerminalPriceInfo>? /*CustomTerminalPriceInfo[] Список терминалов, на которых цена продукта отличается от стандартной и цен на них.*/,
     @SerializedName("useBalanceForSell")
@@ -132,4 +132,8 @@ data class Modifer (
     var hideIfDefaultAmount: Boolean?/* boolean Признак того, что не нужно отображать список модификаторов, если их количество равно количеству*/,
     @SerializedName("childModifiersHaveMinMaxRestrictions")
     var childModifiersHaveMinMaxRestrictions: Boolean? /* boolean Признак того, что дочерние модификаторы имеют ограничения. Актуально только для групповых модификаторов.*/
+)
+
+data class ID(
+    var terminalId: String?
 )

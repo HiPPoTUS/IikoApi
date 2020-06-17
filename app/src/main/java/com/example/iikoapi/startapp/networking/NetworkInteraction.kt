@@ -3,8 +3,6 @@ package com.example.iikoapi.startapp.networking
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.contentValuesOf
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
@@ -13,6 +11,8 @@ import com.example.iikoapi.startapp.datatype.Login
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
+import java.io.IOException
+import java.io.OutputStreamWriter
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
@@ -23,11 +23,14 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
     private val url = "https://iiko.biz:9900/api/0/"
     private var login: Login =
         Login(
-            "demoDelivery",
-            "PI1yFaKFCGvvJKi",
+//            "demoDelivery",
+//            "PI1yFaKFCGvvJKi",
+            "vshaverma",
+            "n8mgiKG2",
             null
         )
     lateinit var orgs: OrgsResponse
+    lateinit var restr: DeliveryRestrictionsResponse
 
     fun start() {
         val link = "auth/access_token?user_id=${login.user_id}&user_secret=${login.user_secret}"
@@ -56,7 +59,6 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             Response.Listener { response ->
                 this.orgs = mapper.readValue(" {\"organisations\": $response}", OrgsResponse::class.java)
                 Log.d("orgs",orgs.toString())
-
                 getMenu(orgs.organisations.last().id)
             },
             Response.ErrorListener { error ->
@@ -65,6 +67,42 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         )
         S.addToRequestQueue(Request)
     }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    fun getZone(OrgID:String)
+    {
+        val mapper  = ObjectMapper().registerModule(KotlinModule(nullIsSameAsDefault=true))
+        val link = "cities/cities?access_token=${login.access}&organization=${OrgID}"
+//        val link = "deliverySettings/getDeliveryTerminals?access_token=${login.access}&organization=${OrgID}"
+        val Request = StringRequest(
+            Request.Method.GET, url+link,
+            Response.Listener { response ->
+                Log.d("address",response.toString())
+            },
+            Response.ErrorListener { error ->
+                Log.d("tag", "volley arror: $error")
+            }
+        )
+        S.addToRequestQueue(Request)
+    }
+
+    private fun writeToFile(
+        data: String,
+        context: Context
+    ) {
+        try {
+            val outputStreamWriter = OutputStreamWriter(
+                context.openFileOutput(
+                    "config.txt",
+                    Context.MODE_PRIVATE
+                )
+            )
+            outputStreamWriter.write(data)
+            outputStreamWriter.close()
+        } catch (e: IOException) {
+            Log.e("Exception", "File write failed: " + e.toString())
+        }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     fun getMenu(OrgID:String)
     {
         val mapper  = ObjectMapper().registerModule(KotlinModule(nullIsSameAsDefault=true))
