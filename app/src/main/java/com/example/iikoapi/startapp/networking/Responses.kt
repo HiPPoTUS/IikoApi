@@ -67,15 +67,15 @@ data class OrgsResponse(
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class DeliveryRestrictionsResponse(
-    var deliveryRegionsMapUrl: String /*Ссылка на карту регионов обслуживания доставки*/,
-    var defaultDeliveryDurationInMinutes: Int /*Общая продолжительность доставки*/,
-    var useSameDeliveryDuration: Boolean /*bool Признак того, что ресторан(ы) используют общие ограничения по времени доставки**/,
-    var useSameMinSum: Boolean /*bool Признак того, что ресторан(ы) по всем зонам используют одинаковую минимальную сумму**/,
-    var defaultMinSum: Int /*decimal Общая минимальная сумма заказа*/,
-    var useSameWorkTimeInterval: Boolean /*bool Признак того что ресторан(ы) использует общий интервал работы для всех зон.**/,
-    var defaultFrom: Int /*Начало интервала по умолчанию работы ресторана, в минутах от начала дня. Используется совместно с useSameWorkTimeInterval*/,
-    var defaultTo: Int /*Конец интервала по умолчанию работы ресторана, в минутах от начала дня. Если defaultTo < defaultFrom, то это означает, что конец рабочего дня залезает на следующий день. Используется совместно с useSameWorkTimeInterval*/,
-    var useSameRestructionsOnAllWeek: Boolean /*bool Признак того, что ограничения работы точек распространяются на все дни недели.**/,
-    var restrictions: List<DeliveryRestrictionItem> /*DeliveryRestrictionItem[] Привязки ресторанов к зонам доставки*/,
-    var deliveryZones: List<DeliveryZone> /*DeliveryZone[] Список доставочных зон из Яндекс.Карт*/
+    var deliveryRegionsMapUrl: String? /*Ссылка на карту регионов обслуживания доставки*/,
+    var defaultDeliveryDurationInMinutes: Int? /*Общая продолжительность доставки*/,
+    var useSameDeliveryDuration: Boolean? /*bool Признак того, что ресторан(ы) используют общие ограничения по времени доставки**/,
+    var useSameMinSum: Boolean? /*bool Признак того, что ресторан(ы) по всем зонам используют одинаковую минимальную сумму**/,
+    var defaultMinSum: Int? /*decimal Общая минимальная сумма заказа*/,
+    var useSameWorkTimeInterval: Boolean? /*bool Признак того что ресторан(ы) использует общий интервал работы для всех зон.**/,
+    var defaultFrom: Int? /*Начало интервала по умолчанию работы ресторана, в минутах от начала дня. Используется совместно с useSameWorkTimeInterval*/,
+    var defaultTo: Int? /*Конец интервала по умолчанию работы ресторана, в минутах от начала дня. Если defaultTo < defaultFrom, то это означает, что конец рабочего дня залезает на следующий день. Используется совместно с useSameWorkTimeInterval*/,
+    var useSameRestructionsOnAllWeek: Boolean? /*bool Признак того, что ограничения работы точек распространяются на все дни недели.**/,
+    var restrictions: List<DeliveryRestrictionItem>? /*DeliveryRestrictionItem[] Привязки ресторанов к зонам доставки*/,
+    var deliveryZones: List<DeliveryZone>? /*DeliveryZone[] Список доставочных зон из Яндекс.Карт*/
 )

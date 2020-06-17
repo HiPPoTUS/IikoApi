@@ -25,8 +25,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         Login(
 //            "demoDelivery",
 //            "PI1yFaKFCGvvJKi",
-            "vshaverma",
-            "n8mgiKG2",
+
             null
         )
     lateinit var orgs: OrgsResponse
@@ -72,7 +71,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
     fun getRestr(OrgID:String)
     {
         val mapper  = ObjectMapper().registerModule(KotlinModule(nullIsSameAsDefault=true))
-        val link = "cities/cities?access_token=${login.access}&organization=${OrgID}"
+        val link = "deliverySettings/getDeliveryRestrictions?access_token=${login.access}&organization=${OrgID}"
 //        val link = "deliverySettings/getDeliveryTerminals?access_token=${login.access}&organization=${OrgID}"
         val Request = StringRequest(
             Request.Method.GET, url+link,
@@ -94,7 +93,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         try {
             val outputStreamWriter = OutputStreamWriter(
                 context.openFileOutput(
-                    "config.txt",
+                    "config2.txt",
                     Context.MODE_PRIVATE
                 )
             )
