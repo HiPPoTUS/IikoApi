@@ -68,7 +68,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         S.addToRequestQueue(Request)
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
-    fun getZone(OrgID:String)
+    fun getRestr(OrgID:String)
     {
         val mapper  = ObjectMapper().registerModule(KotlinModule(nullIsSameAsDefault=true))
         val link = "cities/cities?access_token=${login.access}&organization=${OrgID}"
@@ -76,6 +76,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         val Request = StringRequest(
             Request.Method.GET, url+link,
             Response.Listener { response ->
+                this.restr = mapper.readValue(response, DeliveryRestrictionsResponse::class.java)
                 Log.d("address",response.toString())
             },
             Response.ErrorListener { error ->
