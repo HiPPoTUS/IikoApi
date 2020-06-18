@@ -18,6 +18,6 @@ data class DeliveryZone(
 )
 
 data class CoordinatesInfo(
-    var latitude: String,// decimal Широта *
-    var longitude: String// decimal Долгота *
+    var latitude: Double,// decimal Широта *
+    var longitude: Double// decimal Долгота *
 )
