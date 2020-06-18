@@ -26,8 +26,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
         Login(
 //            "demoDelivery",
 //            "PI1yFaKFCGvvJKi",
-            "vshaverma",
-            "n8mgiKG2",
+
             null
         )
     lateinit var orgs: OrgsResponse
