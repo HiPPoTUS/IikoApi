@@ -18,6 +18,7 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.*
 
 lateinit var menu: MenuResponse
+lateinit var restr: DeliveryRestrictionsResponse
 
 class NetworkInteraction(val S: MySingleton, val context: Context) {
     private val url = "https://iiko.biz:9900/api/0/"
@@ -29,7 +30,6 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             null
         )
     lateinit var orgs: OrgsResponse
-    lateinit var restr: DeliveryRestrictionsResponse
 
     fun start() {
         val link = "auth/access_token?user_id=${login.user_id}&user_secret=${login.user_secret}"
@@ -58,8 +58,8 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             Response.Listener { response ->
                 this.orgs = mapper.readValue(" {\"organisations\": $response}", OrgsResponse::class.java)
                 Log.d("orgs",orgs.toString())
-                getMenu(orgs.organisations.last().id)
                 getRestr(orgs.organisations.last().id)
+                getMenu(orgs.organisations.last().id)
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
@@ -71,12 +71,12 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
     fun getRestr(OrgID:String)
     {
         val mapper  = ObjectMapper().registerModule(KotlinModule(nullIsSameAsDefault=true))
+//        val link = "/regions/regions?access_token=${login.access}&organization=${OrgID}"
         val link = "deliverySettings/getDeliveryRestrictions?access_token=${login.access}&organization=${OrgID}"
-//        val link = "deliverySettings/getDeliveryTerminals?access_token=${login.access}&organization=${OrgID}"
         val Request = StringRequest(
             Request.Method.GET, url+link,
             Response.Listener { response ->
-                this.restr = mapper.readValue(response, DeliveryRestrictionsResponse::class.java)
+                restr = mapper.readValue(response, DeliveryRestrictionsResponse::class.java)
                 Log.d("restr",response.toString())
             },
             Response.ErrorListener { error ->
