@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Ur Name"
+        android:text="Имя"
         android:textSize="40dp"
         android:layout_margin="20dp"
         android:padding="10dp" />
@@ -24,7 +24,7 @@
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Addresses"
+            android:text="Адреса"
             android:textSize="25dp"
             android:layout_toLeftOf="@id/number_orders"/>
 
@@ -57,7 +57,7 @@
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="History"
+            android:text="История заказов"
             android:textSize="25dp"
             android:layout_toLeftOf="@id/history_button"/>
 

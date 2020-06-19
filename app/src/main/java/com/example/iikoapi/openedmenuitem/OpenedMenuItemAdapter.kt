@@ -115,7 +115,6 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
             jalapenoModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
             bezModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-            Log.d("AAAAAA",hlebModifiers.toString())
             order.addToOrder(orderItem)
 
             val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)

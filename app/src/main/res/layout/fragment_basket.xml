@@ -11,7 +11,7 @@
         android:id="@+id/text_empty_basket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ой, кажется ваша корзина пуста("
+        android:text="ваша корзина пуста"
         android:textSize="25dp"
         android:layout_centerInParent="true" />
 

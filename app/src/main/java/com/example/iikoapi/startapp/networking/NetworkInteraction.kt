@@ -19,16 +19,13 @@ import javax.net.ssl.*
 
 lateinit var menu: MenuResponse
 lateinit var restr: DeliveryRestrictionsResponse
-
 class NetworkInteraction(val S: MySingleton, val context: Context) {
+
     private val url = "https://iiko.biz:9900/api/0/"
     private var login: Login =
         Login(
-//            "demoDelivery",
-//            "PI1yFaKFCGvvJKi",
-            "vshaverma",
-            "n8mgiKG2",
-
+            "demoDelivery",
+            "PI1yFaKFCGvvJKi",
             null
         )
     lateinit var orgs: OrgsResponse

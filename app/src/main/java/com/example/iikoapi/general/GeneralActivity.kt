@@ -27,13 +27,6 @@ class GeneralActivity : AppCompatActivity() {
         bottoNnavigationView = findViewById(R.id.navigationView)
         setBadges()
 
-        for(x in menu.products.groupBy { it.parentGroup }.keys){
-            if(!x.isNullOrEmpty())
-                Log.d("tag", menu.groups.find { it.id == x }?.name!!)
-            else
-                Log.d("tag", "null")
-        }
-
         if (intent.getIntExtra("back_from", 0) != 0)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0), this), "1").commit()
         else
