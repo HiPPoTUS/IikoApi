@@ -1,5 +1,6 @@
 package com.example.iikoapi.general.contacts
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iikoapi.R
@@ -9,8 +10,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.maps.model.PolylineOptions
+import com.google.android.gms.maps.model.PolygonOptions
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -35,19 +35,35 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
+
         mMap = googleMap
 
-        val polyline1 = googleMap.addPolyline(
-            PolylineOptions()
-                .clickable(true)
-                .addAll(LatLng(restr.deliveryZones?.get(0)?.coordinates?.get(2)?.latitude!!.toDouble(), restr.deliveryZones?.get(0)?.coordinates?.get(2)?.longitude!!.toDouble())
+        var r = MutableList(restr.deliveryZones?.get(0)?.coordinates!!.size){
+            LatLng(restr.deliveryZones?.get(0)?.coordinates!![it].latitude, restr.deliveryZones?.get(0)?.coordinates!![it].longitude)
+        } as ArrayList
+
+        val polyline1 = googleMap.addPolygon(PolygonOptions().clickable(true).addAll(r))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+            LatLng(restr.deliveryZones?.get(0)?.coordinates?.get(0)?.latitude!!, restr.deliveryZones?.get(0)?.coordinates?.get(0)?.longitude!!), 13f)
         )
-        )
+
+        polyline1.strokeWidth = 0f
+        polyline1.fillColor = getColorWithAlpha(Color.RED, 0.4f)
 
 //        val first = LatLng(restr.deliveryZones?.get(0)?.coordinates?.get(0)?.latitude!!.toDouble(), restr.deliveryZones?.get(0)?.coordinates?.get(0)?.longitude!!.toDouble())
 //        mMap.addMarker(MarkerOptions().position(first).title("Marker in Sydney"))
 //        mMap.moveCamera(CameraUpdateFactory.newLatLng(first))
 //        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(first, 12.0f));
+    }
+
+    fun getColorWithAlpha(color: Int, ratio: Float): Int {
+        var newColor = 0
+        val alpha = Math.round(Color.alpha(color) * ratio).toInt()
+        val r: Int = Color.red(color)
+        val g: Int = Color.green(color)
+        val b: Int = Color.blue(color)
+        newColor = Color.argb(alpha, r, g, b)
+        return newColor
     }
 
 }

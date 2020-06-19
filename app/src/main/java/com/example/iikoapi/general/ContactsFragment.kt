@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
 import com.example.iikoapi.general.contacts.MapsActivity
 import com.example.iikoapi.startapp.networking.restr
+import com.google.android.gms.maps.model.LatLng
 
 class ContactsFragment(var contextGeneral: Context) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -20,11 +21,13 @@ class ContactsFragment(var contextGeneral: Context) : Fragment() {
 
         var mapsButton = view.findViewById<Button>(R.id.maps_button)
         var zones = restr.deliveryZones?.get(0)?.coordinates?.get(0)
-        Log.d("tag", zones.toString())
+//        Log.d("tag", zones.toString())
+//        Log.d("tag", ret().toString())
         mapsButton.setOnClickListener {
             startActivity(Intent(contextGeneral, MapsActivity::class.java))
         }
 
         return view
     }
+
 }
