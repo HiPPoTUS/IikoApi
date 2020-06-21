@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.google.gson.annotations.SerializedName
 
 data class Login (
-    @SerializedName("user_id")
     var user_id: String,
-    @SerializedName("user_secret")
     var user_secret: String,
     var access: String?
 )
