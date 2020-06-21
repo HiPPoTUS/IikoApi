@@ -31,7 +31,8 @@ var hlebGroupName = listOf<String?>("Тест не трогать !","550a4774-3
 var bezGroupName = listOf<String?>("---БЕЗ---","932f004d-0b8a-44c5-b8f7-8f86056e8d93")
 var jalapenoGroupName = listOf<String?>(null,null)
 
-class OpenedMenuItemAdapter(private var items : List<Product>, private var context: Context, var commonPosition : Int) : RecyclerView.Adapter<OpenedMenuItemAdapter.OpenedMenuItemViewHolder>() {
+class OpenedMenuItemAdapter(private var items : List<Product>, private var context: Context, var commonPosition : Int) :
+    RecyclerView.Adapter<OpenedMenuItemAdapter.OpenedMenuItemViewHolder>() {
 
     private lateinit var hlebModifiers: MutableList<OrderItemModifier>
     private lateinit var jalapenoModifiers : MutableList<OrderItemModifier>
@@ -43,7 +44,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         private val contains = view.findViewById<TextView>(R.id.contains)
         private val weightInfo = view.findViewById<TextView>(R.id.weightInfo)
 
-        fun bind(data : Product) {
+        fun bind(data : Product, position : Int, myView : View) {
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.preload)
@@ -57,6 +58,78 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             name.text = data.name
             contains.text = data.description
             weightInfo.text = (data.weight*1000).toInt().toString()
+
+
+            showInfo(myView.info_fragment_RL, position)
+
+            myView.go_back.setOnClickListener {
+                val intent = Intent(context, GeneralActivity::class.java)
+                intent.putExtra("back_from", commonPosition)
+                context.startActivity(intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_anim_left, R.anim.exit_anim_left).toBundle())
+            }
+
+            val hleb = menu.getModifiers(data, hlebGroupName)
+            val bez = menu.getModifiers(data, bezGroupName)
+            val jalapenos = menu.getModifiers(data, jalapenoGroupName)
+            Log.d("modf", data.groupModifiers.toString())
+            Log.d("modf", hleb.toString())
+            Log.d("modf", bez.toString())
+            Log.d("modf", jalapenos.toString())
+
+            myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
+
+            myView.RL.setOnTouchListener { _, _ ->
+                myView.info_fragment_RL.animate().alpha(0f).duration = 200
+                myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
+                true
+            }
+
+            myView.info_button.setOnClickListener {
+                myView.info_fragment_RL.animate().alpha(1f).duration = 200
+                myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
+            }
+
+            myView.bez_button.setOnClickListener {
+                myView.expandableLayout.toggle()
+            }
+
+            myView.to_basket_button.setOnClickListener {
+                val orderItem = OrderItem().fromProduct(data)
+                hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
+                jalapenoModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
+                bezModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
+                Log.d("AAAAAA",hlebModifiers.toString())
+                order.addToOrder(orderItem)
+
+                val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
+                toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+                toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+                toast.show()
+
+                setBadges()
+
+            }
+
+            jalapenoModifiers = MutableList(jalapenos.size){ OrderItemModifier().fromProduct(jalapenos[it],jalapenoGroupName)}
+            bezModifiers = MutableList(bez.size){ OrderItemModifier().fromProduct(bez[it],bezGroupName)}
+            hlebModifiers = MutableList(hleb.size){ OrderItemModifier().fromProduct(hleb[it], hlebGroupName)}
+            try {
+                hlebModifiers[0].amount=1
+            }
+            catch (e:Exception){
+                Log.d("errors", "error with hlebModifiers - $e")
+            }
+
+            Log.d("size", bezModifiers.size.toString())
+
+
+            showGroupModifier(hleb, myView.group_modifier, context)
+            showBezModifier(bez, myView.bez_modifier, context)
+            showSingledModifier(jalapenos, myView.singled_modifier, context)
+
+
+            myView.expandableLayout.collapse()
+
         }
     }
 
@@ -70,82 +143,9 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     override fun onBindViewHolder(holder: OpenedMenuItemViewHolder, position: Int) {
-        val currentItem = items[position]
-        holder.bind(currentItem)
-        val myView = holder.itemView
-
-        showInfo(myView.info_fragment_RL, position)
-
-        myView.go_back.setOnClickListener {
-            val intent = Intent(context, GeneralActivity::class.java)
-            intent.putExtra("back_from", commonPosition)
-            context.startActivity(intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_anim_left, R.anim.exit_anim_left).toBundle())
-        }
-
-        val hleb = menu.getModifiers(currentItem, hlebGroupName)
-        val bez = menu.getModifiers(currentItem, bezGroupName)
-        val jalapenos = menu.getModifiers(currentItem, jalapenoGroupName)
-        Log.d("modf", currentItem.groupModifiers.toString())
-        Log.d("modf", hleb.toString())
-        Log.d("modf", bez.toString())
-        Log.d("modf", jalapenos.toString())
-
-        myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
-
-        myView.RL.setOnTouchListener { _, _ ->
-            myView.info_fragment_RL.animate().alpha(0f).duration = 200
-            myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
-            true
-        }
-
-        myView.info_button.setOnClickListener {
-            myView.info_fragment_RL.animate().alpha(1f).duration = 200
-            myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
-        }
-
-        myView.bez_button.setOnClickListener {
-//            myView.bez_grid_view.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
-//            myView.bez_fragment_RL.animate().alpha(1f).duration = 200
-//            myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
-            myView.expandableLayout.toggle()
-        }
-
-        myView.to_basket_button.setOnClickListener {
-            val orderItem = OrderItem().fromProduct(currentItem)
-            hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-            jalapenoModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-            bezModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-            Log.d("AAAAAA",hlebModifiers.toString())
-            order.addToOrder(orderItem)
-
-            val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
-            toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-            toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
-            toast.show()
-
-            setBadges()
-
-        }
-
-        jalapenoModifiers = MutableList(jalapenos.size){ OrderItemModifier().fromProduct(jalapenos[it],jalapenoGroupName)}
-        bezModifiers = MutableList(bez.size){ OrderItemModifier().fromProduct(bez[it],bezGroupName)}
-        hlebModifiers = MutableList(hleb.size){ OrderItemModifier().fromProduct(hleb[it], hlebGroupName)}
-        try {
-            hlebModifiers[0].amount=1
-        }
-        catch (e:Exception){}
-
-        Log.d("size", bezModifiers.size.toString())
-
-
-        showGroupModifier(hleb, myView.group_modifier, context)
-        showBezModifier(bez, myView.bez_modifier, context)
-        showSingledModifier(jalapenos, myView.singled_modifier, context)
-
-
-        myView.expandableLayout.collapse()
-
+        holder.bind(items[position], position, holder.itemView)
     }
+
 
     private fun showInfo(view: RelativeLayout, position: Int){
 

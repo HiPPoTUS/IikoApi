@@ -12,11 +12,11 @@ class OpenedMenuItem : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_opened_product_item_view_pager2)
 
-        var position = intent.getIntExtra("position", 0)
+        val position = intent.getIntExtra("position", 0)
 
 
-        var commonPos = intent.getIntExtra("comonPos", -1)
-        var openedMenuItemAdapter = OpenedMenuItemAdapter(getProdsByCategory()[commonPos], this, commonPos)
+        val commonPos = intent.getIntExtra("comonPos", -1)
+        val openedMenuItemAdapter = OpenedMenuItemAdapter(getProdsByCategory()[commonPos], this, commonPos)
         opened_menu_item_pager.adapter = openedMenuItemAdapter
         opened_menu_item_pager.setCurrentItem(position, false)
 
