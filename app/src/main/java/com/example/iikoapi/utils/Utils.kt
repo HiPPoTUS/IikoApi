@@ -1,5 +1,8 @@
 package com.example.iikoapi.utils
 
+import android.graphics.Rect
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.general.bottoNnavigationView
 import com.example.iikoapi.openedmenuitem.order
@@ -37,6 +40,18 @@ fun setBadges(){
     else{
         badge.isVisible = true
         badge.number = order.totalItems
+    }
+
+}
+
+class Decorations(private val padding: Int) : RecyclerView.ItemDecoration() {
+
+    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
+        super.getItemOffsets(outRect, view, parent, state)
+        outRect.top = 1
+        outRect.bottom = padding
+        outRect.left = padding / 2
+        outRect.right = padding / 2
     }
 
 }

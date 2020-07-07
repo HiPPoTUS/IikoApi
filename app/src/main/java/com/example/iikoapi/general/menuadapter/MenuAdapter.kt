@@ -3,10 +3,14 @@ package com.example.iikoapi.general.menuadapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout.HORIZONTAL
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.datatype.Product
+import com.example.iikoapi.utils.Decorations
+
 
 class MenuAdapter(private var items : List<List<Product>>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
@@ -20,6 +24,8 @@ class MenuAdapter(private var items : List<List<Product>>) : RecyclerView.Adapte
                 layoutManager = LinearLayoutManager(context)
                 recycleViewAdapter = MenuRecycleViewAdapter(context, position)
                 adapter = recycleViewAdapter
+
+                rView.addItemDecoration(Decorations(10))
             }
 
             recycleViewAdapter.submitList(data)

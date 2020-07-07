@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.general.basketadapter.BasketRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.order
+import com.example.iikoapi.utils.Decorations
 import com.example.iikoapi.utils.getProdsByCategory
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -38,6 +39,7 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
         }
 
         val recyclerViewAdapterForBasket = BasketRecycleViewAdapter(clear_basket, text_empty_basket)
+        recyclerViewForBasket.addItemDecoration(Decorations(10))
 
         recyclerViewForBasket.apply {
             layoutManager = LinearLayoutManager(context)
