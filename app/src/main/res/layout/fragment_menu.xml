@@ -26,6 +26,8 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
+            app:tabBackground="@android:color/transparent"
+            app:tabRippleColor="@null"
             android:layout_marginHorizontal="10dp"
             app:tabIndicator="@drawable/tab_indicator"
             app:tabIndicatorGravity="center"

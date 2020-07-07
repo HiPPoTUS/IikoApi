@@ -89,7 +89,7 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
 
             direct_button.setOnClickListener {
                 val hleb = menu.getModifiers(product, hlebGroupName)
-                val hlebModifiers = MutableList(hleb!!.size){ OrderItemModifier().fromProduct(hleb[it], hlebGroupName)}
+                val hlebModifiers = MutableList(hleb.size){ OrderItemModifier().fromProduct(hleb[it], hlebGroupName)}
                 val orderItem = OrderItem().fromProduct(product)
                 hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
                 order.addToOrder(orderItem)

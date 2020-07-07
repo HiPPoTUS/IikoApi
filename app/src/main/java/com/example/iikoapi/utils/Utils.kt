@@ -31,7 +31,7 @@ fun getProdsByCategory():List<List<Product>>{
 }
 
 fun setBadges(){
-    var badge = bottoNnavigationView.getOrCreateBadge(R.id.basket)
+    val badge = bottoNnavigationView.getOrCreateBadge(R.id.basket)
     order.update()
     if(order.totalItems == 0){
         badge.isVisible = false
@@ -44,7 +44,9 @@ fun setBadges(){
 
 }
 
-class Decorations(private val padding: Int) : RecyclerView.ItemDecoration() {
+class Decorations : RecyclerView.ItemDecoration() {
+
+    private val padding = 10
 
     override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State) {
         super.getItemOffsets(outRect, view, parent, state)

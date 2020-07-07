@@ -25,7 +25,8 @@ class MenuAdapter(private var items : List<List<Product>>) : RecyclerView.Adapte
                 recycleViewAdapter = MenuRecycleViewAdapter(context, position)
                 adapter = recycleViewAdapter
 
-                rView.addItemDecoration(Decorations(10))
+                if(rView.itemDecorationCount == 0)
+                    rView.addItemDecoration(Decorations())
             }
 
             recycleViewAdapter.submitList(data)

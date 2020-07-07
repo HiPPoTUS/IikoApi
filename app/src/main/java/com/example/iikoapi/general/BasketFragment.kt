@@ -39,7 +39,8 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
         }
 
         val recyclerViewAdapterForBasket = BasketRecycleViewAdapter(clear_basket, text_empty_basket)
-        recyclerViewForBasket.addItemDecoration(Decorations(10))
+        if (recyclerViewForBasket.itemDecorationCount == 0)
+            recyclerViewForBasket.addItemDecoration(Decorations())
 
         recyclerViewForBasket.apply {
             layoutManager = LinearLayoutManager(context)
