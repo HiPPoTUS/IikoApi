@@ -4,20 +4,21 @@
     <item
         android:id="@+id/acces_menu"
         android:icon="@drawable/ic_format_align_left_black_24dp"
-        android:title="Menu"/>
+        android:title="Меню" />
 
     <item
         android:id="@+id/contacts"
         android:icon="@drawable/ic_contacts_black_24dp"
-        android:title="Contacts"/>
+        android:title="Контакты" />
 
     <item
         android:id="@+id/profile"
         android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Profile"/>
+        android:title="Профиль" />
+
     <item
         android:id="@+id/basket"
-        android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Basket"/>
+        android:icon="@drawable/cart"
+        android:title="Корзина" />
 
 </menu>

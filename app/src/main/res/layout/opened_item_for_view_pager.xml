@@ -20,14 +20,24 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/image_inside"
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginStart="0dp"
-                    android:saveEnabled="false"
-                    android:scaleType="fitXY"
-                    app:srcCompat="@drawable/ic_launcher_background" />
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="16dp">
+
+                    <ImageView
+                        android:id="@+id/image_inside"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="fill_horizontal"
+                        android:layout_marginStart="0dp"
+                        android:saveEnabled="false"
+                        android:scaleType="fitCenter"
+                        app:srcCompat="@drawable/ic_launcher_background" />
+
+                </androidx.cardview.widget.CardView>
 
                 <LinearLayout
                     android:layout_marginTop="16dp"
@@ -57,13 +67,34 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"/>
 
-                        <Button
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/info_button"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:layout_weight="1"
-                            android:id="@+id/info_button"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="info"/>
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            app:backgroundTint="#00000000"
+                            app:cornerRadius="0dp"
+                            app:icon="@drawable/info_btn"
+                            app:iconGravity="textStart"
+                            app:iconPadding="0dp"
+                            app:rippleColor="@null"
+                            app:iconTint="@color/colorAccent" />
+
+<!--                        <Button-->
+<!--                            android:id="@+id/info_button"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:background="#FFFFFF"-->
+<!--                            app:cornerRadius="20dp"-->
+<!--                            app:icon="@drawable/info_btn"-->
+<!--                            app:iconPadding="0dp"-->
+<!--                            app:iconTint="#FFFFFF" />-->
                     </LinearLayout>
 
                 </LinearLayout>
@@ -118,6 +149,7 @@
                 </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
                 <Button
+                    android:id="@+id/add_button"
                     android:layout_marginTop="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
@@ -293,7 +325,7 @@
         android:id="@+id/RL"/>
 
 
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/go_back"
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -301,7 +333,12 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
-        android:background="#FFFFFF"
-        android:padding="20dp" />
+        android:src="@drawable/back_arrow"
+        android:tint="@color/colorAccent"
+        android:tintMode="multiply"
+        app:backgroundTint="#FFFFFF"
+        app:fabCustomSize="40dp"
+        app:rippleColor="@color/colorPrimaryDark"
+        app:tint="#FFFFFF" />
 
 </RelativeLayout>

@@ -1,5 +1,6 @@
 package com.example.iikoapi.utils
 
+import android.graphics.Color
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ fun getProdsByCategory():List<List<Product>>{
 
 fun setBadges(){
     val badge = bottoNnavigationView.getOrCreateBadge(R.id.basket)
+    badge.backgroundColor=Color.rgb(255,102,0)
     order.update()
     if(order.totalItems == 0){
         badge.isVisible = false

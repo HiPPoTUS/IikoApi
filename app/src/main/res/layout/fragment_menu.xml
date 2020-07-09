@@ -26,15 +26,17 @@
         android:orientation="vertical">
 
         <com.google.android.material.tabs.TabLayout
-            app:tabBackground="@android:color/transparent"
-            app:tabRippleColor="@null"
-            android:layout_marginHorizontal="10dp"
-            app:tabIndicator="@drawable/tab_indicator"
-            app:tabIndicatorGravity="center"
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicatorColor="#9900CC"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="center"
+            app:tabIndicatorHeight="20dp"
             app:tabMode="scrollable"
+            app:tabRippleColor="@null"
             app:tabSelectedTextColor="#fff"
             style="@style/MyCustomTabLayout"/>
 

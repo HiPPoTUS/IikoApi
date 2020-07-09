@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.view.children
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -27,7 +28,8 @@ import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 
 var order = Order()
-var hlebGroupName = listOf<String?>("Тест не трогать !","550a4774-3a0f-4d8c-a0f7-bc176fd5a489")
+var hlebGroupName = listOf<String?>("-лаваши без питы","840b1dc1-d18e-4cfb-8250-fd86eb59b9ea")
+var hlebPitaGroupName = listOf<String?>("-лаваши с питой","1fc607d6-5075-446a-bdea-58db6b2c5a29")
 var bezGroupName = listOf<String?>("---БЕЗ---","932f004d-0b8a-44c5-b8f7-8f86056e8d93")
 var jalapenoGroupName = listOf<String?>(null,null)
 
@@ -66,13 +68,17 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
                 context.startActivity(intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_anim_left, R.anim.exit_anim_left).toBundle())
             }
 
-            val hleb = menu.getModifiers(currentItem, hlebGroupName)
+
+            var hleb = menu.getModifiers(currentItem, hlebGroupName)
+            if (hleb.isEmpty()) hleb = menu.getModifiers(currentItem, hlebPitaGroupName)
             val bez = menu.getModifiers(currentItem, bezGroupName)
             val jalapenos = menu.getModifiers(currentItem, jalapenoGroupName)
-            Log.d("modf", currentItem.groupModifiers.toString())
-            Log.d("modf", hleb.toString())
-            Log.d("modf", bez.toString())
-            Log.d("modf", jalapenos.toString())
+            if (bez.isEmpty()) myView.bez_button.visibility=View.GONE
+            if (jalapenos.isEmpty()){
+                myView.add_button.visibility=View.GONE
+                myView.singled_modifier.visibility=View.GONE
+            }
+
 
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
 

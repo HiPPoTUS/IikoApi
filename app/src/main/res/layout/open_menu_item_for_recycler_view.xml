@@ -9,11 +9,11 @@
     app:cardPreventCornerOverlap="false"
     card_view:cardUseCompatPadding="true">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layerType="none"
-        tools:context=".shopActivity">
+        card_view:context=".shopActivity">
 
         <androidx.cardview.widget.CardView
             android:layout_width="170dp"
@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:longClickable="false"
-                tools:srcCompat="@tools:sample/avatars" />
+                card_view:srcCompat="@tools:sample/avatars" />
 
         </androidx.cardview.widget.CardView>
 
@@ -71,14 +71,30 @@
                     android:layout_weight="1"
                     android:text="300 гр" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/direct_button"
+                    style="@style/Widget.AppCompat.Button.Borderless"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="300р" />
+                    android:text="300p"
+                    android:textColor="#FF6600"
+                    android:textSize="15sp"
+                    app:backgroundTint="#00000000"
+                    app:cornerRadius="4dp"
+                    app:rippleColor="#33AAAAAA"
+                    app:strokeColor="#FF6600"
+                    app:strokeWidth="2dp" />
+<!--                <Button-->
+<!--                    android:id="@+id/direct_button"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:gravity="center"-->
+<!--                    android:background="@drawable/quik_buy_bn"-->
+<!--                    android:text="300р" />-->
             </LinearLayout>
 
         </LinearLayout>
