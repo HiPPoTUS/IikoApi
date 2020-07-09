@@ -11,8 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.cardview.widget.CardView
 import androidx.core.view.children
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -165,6 +165,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     private fun showGroupModifier(data : List<Product>, lavashLayout : LinearLayout, context: Context){
+        lavashLayout.setBackgroundResource(R.drawable.group_modifier_background)
         for(x in data.indices){
             val textName = TextView(context)
             textName.text = data[x].name
@@ -234,31 +235,8 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     private fun createViewForTableRow(context: Context, product: Product, currentPosition : Int) : LinearLayout{
-        val linearLayout = LinearLayout(context)
-        linearLayout.orientation = LinearLayout.VERTICAL
-        val param = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-        linearLayout.layoutParams = param
 
-        val img = ImageView(context)
-        val requestOptions = RequestOptions().placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background)
-        Glide.with(img.context).applyDefaultRequestOptions(requestOptions).load(try{product.images[0].imageUrl}catch (e:Exception){"dd"}).into(img)
-        val par = LinearLayout.LayoutParams(200, 200);
-        par.gravity = Gravity.CENTER
-        img.layoutParams = par
-        linearLayout.addView(img)
-
-        val name = TextView(context)
-        name.text = product.name
-        name.gravity = Gravity.CENTER
-
-        linearLayout.addView(name)
-
-        val price = TextView(context)
-        price.text = product.price.toString()
-        price.gravity = Gravity.CENTER
-
-        linearLayout.addView(price)
-
+        val linearLayout = createModifierView(context, product, "DOBAVIT")
 
         linearLayout.setOnClickListener {
             if(jalapenoModifiers[currentPosition].amount == 0){
@@ -307,18 +285,45 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     private fun createViewForTableRowBez(context: Context, product: Product, currentPosition : Int) : LinearLayout{
+
+        val linearLayout = createModifierView(context, product, "BEZ")
+
+        linearLayout.setOnClickListener {
+            if(bezModifiers[currentPosition].amount == 0){
+                bezModifiers[currentPosition].amount = 1
+                linearLayout.setBackgroundColor(Color.LTGRAY)
+            }
+            else{
+                bezModifiers[currentPosition].amount = 0
+                linearLayout.setBackgroundColor(Color.WHITE)
+            }
+        }
+        return linearLayout
+    }
+
+    private fun createModifierView(context: Context, product: Product, type : String) : LinearLayout{
+
         val linearLayout = LinearLayout(context)
         linearLayout.orientation = LinearLayout.VERTICAL
-        val param = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-        linearLayout.layoutParams = param
+        val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        linearLayout.layoutParams = linearLayoutParams
+
+        val card = CardView(context)
+        val cardParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+        cardParams.gravity = Gravity.CENTER
+        card.layoutParams = cardParams
+        card.radius = 16F
+
+
+        linearLayout.addView(card)
 
         val img = ImageView(context)
         val requestOptions = RequestOptions().placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background)
         Glide.with(img.context).applyDefaultRequestOptions(requestOptions).load(try{product.images[0].imageUrl}catch (e:Exception){"dd"}).into(img)
-        val par = LinearLayout.LayoutParams(200, 200);
-        par.gravity = Gravity.CENTER
-        img.layoutParams = par
-        linearLayout.addView(img)
+        val imgParams = LinearLayout.LayoutParams(200, 200);
+        imgParams.gravity = Gravity.CENTER
+        img.layoutParams = imgParams
+        card.addView(img)
 
         val name = TextView(context)
         name.text = product.name
@@ -332,18 +337,8 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
         linearLayout.addView(price)
 
-
-        linearLayout.setOnClickListener {
-            if(bezModifiers[currentPosition].amount == 0){
-                bezModifiers[currentPosition].amount = 1
-                linearLayout.setBackgroundColor(Color.LTGRAY)
-            }
-            else{
-                bezModifiers[currentPosition].amount = 0
-                linearLayout.setBackgroundColor(Color.WHITE)
-            }
-        }
         return linearLayout
+
     }
 }
 
