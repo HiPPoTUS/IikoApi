@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.cardview.widget.CardView
 import androidx.core.view.children
+import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -165,7 +166,6 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     private fun showGroupModifier(data : List<Product>, lavashLayout : LinearLayout, context: Context){
-        lavashLayout.setBackgroundResource(R.drawable.group_modifier_background)
         for(x in data.indices){
             val textName = TextView(context)
             textName.text = data[x].name
@@ -306,6 +306,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         val linearLayout = LinearLayout(context)
         linearLayout.orientation = LinearLayout.VERTICAL
         val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+        linearLayoutParams.bottomMargin = 20
         linearLayout.layoutParams = linearLayoutParams
 
         val card = CardView(context)
@@ -331,11 +332,14 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
         linearLayout.addView(name)
 
-        val price = TextView(context)
-        price.text = product.price.toString()
-        price.gravity = Gravity.CENTER
+        if(type == "DOBAVIT"){
+            val price = TextView(context)
+            price.text = product.price.toString()
+            price.gravity = Gravity.CENTER
 
-        linearLayout.addView(price)
+            linearLayout.addView(price)
+        }
+
 
         return linearLayout
 
