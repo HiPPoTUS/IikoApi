@@ -11,9 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
-import androidx.core.view.marginBottom
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -25,6 +26,7 @@ import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.startapp.datatype.Product
 import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
+import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 
@@ -129,6 +131,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             showGroupModifier(hleb, myView.group_modifier, context)
             showBezModifier(bez, myView.bez_modifier, context)
             showSingledModifier(jalapenos, myView.singled_modifier, context)
+
 
 
             myView.expandableLayout.collapse()
@@ -236,18 +239,18 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
     private fun createViewForTableRow(context: Context, product: Product, currentPosition : Int) : LinearLayout{
 
-        val linearLayout = createModifierView(context, product, "DOBAVIT")
+        val linearLayout = createModifierView(context, product, "DOBAVIT", currentPosition)
 
-        linearLayout.setOnClickListener {
-            if(jalapenoModifiers[currentPosition].amount == 0){
-                jalapenoModifiers[currentPosition].amount = 1
-                linearLayout.setBackgroundColor(Color.LTGRAY)
-            }
-            else{
-                jalapenoModifiers[currentPosition].amount = 0
-                linearLayout.setBackgroundColor(Color.WHITE)
-            }
-        }
+//        linearLayout.setOnClickListener {
+//            if(jalapenoModifiers[currentPosition].amount == 0){
+//                jalapenoModifiers[currentPosition].amount = 1
+//                linearLayout.setBackgroundColor(Color.LTGRAY)
+//            }
+//            else{
+//                jalapenoModifiers[currentPosition].amount = 0
+//                linearLayout.setBackgroundColor(Color.WHITE)
+//            }
+//        }
         return linearLayout
     }
 
@@ -286,60 +289,99 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
     private fun createViewForTableRowBez(context: Context, product: Product, currentPosition : Int) : LinearLayout{
 
-        val linearLayout = createModifierView(context, product, "BEZ")
+        val linearLayout = createModifierView(context, product, "BEZ", currentPosition)
 
-        linearLayout.setOnClickListener {
-            if(bezModifiers[currentPosition].amount == 0){
-                bezModifiers[currentPosition].amount = 1
-                linearLayout.setBackgroundColor(Color.LTGRAY)
-            }
-            else{
-                bezModifiers[currentPosition].amount = 0
-                linearLayout.setBackgroundColor(Color.WHITE)
-            }
-        }
+//        linearLayout.setOnClickListener {
+//            if(bezModifiers[currentPosition].amount == 0){
+//                bezModifiers[currentPosition].amount = 1
+//                linearLayout.setBackgroundColor(Color.LTGRAY)
+//            }
+//            else{
+//                bezModifiers[currentPosition].amount = 0
+//                linearLayout.setBackgroundColor(Color.WHITE)
+//            }
+//        }
         return linearLayout
     }
 
-    private fun createModifierView(context: Context, product: Product, type : String) : LinearLayout{
+    private fun createModifierView(context: Context, product: Product, type : String, currentPosition : Int) : LinearLayout{
 
-        val linearLayout = LinearLayout(context)
-        linearLayout.orientation = LinearLayout.VERTICAL
+//        val linearLayout = LinearLayout(context)
+//        linearLayout.orientation = LinearLayout.VERTICAL
+//        val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+//        linearLayoutParams.bottomMargin = 20
+//        linearLayout.layoutParams = linearLayoutParams
+//
+//        val card = CardView(context)
+//        val cardParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+//        cardParams.gravity = Gravity.CENTER
+//        card.layoutParams = cardParams
+//        card.radius = 16F
+//
+//
+//        linearLayout.addView(card)
+//
+//        val img = ImageView(context)
+//        val requestOptions = RequestOptions().placeholder(R.drawable.preload).error(R.drawable.preload)
+//        Glide.with(img.context).applyDefaultRequestOptions(requestOptions).load(try{product.images[0].imageUrl}catch (e:Exception){"dd"}).into(img)
+//        val imgParams = LinearLayout.LayoutParams(200, 200);
+//        imgParams.gravity = Gravity.CENTER
+//        img.layoutParams = imgParams
+//        card.addView(img)
+//
+//        val name = TextView(context)
+//        name.text = product.name
+//        name.gravity = Gravity.CENTER
+//
+//        linearLayout.addView(name)
+//
+//        if(type == "DOBAVIT"){
+//            val price = TextView(context)
+//            price.text = product.price.toString()
+//            price.gravity = Gravity.CENTER
+//
+//            linearLayout.addView(price)
+//        }
+
+        val inflater = LayoutInflater.from(context)
+        val linearLayout = inflater!!.inflate(R.layout.modifier_item, null) as LinearLayout
         val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-        linearLayoutParams.bottomMargin = 20
         linearLayout.layoutParams = linearLayoutParams
 
-        val card = CardView(context)
-        val cardParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-        cardParams.gravity = Gravity.CENTER
-        card.layoutParams = cardParams
-        card.radius = 16F
+        val requestOptions = RequestOptions().placeholder(R.drawable.preload).error(R.drawable.preload)
+        Glide
+            .with(linearLayout.modifier_img.context)
+            .applyDefaultRequestOptions(requestOptions)
+            .load(try{product.images[0].imageUrl}catch (e:Exception){"dd"})
+            .into(linearLayout.modifier_img)
 
+        linearLayout.modifier_name.text = product.name
 
-        linearLayout.addView(card)
+        linearLayout.setOnClickListener {
+            when(type){
+                "BEZ" ->{
+                    if(bezModifiers[currentPosition].amount == 0){
+                        bezModifiers[currentPosition].amount = 1
+                        linearLayout.setBackgroundColor(Color.LTGRAY)
+                    }
+                    else{
+                        bezModifiers[currentPosition].amount = 0
+                        linearLayout.setBackgroundColor(Color.WHITE)
+                    }
+                }
 
-        val img = ImageView(context)
-        val requestOptions = RequestOptions().placeholder(R.drawable.ic_launcher_background).error(R.drawable.ic_launcher_background)
-        Glide.with(img.context).applyDefaultRequestOptions(requestOptions).load(try{product.images[0].imageUrl}catch (e:Exception){"dd"}).into(img)
-        val imgParams = LinearLayout.LayoutParams(200, 200);
-        imgParams.gravity = Gravity.CENTER
-        img.layoutParams = imgParams
-        card.addView(img)
-
-        val name = TextView(context)
-        name.text = product.name
-        name.gravity = Gravity.CENTER
-
-        linearLayout.addView(name)
-
-        if(type == "DOBAVIT"){
-            val price = TextView(context)
-            price.text = product.price.toString()
-            price.gravity = Gravity.CENTER
-
-            linearLayout.addView(price)
+                "DOBAVIT" ->{
+                    if(jalapenoModifiers[currentPosition].amount == 0){
+                        jalapenoModifiers[currentPosition].amount = 1
+                        linearLayout.setBackgroundColor(Color.LTGRAY)
+                    }
+                    else{
+                        jalapenoModifiers[currentPosition].amount = 0
+                        linearLayout.setBackgroundColor(Color.WHITE)
+                    }
+                }
+            }
         }
-
 
         return linearLayout
 

@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.menu_recycler_view.*
 
 
 lateinit var bottoNnavigationView : BottomNavigationView
-
+var mappedMenu = menu.groupAndProducts("dish")
 //general Activity
 
 class GeneralActivity : AppCompatActivity() {

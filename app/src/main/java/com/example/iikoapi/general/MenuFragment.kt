@@ -11,8 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.iikoapi.R
 import com.example.iikoapi.general.menuadapter.MenuAdapter
 import com.example.iikoapi.general.merch.MerchAdapter
-import com.example.iikoapi.utils.getCategories
-import com.example.iikoapi.utils.getProdsByCategory
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.fragment_menu.*
@@ -26,22 +24,20 @@ class MenuFragment(var position : Int, var contextMy: Context) : Fragment() {
         val tabLayout = view.findViewById<TabLayout>(R.id.tab_layout)
         val merch = view.findViewById<ViewPager2>(R.id.merchViewPager)
 
-
-
 //        viewPager2.reduceDragSensitivity()
 //        viewPager2.orientation = ViewPager2.ORIENTATION_VERTICAL
 //        viewPager2.adapter = MenuAdapter(dd.values.toList())
 
-        merch.adapter = MerchAdapter(getProdsByCategory()[0], contextMy)
+        merch.adapter = MerchAdapter(mappedMenu.values.elementAt(0), contextMy)
 
-        viewPager2.adapter = MenuAdapter(getProdsByCategory())
+        viewPager2.adapter = MenuAdapter(mappedMenu.values.toList())
         viewPager2.setCurrentItem(position, false)
 
 
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
             //tab.text = tabs[position]
 //            tab.text = dd.keys.elementAt(position)
-            tab.text = getCategories().elementAt(position)
+            tab.text = mappedMenu.keys.elementAt(position)!!.name
             tab.customView
         }.attach()
 

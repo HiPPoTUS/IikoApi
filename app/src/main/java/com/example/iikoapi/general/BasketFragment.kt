@@ -16,7 +16,6 @@ import com.example.iikoapi.R
 import com.example.iikoapi.general.basketadapter.BasketRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.order
 import com.example.iikoapi.utils.Decorations
-import com.example.iikoapi.utils.getProdsByCategory
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
