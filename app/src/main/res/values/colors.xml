@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#9900CC</color>
-    <color name="colorPrimaryDark">#FFCC00</color>
-    <color name="colorAccent">#FF6600</color>
-    <color name="black_overlay">#808080</color>
-    <color name="white">#cccccc</color>
+    <color name="violet">#9900CC</color>
+    <color name="yellow">#FFCC00</color>
+    <color name="orange">#FF6600</color>
+    <color name="middleGrey">#808080</color>
+    <color name="lightGrey">#cccccc</color>
     <color name="darkGrey">#404040</color>
+    <color name="white">#fff</color>
+    <color name="textColor">#666666</color>
 </resources>

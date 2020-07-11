@@ -83,7 +83,7 @@
                             app:iconGravity="textStart"
                             app:iconPadding="0dp"
                             app:rippleColor="@null"
-                            app:iconTint="@color/colorAccent" />
+                            app:iconTint="@color/orange" />
 
 <!--                        <Button-->
 <!--                            android:id="@+id/info_button"-->
@@ -109,15 +109,33 @@
                     android:layout_height="wrap_content"
                     android:textSize="15dp"/>
 
-                <LinearLayout
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginTop="16dp"
+<!--                <LinearLayout-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginRight="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:id="@+id/group_modifier"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal"-->
+<!--                    android:weightSum="100"-->
+<!--                    android:background="@drawable/group_modifiers_background"/>-->
+
+                <com.google.android.material.tabs.TabLayout
                     android:id="@+id/group_modifier"
+                    android:layout_marginTop="16dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="100"/>
+                    android:layout_marginHorizontal="16dp"
+                    app:tabIndicator="@drawable/group_modifiers_item_background"
+                    app:tabIndicatorColor="@color/yellow"
+                    app:tabIndicatorFullWidth="true"
+                    app:tabIndicatorGravity="center"
+                    app:tabMode="fixed"
+                    app:tabRippleColor="@null"
+                    android:background="@drawable/group_modifiers_background"
+                    app:tabSelectedTextColor="@color/textColor"
+                    style="@style/MyCustomTabLayout"/>
+
 
 
                 <Button
@@ -203,7 +221,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="pizza"
-                android:textColor="@color/white" />
+                android:textColor="@color/lightGrey" />
 
             <TextView
                 android:layout_marginTop="2dp"
@@ -212,7 +230,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Пищевая ценность на 100 г"
-                android:textColor="@color/white"
+                android:textColor="@color/lightGrey"
                 android:textSize="13dp"/>
 
             <LinearLayout
@@ -232,7 +250,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Энергетическая ценность"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                     <TextView
                         android:gravity="center_vertical"
                         android:layout_weight="4"
@@ -240,7 +258,7 @@
                         android:id="@+id/info_energy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -254,7 +272,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Белки"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
 
                     <TextView
                         android:gravity="center"
@@ -263,7 +281,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="0"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -277,7 +295,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Жиры"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                     <TextView
                         android:gravity="center"
                         android:text="0"
@@ -285,7 +303,7 @@
                         android:id="@+id/info_fats"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -299,7 +317,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:text="Углеводы"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                     <TextView
                         android:gravity="center"
                         android:layout_weight="4"
@@ -307,7 +325,7 @@
                         android:id="@+id/info_carbohydrates"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/lightGrey" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -335,11 +353,11 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/back_arrow"
-        android:tint="@color/colorAccent"
+        android:tint="@color/orange"
         android:tintMode="multiply"
         app:backgroundTint="#FFFFFF"
         app:fabCustomSize="40dp"
-        app:rippleColor="@color/colorPrimaryDark"
+        app:rippleColor="@color/yellow"
         app:tint="#FFFFFF" />
 
 </RelativeLayout>

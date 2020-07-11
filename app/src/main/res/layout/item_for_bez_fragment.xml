@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <TextView
-        android:textColor="@color/white"
+        android:textColor="@color/lightGrey"
         android:id="@+id/text_bez_modifier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

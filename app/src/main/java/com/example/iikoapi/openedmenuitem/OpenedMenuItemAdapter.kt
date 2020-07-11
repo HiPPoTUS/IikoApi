@@ -24,6 +24,9 @@ import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.startapp.datatype.Product
 import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
+import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
@@ -166,40 +169,55 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         }catch (e : Exception){0}.toString()
     }
 
-    private fun showGroupModifier(data : List<Product>, lavashLayout : LinearLayout, context: Context){
+    private fun showGroupModifier(data : List<Product>, lavashLayout : TabLayout, context: Context){
+//        for(x in data.indices){
+//            val textName = TextView(context)
+//            textName.text = data[x].name
+//            textName.setOnClickListener {currentPosition ->
+//                lavashLayout.children.forEach { it ->
+//                    (it as TextView).run {
+//                        setBackgroundResource(R.drawable.group_modifiers_item_background)
+//                    }
+//
+//                }
+//                (currentPosition as TextView).run {
+//                    background = null
+//                }
+//                hlebModifiers.forEach { it.amount = 0 }
+//                hlebModifiers[x].amount = 1
+//            }
+//
+//            textName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, (100 / data.size).toFloat())
+//            lavashLayout.setPadding(10, 10, 10, 10)
+//
+//            textName.gravity = Gravity.CENTER
+//            textName.setTextColor(context.getResources().getColor(R.color.textColor))
+//            lavashLayout.addView(textName)
+//            textName.setBackgroundColor(Color.GRAY)
+//            textName.setTextColor(Color.LTGRAY)
+//        }
+//
+//        try {
+//            (lavashLayout.getChildAt(0) as TextView).setBackgroundResource(R.drawable.group_modifiers_item_background)
+//        }
+//        catch (e:Exception){}
         for(x in data.indices){
-            val textName = TextView(context)
-            textName.text = data[x].name
-            textName.setOnClickListener {currentPosition ->
-                lavashLayout.children.forEach { it ->
-                    (it as TextView).run {
-                        setBackgroundColor(Color.GRAY)
-                        setTextColor(Color.LTGRAY)
-                    }
-
-                }
-                (currentPosition as TextView).run {
-                    textName.setBackgroundColor(Color.LTGRAY)
-                    textName.setTextColor(Color.GRAY)
-                }
-                hlebModifiers.forEach { it.amount = 0 }
-                hlebModifiers[x].amount = 1
+            lavashLayout.addTab(lavashLayout.newTab().setText(data[x].name))
             }
-            textName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, (100 / data.size).toFloat())
-            lavashLayout.setPadding(10, 10, 10, 10)
-//            lavashLayout.setBackgroundColor(Color.RED)
-            textName.gravity = Gravity.CENTER
-            lavashLayout.addView(textName)
-            textName.setBackgroundColor(Color.GRAY)
-            textName.setTextColor(Color.LTGRAY)
-        }
 
-        try {
-            (lavashLayout.getChildAt(0) as TextView).setBackgroundColor(Color.LTGRAY)
-            (lavashLayout.getChildAt(0)as TextView).setTextColor(Color.BLACK)
-        }
-        catch (e:Exception){}
+        lavashLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
 
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                hlebModifiers.forEach { it.amount = 0 }
+                hlebModifiers[tab!!.position].amount = 1
+            }
+
+        })
     }
 
     private fun showModifiers(data : List<Product>, tableLayout : TableLayout, context: Context, type : String){
