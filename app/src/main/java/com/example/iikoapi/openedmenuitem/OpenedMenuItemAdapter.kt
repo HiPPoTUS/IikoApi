@@ -12,8 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.view.children
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -129,8 +127,8 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
 
             showGroupModifier(hleb, myView.group_modifier, context)
-            showBezModifier(bez, myView.bez_modifier, context)
-            showSingledModifier(jalapenos, myView.singled_modifier, context)
+            showModifiers(bez, myView.bez_modifier, context, "BEZ")
+            showModifiers(jalapenos, myView.singled_modifier, context, "DOBAVIT")
 
 
 
@@ -204,7 +202,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
     }
 
-    private fun showSingledModifier(data : List<Product>, tableLayout : TableLayout, context: Context){
+    private fun showModifiers(data : List<Product>, tableLayout : TableLayout, context: Context, type : String){
 
         val COLUMNS = 3
         val ROWS = data.size / COLUMNS
@@ -216,7 +214,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             tableRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT)
             for (j in 0 until COLUMNS) {
 
-                tableRow.addView(createViewForTableRow(context, data[i * 3 + j], i * 3 + j))
+                tableRow.addView(createModifierView(context, data[i * 3 + j], i * 3 + j, type))
             }
             tableLayout.addView(tableRow, i)
         }
@@ -224,7 +222,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         val tableRow = TableRow(context)
         tableRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT)
         for(i in 0 until EXTRA_ITEMS){
-            tableRow.addView(createViewForTableRow(context, data[ROWS * COLUMNS + i], ROWS * COLUMNS + i))
+            tableRow.addView(createModifierView(context, data[ROWS * COLUMNS + i], ROWS * COLUMNS + i, type))
         }
         if(EXTRA_ITEMS != 0) {
             val spaceParam = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
@@ -237,153 +235,56 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         tableLayout.addView(tableRow)
     }
 
-    private fun createViewForTableRow(context: Context, product: Product, currentPosition : Int) : LinearLayout{
-
-        val linearLayout = createModifierView(context, product, "DOBAVIT", currentPosition)
-
-//        linearLayout.setOnClickListener {
-//            if(jalapenoModifiers[currentPosition].amount == 0){
-//                jalapenoModifiers[currentPosition].amount = 1
-//                linearLayout.setBackgroundColor(Color.LTGRAY)
-//            }
-//            else{
-//                jalapenoModifiers[currentPosition].amount = 0
-//                linearLayout.setBackgroundColor(Color.WHITE)
-//            }
-//        }
-        return linearLayout
-    }
-
-    private fun showBezModifier(data : List<Product>, tableLayout : TableLayout, context: Context){
-
-        val COLUMNS = 3
-        val ROWS = data.size / COLUMNS
-        val EXTRA_ITEMS = data.size - ROWS * COLUMNS
-
-
-        for (i in 0 until ROWS) {
-            val tableRow = TableRow(context)
-            tableRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT)
-            for (j in 0 until COLUMNS) {
-
-                tableRow.addView(createViewForTableRowBez(context, data[i * 3 + j], i * 3 + j))
-            }
-            tableLayout.addView(tableRow, i)
-        }
-
-        val tableRow = TableRow(context)
-        tableRow.layoutParams = TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT)
-        for(i in 0 until EXTRA_ITEMS){
-            tableRow.addView(createViewForTableRowBez(context, data[ROWS * COLUMNS + i], ROWS * COLUMNS + i))
-        }
-        if(EXTRA_ITEMS != 0) {
-            val spaceParam = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-            for(i in 0 until COLUMNS - EXTRA_ITEMS){
-                val space = Space(context)
-                space.layoutParams = spaceParam
-                tableRow.addView(space)
-            }
-        }
-        tableLayout.addView(tableRow)
-    }
-
-    private fun createViewForTableRowBez(context: Context, product: Product, currentPosition : Int) : LinearLayout{
-
-        val linearLayout = createModifierView(context, product, "BEZ", currentPosition)
-
-//        linearLayout.setOnClickListener {
-//            if(bezModifiers[currentPosition].amount == 0){
-//                bezModifiers[currentPosition].amount = 1
-//                linearLayout.setBackgroundColor(Color.LTGRAY)
-//            }
-//            else{
-//                bezModifiers[currentPosition].amount = 0
-//                linearLayout.setBackgroundColor(Color.WHITE)
-//            }
-//        }
-        return linearLayout
-    }
-
-    private fun createModifierView(context: Context, product: Product, type : String, currentPosition : Int) : LinearLayout{
-
-//        val linearLayout = LinearLayout(context)
-//        linearLayout.orientation = LinearLayout.VERTICAL
-//        val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-//        linearLayoutParams.bottomMargin = 20
-//        linearLayout.layoutParams = linearLayoutParams
-//
-//        val card = CardView(context)
-//        val cardParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-//        cardParams.gravity = Gravity.CENTER
-//        card.layoutParams = cardParams
-//        card.radius = 16F
-//
-//
-//        linearLayout.addView(card)
-//
-//        val img = ImageView(context)
-//        val requestOptions = RequestOptions().placeholder(R.drawable.preload).error(R.drawable.preload)
-//        Glide.with(img.context).applyDefaultRequestOptions(requestOptions).load(try{product.images[0].imageUrl}catch (e:Exception){"dd"}).into(img)
-//        val imgParams = LinearLayout.LayoutParams(200, 200);
-//        imgParams.gravity = Gravity.CENTER
-//        img.layoutParams = imgParams
-//        card.addView(img)
-//
-//        val name = TextView(context)
-//        name.text = product.name
-//        name.gravity = Gravity.CENTER
-//
-//        linearLayout.addView(name)
-//
-//        if(type == "DOBAVIT"){
-//            val price = TextView(context)
-//            price.text = product.price.toString()
-//            price.gravity = Gravity.CENTER
-//
-//            linearLayout.addView(price)
-//        }
+    private fun createModifierView(context: Context, product: Product, currentPosition : Int, type : String) : LinearLayout{
 
         val inflater = LayoutInflater.from(context)
-        val linearLayout = inflater!!.inflate(R.layout.modifier_item, null) as LinearLayout
+        val parent = inflater!!.inflate(R.layout.modifier_item, null) as LinearLayout
         val linearLayoutParams = TableRow.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
-        linearLayout.layoutParams = linearLayoutParams
+        parent.layoutParams = linearLayoutParams
 
         val requestOptions = RequestOptions().placeholder(R.drawable.preload).error(R.drawable.preload)
         Glide
-            .with(linearLayout.modifier_img.context)
+            .with(parent.modifier_img.context)
             .applyDefaultRequestOptions(requestOptions)
             .load(try{product.images[0].imageUrl}catch (e:Exception){"dd"})
-            .into(linearLayout.modifier_img)
+            .into(parent.modifier_img)
 
-        linearLayout.modifier_name.text = product.name
+        parent.modifier_name.text = product.name
 
-        linearLayout.setOnClickListener {
+        if(type == "DOBAVIT")
+            parent.modifier_price.text = product.price.toString()
+
+        parent.setOnClickListener {
             when(type){
                 "BEZ" ->{
                     if(bezModifiers[currentPosition].amount == 0){
                         bezModifiers[currentPosition].amount = 1
-                        linearLayout.setBackgroundColor(Color.LTGRAY)
+//                        parent.setBackgroundColor(Color.LTGRAY)
+                        parent.is_checked.setImageResource(R.drawable.ic_contacts_black_24dp)
                     }
                     else{
                         bezModifiers[currentPosition].amount = 0
-                        linearLayout.setBackgroundColor(Color.WHITE)
+//                        parent.setBackgroundColor(Color.WHITE)
+                        parent.is_checked.setImageDrawable(null)
                     }
                 }
 
                 "DOBAVIT" ->{
                     if(jalapenoModifiers[currentPosition].amount == 0){
                         jalapenoModifiers[currentPosition].amount = 1
-                        linearLayout.setBackgroundColor(Color.LTGRAY)
+//                        parent.setBackgroundColor(Color.LTGRAY)
+                        parent.is_checked.setImageResource(R.drawable.ic_favorite_black_24dp)
                     }
                     else{
                         jalapenoModifiers[currentPosition].amount = 0
-                        linearLayout.setBackgroundColor(Color.WHITE)
+//                        parent.setBackgroundColor(Color.WHITE)
+                        parent.is_checked.setImageDrawable(null)
                     }
                 }
             }
         }
 
-        return linearLayout
+        return parent
 
     }
 }
