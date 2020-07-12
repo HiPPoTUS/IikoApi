@@ -2,20 +2,27 @@ package com.example.iikoapi.startapp.networking
 
 import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.example.iikoapi.general.GeneralActivity
+import com.example.iikoapi.startapp.DialogFragmentErrorSavedata
 import com.example.iikoapi.startapp.datatype.Login
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.readValue
 import java.io.IOException
 import java.io.OutputStreamWriter
+import java.security.AccessController.getContext
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
+
 
 lateinit var menu: MenuResponse
 lateinit var restr: DeliveryRestrictionsResponse
@@ -24,8 +31,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
     private val url = "https://iiko.biz:9900/api/0/"
     private var login: Login =
         Login(
-            "demoDelivery",
-            "PI1yFaKFCGvvJKi",
+
             null
         )
     lateinit var orgs: OrgsResponse
@@ -43,6 +49,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -62,6 +69,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -80,6 +88,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -117,12 +126,43 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
 
         )
         S.addToRequestQueue(Request)
     }
 
+    private fun isInternetAvailable(context: Context): Boolean {
+        var result = false
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val networkCapabilities = connectivityManager.activeNetwork ?: return false
+            val actNw =
+                connectivityManager.getNetworkCapabilities(networkCapabilities) ?: return false
+            result = when {
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+                actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) -> true
+                else -> false
+            }
+        } else {
+            connectivityManager.run {
+                connectivityManager.activeNetworkInfo?.run {
+                    result = when (type) {
+                        ConnectivityManager.TYPE_WIFI -> true
+                        ConnectivityManager.TYPE_MOBILE -> true
+                        ConnectivityManager.TYPE_ETHERNET -> true
+                        else -> false
+                    }
+
+                }
+            }
+        }
+
+        return result
+    }
 }
 
 class NukeSSLCerts {

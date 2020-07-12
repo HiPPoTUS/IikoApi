@@ -1,42 +1,42 @@
 package com.example.iikoapi.startapp
 
-import android.R
+import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import androidx.fragment.app.DialogFragment
+import com.example.iikoapi.R
 
 
-class Dialog1 : DialogFragment(), DialogInterface.OnClickListener {
+class DialogFragmentErrorSavedata(private val startActivityContext : Context, private val problem : Boolean)
+    : DialogFragment(){
     val LOG_TAG = "myLogs"
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         dialog!!.setTitle("Error downloading data!")
-        val v: View = inflater.inflate(R.layout.dialo, null)
-        v.findViewById(R.id.btnYes).setOnClickListener(this)
-        v.findViewById(R.id.btnNo).setOnClickListener(this)
-        v.findViewById(R.id.btnMaybe).setOnClickListener(this)
+        val v: View = inflater.inflate(R.layout.dialog_fragment_error_savedata, null)
+//        v.findViewById(R.id.btnYes).setOnClickListener(this)
+//        v.findViewById(R.id.btnNo).setOnClickListener(this)
+//        v.findViewById(R.id.btnMaybe).setOnClickListener(this)
+
+        when(problem){
+            false -> v.findViewById<TextView>(R.id.error_text).text = "internet"
+            true -> v.findViewById<TextView>(R.id.error_text).text = "Iiko"
+        }
+        v.findViewById<Button>(R.id.try_again_button).setOnClickListener {
+            startActivityContext.startActivity(Intent(startActivityContext, StartActivity::class.java))
+        }
+
+        v.findViewById<Button>(R.id.close_app_button).setOnClickListener {
+            activity!!.finish()
+            System.exit(0)
+        }
+
         return v
-    }
-
-    override fun onClick(v: View) {
-        Log.d(LOG_TAG, "Dialog 1: " + (v as Button).getText())
-        dismiss()
-    }
-
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
-        Log.d(LOG_TAG, "Dialog 1: onDismiss")
-    }
-
-    override fun onCancel(dialog: DialogInterface?) {
-        super.onCancel(dialog)
-        Log.d(LOG_TAG, "Dialog 1: onCancel")
-    }
-
-    override fun onClick(p0: DialogInterface?, p1: Int) {
-        TODO("Not yet implemented")
     }
 
 }

@@ -4,4 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/error_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Do u want to try again or close the app>?"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
+    <Button
+        android:id="@+id/try_again_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/error_text"
+        android:text="Try again"
+        android:layout_marginStart="20dp"/>
+
+    <Button
+        android:id="@+id/close_app_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/error_text"
+        android:text="Close app"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"/>
+
+
 </RelativeLayout>
