@@ -225,7 +225,7 @@
                             android:layout_marginBottom="8dp"
                             android:insetTop="0dp"
                             android:insetBottom="0dp"
-                            android:backgroundTint="@color/middleGrey"/>
+                            android:backgroundTint="@color/lightGrey"/>
 
                         <TableLayout
                             android:layout_marginHorizontal="8dp"
