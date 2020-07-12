@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="violet">#9900CC</color>
+    <color name="main_yelow">#FFCC00</color>
     <color name="yellow">#FFCC00</color>
     <color name="orange">#FF6600</color>
     <color name="middleGrey">#808080</color>

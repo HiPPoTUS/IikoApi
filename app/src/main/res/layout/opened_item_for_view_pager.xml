@@ -11,10 +11,11 @@
         android:layout_height="match_parent">
 
         <ScrollView
-            android:layout_above="@id/to_basket_button"
             android:id="@+id/whole_lt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingBottom="56dp"
+            android:clipToPadding="false"
             android:scrollbars="none">
 
             <LinearLayout
@@ -256,156 +257,149 @@
 
         </ScrollView>
 
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/to_basket_button"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:backgroundTint="@color/lightGrey"
-                app:cornerRadius="18dp"
-                app:icon="@drawable/cart"
-                app:iconGravity="textEnd"
-                app:iconPadding="8dp"
-                app:rippleColor="@null"
-                android:text="To Basket"
-                app:iconTint="@color/white"
-                android:layout_alignParentBottom="true"
-                android:layout_marginHorizontal="8dp"
-                android:layout_marginBottom="8dp"/>
-
 <!--Info Fragment-->
-        <RelativeLayout
-            android:alpha="0"
-            android:layout_centerInParent="true"
-            android:layout_margin="20dp"
-            android:layout_centerVertical="true"
+        <androidx.cardview.widget.CardView
             android:id="@+id/info_fragment_RL"
-            android:paddingVertical="8dp"
-            android:paddingHorizontal="6dp"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#cf141414">
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/white"
+            app:cardCornerRadius="23dp"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="true"
+            app:cardUseCompatPadding="false">
 
-            <TextView
-                android:textStyle="bold"
-                android:id="@+id/info_name"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:alpha="0"
+                android:layout_centerInParent="true"
+                android:layout_margin="20dp"
+                android:layout_centerVertical="true"
+                android:paddingVertical="8dp"
+                android:paddingHorizontal="6dp"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:text="pizza"
-                android:textColor="@color/lightGrey" />
+                android:background="#cf141414">
 
-            <TextView
-                android:layout_marginTop="2dp"
-                android:id="@+id/text_nv"
-                android:layout_below="@+id/info_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Пищевая ценность на 100 г"
-                android:textColor="@color/lightGrey"
-                android:textSize="13dp"/>
-
-            <LinearLayout
-                android:layout_marginTop="8dp"
-                android:layout_below="@+id/text_nv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
+                <TextView
+                    android:textStyle="bold"
+                    android:id="@+id/info_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Энергетическая ценность"
-                        android:textColor="@color/lightGrey" />
-                    <TextView
-                        android:gravity="center_vertical"
-                        android:layout_weight="4"
-                        android:text="0"
-                        android:id="@+id/info_energy"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/lightGrey" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="pizza"
+                    android:textColor="@color/lightGrey" />
 
-                <LinearLayout
+                <TextView
                     android:layout_marginTop="2dp"
+                    android:id="@+id/text_nv"
+                    android:layout_below="@+id/info_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Белки"
-                        android:textColor="@color/lightGrey" />
-
-                    <TextView
-                        android:gravity="center"
-                        android:layout_weight="4"
-                        android:id="@+id/info_proteins"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="0"
-                        android:textColor="@color/lightGrey" />
-                </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:text="Пищевая ценность на 100 г"
+                    android:textColor="@color/lightGrey"
+                    android:textSize="13dp"/>
 
                 <LinearLayout
-                    android:layout_marginTop="2dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/text_nv"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-                    <TextView
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Энергетическая ценность"
+                            android:textColor="@color/lightGrey" />
+                        <TextView
+                            android:gravity="center_vertical"
+                            android:layout_weight="4"
+                            android:text="0"
+                            android:id="@+id/info_energy"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lightGrey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="2dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Белки"
+                            android:textColor="@color/lightGrey" />
+
+                        <TextView
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:id="@+id/info_proteins"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="0"
+                            android:textColor="@color/lightGrey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Жиры"
-                        android:textColor="@color/lightGrey" />
-                    <TextView
-                        android:gravity="center"
-                        android:text="0"
-                        android:layout_weight="4"
-                        android:id="@+id/info_fats"
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Жиры"
+                            android:textColor="@color/lightGrey" />
+                        <TextView
+                            android:gravity="center"
+                            android:text="0"
+                            android:layout_weight="4"
+                            android:id="@+id/info_fats"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lightGrey" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textColor="@color/lightGrey" />
+                        android:orientation="horizontal"
+                        android:layout_weight="1">
+                        <TextView
+                            android:layout_weight="1"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="Углеводы"
+                            android:textColor="@color/lightGrey" />
+                        <TextView
+                            android:gravity="center"
+                            android:layout_weight="4"
+                            android:text="0"
+                            android:id="@+id/info_carbohydrates"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/lightGrey" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_marginTop="2dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
-                    <TextView
-                        android:layout_weight="1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="Углеводы"
-                        android:textColor="@color/lightGrey" />
-                    <TextView
-                        android:gravity="center"
-                        android:layout_weight="4"
-                        android:text="0"
-                        android:id="@+id/info_carbohydrates"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:textColor="@color/lightGrey" />
-                </LinearLayout>
+            </RelativeLayout>
 
-            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        </RelativeLayout>
 <!--Info Fragment-->
 
 
@@ -419,6 +413,40 @@
         android:id="@+id/RL"/>
 
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="23dp"
+        app:cardElevation="2dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/to_basket_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="To Basket"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="@color/yellow"
+                app:icon="@drawable/cart"
+                android:textColor="@color/darkGrey"
+                app:iconGravity="textEnd"
+                app:iconPadding="16dp"
+                app:iconTint="@color/darkGrey"
+                app:rippleColor="@null" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/go_back"
         android:layout_width="40dp"
@@ -428,11 +456,10 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:src="@drawable/back_arrow"
-        android:tint="@color/orange"
         android:tintMode="multiply"
-        app:backgroundTint="#FFFFFF"
+        app:backgroundTint="@color/yellow"
         app:fabCustomSize="40dp"
-        app:rippleColor="@color/yellow"
+        app:rippleColor="@null"
         app:tint="#FFFFFF" />
 
 </RelativeLayout>
