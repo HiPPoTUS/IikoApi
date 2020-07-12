@@ -62,7 +62,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
             name.text = currentItem.name
             contains.text = currentItem.description
-            weightInfo.text = (currentItem.weight*1000).toInt().toString()
+            weightInfo.text = "г ${(currentItem.weight*1000).toInt()}"
 
             showInfo(myView.info_fragment_RL, position)
 
@@ -88,13 +88,13 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
 
             myView.RL.setOnTouchListener { _, _ ->
-                myView.info_fragment_RL.animate().alpha(0f).duration = 200
+                myView.info_card.animate().alpha(0f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
                 true
             }
 
             myView.info_button.setOnClickListener {
-                myView.info_fragment_RL.animate().alpha(1f).duration = 200
+                myView.info_card.animate().alpha(1f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
             }
 
@@ -105,7 +105,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
                     val vBottom: Int = myView.bez_button.getBottom()
                     val sHeight: Int = scrollView.top
                     scrollView.smoothScrollTo(0, getDistanceBetweenViews(scrollView, myView.bez_button))
-                }, 200)
+                }, 250)
             }
 
             myView.to_basket_button.setOnClickListener {

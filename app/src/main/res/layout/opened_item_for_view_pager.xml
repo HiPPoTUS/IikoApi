@@ -69,7 +69,7 @@
                     <LinearLayout
                         android:layout_marginLeft="8dp"
                         android:layout_weight="3"
-                        android:paddingLeft="16dp"
+                        android:paddingLeft="24dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
@@ -259,139 +259,147 @@
 
 <!--Info Fragment-->
         <androidx.cardview.widget.CardView
-            android:id="@+id/info_fragment_RL"
-            android:layout_width="match_parent"
+            android:id="@+id/info_card"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/white"
+            android:layout_centerInParent="true"
+            app:elevation="0dp"
+            android:alpha="0"
+            app:cardBackgroundColor="@android:color/transparent"
             app:cardCornerRadius="23dp"
-            app:cardElevation="2dp"
             app:cardPreventCornerOverlap="true"
             app:cardUseCompatPadding="false">
 
             <RelativeLayout
-                android:alpha="0"
-                android:layout_centerInParent="true"
-                android:layout_margin="20dp"
-                android:layout_centerVertical="true"
-                android:paddingVertical="8dp"
-                android:paddingHorizontal="6dp"
+                android:id="@+id/info_fragment_RL"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:background="#cf141414">
+                android:background="#D9404040"
+                android:padding="16dp">
 
                 <TextView
-                    android:textStyle="bold"
                     android:id="@+id/info_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="pizza"
-                    android:textColor="@color/lightGrey" />
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_marginTop="2dp"
                     android:id="@+id/text_nv"
-                    android:layout_below="@+id/info_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/info_name"
+                    android:layout_marginTop="2dp"
+                    android:gravity="left"
                     android:text="Пищевая ценность на 100 г"
-                    android:textColor="@color/lightGrey"
-                    android:textSize="13dp"/>
+                    android:textColor="@color/white"
+                    android:textSize="13dp" />
 
                 <LinearLayout
-                    android:layout_marginTop="8dp"
-                    android:layout_below="@+id/text_nv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/text_nv"
+                    android:layout_marginTop="8dp"
                     android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:text="Энергетическая ценность"
-                            android:textColor="@color/lightGrey" />
+                            android:textColor="@color/white" />
+
                         <TextView
-                            android:gravity="center_vertical"
-                            android:layout_weight="4"
-                            android:text="0"
                             android:id="@+id/info_energy"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textColor="@color/lightGrey" />
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical|right"
+                            android:text="0"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginTop="2dp"
                         android:layout_weight="1"
                         android:orientation="horizontal">
-                        <TextView
-                            android:layout_weight="1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:text="Белки"
-                            android:textColor="@color/lightGrey" />
 
                         <TextView
-                            android:gravity="center"
-                            android:layout_weight="4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="Белки"
+                            android:textColor="@color/white" />
+
+                        <TextView
                             android:id="@+id/info_proteins"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical|right"
                             android:text="0"
-                            android:textColor="@color/lightGrey" />
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:text="Жиры"
-                            android:textColor="@color/lightGrey" />
+                            android:textColor="@color/white" />
+
                         <TextView
-                            android:gravity="center"
-                            android:text="0"
-                            android:layout_weight="4"
                             android:id="@+id/info_fats"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textColor="@color/lightGrey" />
+                            android:layout_gravity="center"
+                            android:layout_weight="4"
+                            android:gravity="center_vertical|right"
+                            android:text="0"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_marginTop="2dp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:layout_weight="1">
+                        android:layout_marginTop="2dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
                         <TextView
-                            android:layout_weight="1"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:text="Углеводы"
-                            android:textColor="@color/lightGrey" />
+                            android:textColor="@color/white" />
+
                         <TextView
-                            android:gravity="center"
-                            android:layout_weight="4"
-                            android:text="0"
                             android:id="@+id/info_carbohydrates"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:textColor="@color/lightGrey" />
+                            android:layout_weight="4"
+                            android:gravity="center_vertical|right"
+                            android:text="0"
+                            android:textColor="@color/white" />
                     </LinearLayout>
 
                 </LinearLayout>
