@@ -3,19 +3,15 @@ package com.example.iikoapi.openedmenuitem
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Point
 import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.*
 import android.widget.LinearLayout
-import androidx.core.view.children
-import androidx.core.view.marginEnd
+import android.widget.RelativeLayout
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,11 +25,8 @@ import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
-import org.xmlpull.v1.XmlPullParser
-import org.xmlpull.v1.XmlPullParserFactory
 
 
 var order = Order()
@@ -53,8 +46,22 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         private val name = view.findViewById<TextView>(R.id.text_inside)
         private val contains = view.findViewById<TextView>(R.id.contains)
         private val weightInfo = view.findViewById<TextView>(R.id.weightInfo)
+        private val cardViewFoerImageInide = view.findViewById<CardView>(R.id.card_view_for_image_inside)
 
         fun bind(currentItem : Product, position: Int, myView : View) {
+
+            val wm: WindowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            val display: Display = wm.defaultDisplay
+            val size = Point()
+            display.getSize(size)
+            val screenSize = size.x
+            val imgSize: Int = (size.x * 0.9).toInt()
+
+            val params = LinearLayout.LayoutParams(imgSize, imgSize)
+            params.topMargin = (screenSize - imgSize) / 2
+            params.gravity = Gravity.CENTER
+            cardViewFoerImageInide.setLayoutParams(params)
+
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.preload)
