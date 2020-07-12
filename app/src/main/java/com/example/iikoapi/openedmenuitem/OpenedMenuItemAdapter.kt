@@ -3,8 +3,10 @@ package com.example.iikoapi.openedmenuitem
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.PorterDuff
+import android.graphics.drawable.Drawable
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -13,6 +15,7 @@ import android.view.ViewGroup
 import android.widget.*
 import android.widget.LinearLayout
 import androidx.core.view.children
+import androidx.core.view.marginEnd
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -29,6 +32,8 @@ import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
+import org.xmlpull.v1.XmlPullParser
+import org.xmlpull.v1.XmlPullParserFactory
 
 
 var order = Order()
@@ -77,11 +82,12 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             if (hleb.isEmpty()) hleb = menu.getModifiers(currentItem, hlebPitaGroupName)
             val bez = menu.getModifiers(currentItem, bezGroupName)
             val jalapenos = menu.getModifiers(currentItem, jalapenoGroupName)
-            if (bez.isEmpty()) myView.bez_button.visibility=View.GONE
+            if (bez.isEmpty()) myView.bez_group.visibility=View.GONE
             if (jalapenos.isEmpty()){
-                myView.add_button.visibility=View.GONE
-                myView.singled_modifier.visibility=View.GONE
+                myView.with_group.visibility=View.GONE
             }
+            if (hleb.isEmpty()){myView.back_of_the_hleb.visibility=View.GONE
+            myView.group_modifier.visibility=View.GONE}
 
 
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
@@ -202,7 +208,9 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 //        }
 //        catch (e:Exception){}
         for(x in data.indices){
+//            val tab = lavashLayout.newTab()
             lavashLayout.addTab(lavashLayout.newTab().setText(data[x].name))
+
             }
 
         lavashLayout.addOnTabSelectedListener(object : OnTabSelectedListener {

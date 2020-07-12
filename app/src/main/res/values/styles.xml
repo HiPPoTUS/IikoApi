@@ -50,5 +50,20 @@
         <item name="textAllCaps">true</item>
     </style>
 
+    <!--    For Tab Layout group modifiers-->
+    <style name="TabLayoutGroupModifiers" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorHeight">40dp</item>
+        <item name="tabPaddingStart">5dp</item>
+        <item name="tabPaddingEnd">5dp</item>
+        <item name="tabTextAppearance">@style/TabLayoutGroupModifiersText</item>
+        <item name="tabSelectedTextColor">@color/textColor</item>
+    </style>
+
+    <style name="TabLayoutGroupModifiersText" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
 
 </resources>
