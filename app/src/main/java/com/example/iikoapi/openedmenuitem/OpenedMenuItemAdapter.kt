@@ -4,14 +4,15 @@ import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.PorterDuff
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import androidx.cardview.widget.CardView
+import android.widget.ScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -46,22 +47,9 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         private val name = view.findViewById<TextView>(R.id.text_inside)
         private val contains = view.findViewById<TextView>(R.id.contains)
         private val weightInfo = view.findViewById<TextView>(R.id.weightInfo)
-        private val cardViewFoerImageInide = view.findViewById<CardView>(R.id.card_view_for_image_inside)
+        private val scrollView = view.findViewById<ScrollView>(R.id.whole_lt)
 
         fun bind(currentItem : Product, position: Int, myView : View) {
-
-            val wm: WindowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
-            val display: Display = wm.defaultDisplay
-            val size = Point()
-            display.getSize(size)
-            val screenSize = size.x
-            val imgSize: Int = (size.x * 0.9).toInt()
-
-            val params = LinearLayout.LayoutParams(imgSize, imgSize)
-            params.topMargin = (screenSize - imgSize) / 2
-            params.gravity = Gravity.CENTER
-            cardViewFoerImageInide.setLayoutParams(params)
-
 
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.preload)
@@ -112,6 +100,12 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
             myView.bez_button.setOnClickListener {
                 myView.expandableLayout.toggle()
+                scrollView.postDelayed(Runnable {
+                    val vTop: Int = myView.bez_button.getTop()
+                    val vBottom: Int = myView.bez_button.getBottom()
+                    val sHeight: Int = scrollView.top
+                    scrollView.smoothScrollTo(0, getDistanceBetweenViews(scrollView, myView.bez_button))
+                }, 200)
             }
 
             myView.to_basket_button.setOnClickListener {
@@ -152,6 +146,16 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         }
     }
 
+    private fun getDistanceBetweenViews(firstView: View, secondView: View): Int {
+        val firstPosition = IntArray(2)
+        val secondPosition = IntArray(2)
+        firstView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
+        firstView.getLocationOnScreen(firstPosition)
+        secondView.getLocationOnScreen(secondPosition)
+        val b = firstView.measuredHeight + firstPosition[1]
+        val t = secondPosition[1]
+        return Math.abs(b - t)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OpenedMenuItemViewHolder {
         return OpenedMenuItemViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.opened_item_for_view_pager, parent, false))
@@ -183,37 +187,6 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     }
 
     private fun showGroupModifier(data : List<Product>, lavashLayout : TabLayout, context: Context){
-//        for(x in data.indices){
-//            val textName = TextView(context)
-//            textName.text = data[x].name
-//            textName.setOnClickListener {currentPosition ->
-//                lavashLayout.children.forEach { it ->
-//                    (it as TextView).run {
-//                        setBackgroundResource(R.drawable.group_modifiers_item_background)
-//                    }
-//
-//                }
-//                (currentPosition as TextView).run {
-//                    background = null
-//                }
-//                hlebModifiers.forEach { it.amount = 0 }
-//                hlebModifiers[x].amount = 1
-//            }
-//
-//            textName.layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, (100 / data.size).toFloat())
-//            lavashLayout.setPadding(10, 10, 10, 10)
-//
-//            textName.gravity = Gravity.CENTER
-//            textName.setTextColor(context.getResources().getColor(R.color.textColor))
-//            lavashLayout.addView(textName)
-//            textName.setBackgroundColor(Color.GRAY)
-//            textName.setTextColor(Color.LTGRAY)
-//        }
-//
-//        try {
-//            (lavashLayout.getChildAt(0) as TextView).setBackgroundResource(R.drawable.group_modifiers_item_background)
-//        }
-//        catch (e:Exception){}
         for(x in data.indices){
 //            val tab = lavashLayout.newTab()
             lavashLayout.addTab(lavashLayout.newTab().setText(data[x].name))
