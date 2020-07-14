@@ -38,7 +38,7 @@
             app:tabIndicatorGravity="stretch"
             app:tabMode="scrollable"
             app:tabRippleColor="@null"
-            app:tabSelectedTextColor="@color/darkGrey"
+            app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/middleGrey" />
 
 

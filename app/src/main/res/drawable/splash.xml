@@ -5,6 +5,7 @@
 
     <item
         android:gravity="center"
-
-        android:drawable="@drawable/ic_favorite_black_bigdp"/>
+        android:height="200dp"
+        android:width="175dp"
+        android:drawable="@drawable/lico"/>
 </layer-list>

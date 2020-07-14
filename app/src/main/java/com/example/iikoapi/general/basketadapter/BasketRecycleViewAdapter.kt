@@ -65,11 +65,11 @@ class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket 
 
         private val item_image: ImageView = itemView.item_image
         private val item_name = itemView.item_name
-        private val item_description = itemView.item_description
+//        private val item_description = itemView.item_description
 //        private val plus_modefer_names = itemView.plus_modefer_names
 //        private val minus_modifer_names = itemView.minus_modifer_names
         private val item_amount = itemView.item_amount
-        private val item_sum = itemView.item_sum
+//        private val item_sum = itemView.item_sum
         private val plus_button= itemView.plus_button
         private val minus_button= itemView.minus_button
 
@@ -86,8 +86,8 @@ class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket 
             item.update()
             item_name.text = item.name
             item_amount.text = item.amount.toString()
-            item_description.text = item.info
-            item_sum.text = item.sum.toString()
+//            item_description.text = item.info
+//            item_sum.text = item.sum.toString()
 
             plus_button.setOnClickListener {
                 item.amount += 1

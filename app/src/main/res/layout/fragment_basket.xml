@@ -11,10 +11,13 @@
         android:id="@+id/text_korsina"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Корзина"
+        android:text="корзина"
+        android:textSize="20sp"
         android:gravity="center"
-        android:layout_margin="10dp"
-        android:textSize="20sp"/>
+        android:background="@color/yellow"
+        android:padding="10dp"
+        android:layout_centerHorizontal="true" />
+
     <TextView
         android:id="@+id/text_empty_basket"
         android:layout_width="wrap_content"
@@ -25,7 +28,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@+id/text_korsina"
-        android:layout_above="@+id/clear_basket"
+        android:paddingBottom="56dp"
+        android:clipToPadding="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/recycler_view_for_basket"
@@ -34,11 +38,37 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent" />
 
-    <Button
-        android:id="@+id/clear_basket"
-        android:text="Очистить карзину"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/white"
+        app:cardCornerRadius="23dp"
+        app:cardElevation="2dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentBottom="true"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/clear_basket"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Очистить карзину"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                app:backgroundTint="@color/yellow"
+                app:icon="@drawable/cart"
+                android:textColor="@color/darkGrey"
+                app:iconGravity="textEnd"
+                app:iconPadding="16dp"
+                app:iconTint="@color/darkGrey"
+                app:rippleColor="@null" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </RelativeLayout>

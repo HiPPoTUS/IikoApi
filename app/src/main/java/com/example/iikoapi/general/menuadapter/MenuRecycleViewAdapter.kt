@@ -83,7 +83,7 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
                 .load(try{product.images[0].imageUrl}catch (e:Exception){"dd"})
                 .into(produtc_image)
             product_name.text = product.name
-            product_info.text = product.seoDescription
+            product_info.text = product.description
             product_weight.text = (product.weight*1000).toInt().toString()
             direct_button.text = product.price.toString()
 

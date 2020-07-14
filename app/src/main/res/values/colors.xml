@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="main_yelow">#FFCC00</color>
-    <color name="yellow">#FFCC00</color>
+    <color name="yellow">#FFC300</color>
     <color name="orange">#FF6600</color>
     <color name="middleGrey">#808080</color>
     <color name="lightGrey">#cccccc</color>

@@ -40,4 +40,12 @@
         android:layout_gravity="center"
         android:gravity="center"/>
 
+    <TextView
+        android:id="@+id/empty_text"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+
 </LinearLayout>

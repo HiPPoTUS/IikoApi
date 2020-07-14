@@ -7,6 +7,7 @@ import com.example.iikoapi.R
 import com.example.iikoapi.startapp.networking.MySingleton
 import com.example.iikoapi.startapp.networking.NetworkInteraction
 import com.example.iikoapi.startapp.networking.NukeSSLCerts
+import kotlinx.android.synthetic.main.activity_start.*
 
 
 class StartActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class StartActivity : AppCompatActivity() {
         val S = MySingleton.getInstance(this)
         NukeSSLCerts().nuke()
 
-        interact = NetworkInteraction(S, this)
+        interact = NetworkInteraction(S, this, progressBar)
         interact.start()
 
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBC500"
+    android:background="@color/yellow"
     android:fitsSystemWindows="false"
     android:focusable="false"
     tools:context=".startapp.StartActivity">
@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:scaleType="center"
 
-        android:src="@drawable/ic_favorite_black_bigdp"
+        android:src="@drawable/splash"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

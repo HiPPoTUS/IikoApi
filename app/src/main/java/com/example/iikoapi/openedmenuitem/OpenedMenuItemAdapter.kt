@@ -6,13 +6,15 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
 import android.widget.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
-import android.widget.ScrollView
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -24,6 +26,8 @@ import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.startapp.datatype.Product
 import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
 import kotlinx.android.synthetic.main.modifier_item.view.*
@@ -47,7 +51,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         private val name = view.findViewById<TextView>(R.id.text_inside)
         private val contains = view.findViewById<TextView>(R.id.contains)
         private val weightInfo = view.findViewById<TextView>(R.id.weightInfo)
-        private val scrollView = view.findViewById<ScrollView>(R.id.whole_lt)
+        private val scrollView = view.findViewById<NestedScrollView>(R.id.whole_lt)
 
         fun bind(currentItem : Product, position: Int, myView : View) {
 
@@ -61,16 +65,32 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
                 .into(img)
 
             name.text = currentItem.name
+            myView.text_inside_collapsed.text = currentItem.name
             contains.text = currentItem.description
             weightInfo.text = "г ${(currentItem.weight*1000).toInt()}"
 
-            showInfo(myView.info_fragment_RL, position)
+//            showInfo(myView.info_fragment_RL, position)
 
             myView.go_back.setOnClickListener {
                 val intent = Intent(context, GeneralActivity::class.java)
                 intent.putExtra("back_from", commonPosition)
                 context.startActivity(intent, ActivityOptions.makeCustomAnimation(context, R.anim.enter_anim_left, R.anim.exit_anim_left).toBundle())
             }
+
+
+            myView.text_inside_collapsed.alpha = 0f
+            myView.app_bar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
+
+
+                if(Math.abs(verticalOffset) == appBarLayout.totalScrollRange) {
+                    myView.text_inside_collapsed.animate().alpha(1f).duration = 300
+                }
+                else{
+                    myView.text_inside_collapsed.alpha = 0f
+                }
+
+            })
+
 
 
             var hleb = menu.getModifiers(currentItem, hlebGroupName)
@@ -145,6 +165,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             myView.expandableLayout.collapse()
         }
     }
+
 
     private fun getDistanceBetweenViews(firstView: View, secondView: View): Int {
         val firstPosition = IntArray(2)
@@ -259,6 +280,9 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
         if(type == "DOBAVIT")
             parent.modifier_price.text = product.price.toString()
+        if(type == "BEZ")
+            parent.empty_text.visibility = View.GONE
+
 
         parent.setOnClickListener {
             when(type){

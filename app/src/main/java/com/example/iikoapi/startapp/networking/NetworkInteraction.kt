@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
 import com.android.volley.Response
@@ -26,7 +27,7 @@ import javax.net.ssl.*
 
 lateinit var menu: MenuResponse
 lateinit var restr: DeliveryRestrictionsResponse
-class NetworkInteraction(val S: MySingleton, val context: Context) {
+class NetworkInteraction(val S: MySingleton, val context: Context, val progressBar: ProgressBar) {
 
     private val url = "https://iiko.biz:9900/api/0/"
     private var login: Login =
@@ -49,7 +50,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
-                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context), progressBar).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -69,7 +70,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
-                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context), progressBar).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -88,7 +89,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
-                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context), progressBar).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
         )
         S.addToRequestQueue(Request)
@@ -126,7 +127,7 @@ class NetworkInteraction(val S: MySingleton, val context: Context) {
             },
             Response.ErrorListener { error ->
                 Log.d("tag", "volley arror: $error")
-                DialogFragmentErrorSavedata(context, isInternetAvailable(context)).show((context as AppCompatActivity).supportFragmentManager, "tag")
+                DialogFragmentErrorSavedata(context, isInternetAvailable(context), progressBar).show((context as AppCompatActivity).supportFragmentManager, "tag")
             }
 
         )
