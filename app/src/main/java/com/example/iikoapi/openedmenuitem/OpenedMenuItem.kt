@@ -19,6 +19,7 @@ class OpenedMenuItem : AppCompatActivity() {
         val openedMenuItemAdapter = OpenedMenuItemAdapter(mappedMenu.values.elementAt(commonPos), this, commonPos)
         opened_menu_item_pager.adapter = openedMenuItemAdapter
         opened_menu_item_pager.setCurrentItem(position, false)
+        opened_menu_item_pager.offscreenPageLimit = mappedMenu.values.elementAt(commonPos).size
 
     }
 

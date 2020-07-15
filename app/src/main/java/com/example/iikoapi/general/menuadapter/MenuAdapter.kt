@@ -28,7 +28,7 @@ class MenuAdapter(private var items : List<List<Product>>) : RecyclerView.Adapte
                 if(rView.itemDecorationCount == 0)
                     rView.addItemDecoration(Decorations())
             }
-
+            rView.setItemViewCacheSize(data.size)
             recycleViewAdapter.submitList(data)
         }
     }

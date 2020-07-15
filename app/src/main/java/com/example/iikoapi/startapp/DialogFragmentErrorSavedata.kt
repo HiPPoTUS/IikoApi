@@ -32,8 +32,7 @@ class DialogFragmentErrorSavedata(private val startActivityContext : Context, pr
         }
 
         v.findViewById<Button>(R.id.close_app_button).setOnClickListener {
-            activity!!.finish()
-            System.exit(0)
+            activity!!.finishAffinity()
         }
 
         return v

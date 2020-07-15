@@ -24,6 +24,7 @@ import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
 import kotlinx.android.synthetic.main.open_menu_item_for_recycler_view.view.*
 
+
 class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
 
@@ -82,6 +83,7 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
                 .applyDefaultRequestOptions(requestOptions)
                 .load(try{product.images[0].imageUrl}catch (e:Exception){"dd"})
                 .into(produtc_image)
+
             product_name.text = product.name
             product_info.text = product.description
             product_weight.text = (product.weight*1000).toInt().toString()

@@ -35,6 +35,7 @@ class MenuFragment(var position : Int, var contextMy: Context) : Fragment() {
 //        merch.layoutParams = merchParams
 //        collapsing.addView(merch)
         merch.adapter = MerchAdapter(mappedMenu.values.elementAt(0), contextMy)
+        merch.offscreenPageLimit = mappedMenu.values.elementAt(0).size
 
 
         Log.d("tag", "fssdf - " + (height * 0.15).toInt())
@@ -64,6 +65,7 @@ class MenuFragment(var position : Int, var contextMy: Context) : Fragment() {
         viewPager2.adapter = MenuAdapter(mappedMenu.values.toList())
         viewPager2.adapter = MenuAdapter(mappedMenu.values.toList())
         viewPager2.setCurrentItem(position, false)
+        viewPager2.offscreenPageLimit = mappedMenu.values.size
 
 
         TabLayoutMediator(tabLayout, viewPager2) { tab, position ->
