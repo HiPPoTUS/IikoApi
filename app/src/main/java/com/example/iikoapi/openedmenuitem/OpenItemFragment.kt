@@ -7,7 +7,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +23,7 @@ import com.example.iikoapi.utils.setBadges
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
+
 
 class OpenItemFragment (private val contextMy: Context, var product: Product, var commonPosition : Int) : Fragment()
 {
@@ -75,11 +75,24 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
         if (hleb.isEmpty() && hlebP.isEmpty()) {myView.back_of_the_hleb.visibility=View.GONE
             myView.group_modifier.visibility=View.GONE}
         else if (hleb.isEmpty()) {
-            showGroupModifier(hlebP, myView.group_modifier, contextMy)
+            showGroupModifier(hlebP, myView.group_modifier, contextMy, myView.tab_price)
         }
         else {
-            showGroupModifier(hleb, myView.group_modifier, contextMy)
+            showGroupModifier(hleb, myView.group_modifier, contextMy, myView.tab_price)
         }
+
+        myView.price_for_lavash.collapse()
+        myView.group_modifier.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                if(tab!!.text == "-ЛАВАШ СЫРНЫЙ") myView.price_for_lavash.expand()
+                else myView.price_for_lavash.collapse()
+            }
+        })
+
 
         myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
         myView.RL.setOnTouchListener { _, _ ->
@@ -146,20 +159,24 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
         }catch (e : Exception){0}.toString()
     }
 
-    private fun showGroupModifier(data : List<Product>, lavashLayout : TabLayout, context: Context){
+    private fun showGroupModifier(data : List<Product>, lavashLayout : TabLayout, context: Context, tabLayout: TabLayout){
+        var index = -1
         for(x in data.indices){
             lavashLayout.addTab(lavashLayout.newTab().setText(data[x].name))
-
+            if(data[x].name == "-ЛАВАШ СЫРНЫЙ") {
+                index = x
+                val tab = tabLayout.newTab()
+                tab.text = "2323"
+                tabLayout.addTab(tab)
+            }
+            else tabLayout.addTab(tabLayout.newTab().setText(""))
         }
 
-        lavashLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-            }
-        })
+        val tab = tabLayout.getTabAt(index)
+        tab!!.select()
+        val touchableList = tabLayout.touchables
+        touchableList?.forEach { it.isEnabled = false }
+
     }
 
     private fun showModifiers(data : List<Product>, tableLayout : TableLayout, context: Context, type : String){

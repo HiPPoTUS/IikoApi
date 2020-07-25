@@ -64,34 +64,13 @@
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/info_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="20dp"
-            android:elevation="0dp"
-            app:elevation="6dp"
-            android:src="@drawable/info_btn"
-            app:layout_anchor="@id/info_bar"
-            app:layout_anchorGravity="center_vertical|end"
-            android:layout_marginEnd="18dp"
-            android:outlineAmbientShadowColor="@android:color/transparent"
-            android:outlineSpotShadowColor="@android:color/transparent"
-            android:tintMode="multiply"
-            android:layout_marginTop="5dp"
-            app:backgroundTint="@android:color/transparent"
-            app:fabCustomSize="40dp"
-            app:rippleColor="@null"
-            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
-            app:tint="@color/yellow" />
-
         <androidx.core.widget.NestedScrollView
             android:id="@+id/whole_lt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
             android:backgroundTint="@android:color/transparent"
-            android:paddingBottom="100dp"
+            android:paddingBottom="80dp"
             android:layout_marginTop="-23dp"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -102,7 +81,7 @@
                 android:layout_height="match_parent"
                 app:cardPreventCornerOverlap="true"
                 app:contentPadding="16dp"
-                android:elevation="10dp"
+                android:elevation="2dp"
                 app:cardElevation="2dp"
                 app:cardCornerRadius="23dp">
 
@@ -111,19 +90,42 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:id="@+id/contains"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp"/>
+
                     <LinearLayout
                         android:id="@+id/info_bar"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
                         android:orientation="horizontal">
 
-                            <TextView
-                                android:paddingEnd="56dp"
-                                android:id="@+id/weightInfo"
-                                android:gravity="center_vertical|end"
-                                android:text="aaa"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
+                        <TextView
+                            android:id="@+id/weightInfo"
+                            android:layout_marginEnd="16dp"
+                            android:gravity="center_vertical|end"
+                            android:text="aaa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"/>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/info_button"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            app:elevation="3dp"
+                            android:src="@drawable/info_btn"
+                            android:layout_gravity="center_vertical|end"
+                            app:maxImageSize="30dp"
+                            android:outlineAmbientShadowColor="@android:color/transparent"
+                            android:outlineSpotShadowColor="@android:color/transparent"
+                            android:tintMode="multiply"
+                            app:backgroundTint="@android:color/transparent"
+                            app:fabCustomSize="40dp"
+                            app:rippleColor="@null"
+                            app:tint="@color/yellow" />
 
 <!--                            <com.google.android.material.button.MaterialButton-->
 <!--                                android:id="@+id/info_button2"-->
@@ -144,13 +146,6 @@
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_marginTop="16dp"
-                        android:id="@+id/contains"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15dp"/>
-
                     <androidx.cardview.widget.CardView
                         android:id="@+id/back_of_the_hleb"
                         android:layout_width="match_parent"
@@ -158,8 +153,8 @@
                         android:layout_marginTop="16dp"
                         android:backgroundTint="@color/lightGrey"
                         app:cardCornerRadius="23dp"
-                        app:cardElevation="2dp"
-                        app:cardPreventCornerOverlap="false"
+                        app:cardElevation="0dp"
+                        app:cardPreventCornerOverlap="true"
                         app:cardUseCompatPadding="true"
                         app:contentPadding="5dp">
 
@@ -168,7 +163,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/transparent"
-                            app:tabGravity="center"
+                            app:tabGravity="fill"
+                            android:minWidth="0dp"
                             app:tabIndicator="@drawable/selected_tab"
                             app:tabIndicatorColor="@color/white"
                             app:tabIndicatorFullWidth="true"
@@ -179,6 +175,31 @@
                             app:tabRippleColor="@null" />
                     </androidx.cardview.widget.CardView>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp">
+                        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                            android:id="@+id/price_for_lavash"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:ael_duration="200"
+                            app:ael_expanded="false"
+                            app:ael_interpolator="accelerate"
+                            app:ael_orientation="vertical">
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/tab_price"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:tabMode="fixed"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="82340"-->
+<!--                                android:gravity="end" />-->
+
+                        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+                    </RelativeLayout>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/with_group"
@@ -187,7 +208,7 @@
                         android:layout_marginTop="16dp"
                         android:backgroundTint="@color/white"
                         app:cardCornerRadius="23dp"
-                        app:cardElevation="2dp"
+                        app:cardElevation="1dp"
                         app:cardPreventCornerOverlap="true"
                         app:cardUseCompatPadding="true">
 
@@ -225,7 +246,7 @@
                         android:layout_marginTop="16dp"
                         android:backgroundTint="@color/white"
                         app:cardCornerRadius="23dp"
-                        app:cardElevation="2dp"
+                        app:cardElevation="1dp"
                         app:cardPreventCornerOverlap="true"
                         app:cardUseCompatPadding="true">
 
@@ -290,8 +311,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        app:elevation="20dp"
         android:alpha="0"
+        app:cardElevation="0dp"
         android:outlineSpotShadowColor="@android:color/transparent"
         android:outlineAmbientShadowColor="@android:color/transparent"
         app:cardBackgroundColor="@android:color/transparent"
@@ -322,7 +343,7 @@
                 android:layout_below="@+id/info_name"
                 android:layout_marginTop="2dp"
                 android:gravity="left"
-                android:text="Пищевая ценность на 100 г"
+                android:text="Пищевая ценность на 100&#160;г"
                 android:textColor="@color/white"
                 android:textSize="13dp" />
 
@@ -446,7 +467,7 @@
         android:layout_margin="16dp"
         android:backgroundTint="@color/white"
         app:cardCornerRadius="23dp"
-        app:cardElevation="2dp"
+        app:cardElevation="6dp"
         android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true"
         app:cardPreventCornerOverlap="true"
