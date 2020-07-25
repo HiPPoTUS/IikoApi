@@ -1,64 +1,77 @@
 package com.example.iikoapi.startapp.networking
 
+import Group
+import Product
+import ProductCategory
 import android.util.Log
 import com.example.iikoapi.startapp.datatype.*
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.google.gson.annotations.SerializedName
 import java.lang.Exception
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class MenuResponse(
-    @SerializedName("groups")
-    var groups: List<Group>,
-    @SerializedName("products")
-    var products: List<Product>,
-    @SerializedName("revision")
-    var revision: Int,
-//    var productCategories: List<ProductCategory>,
-    var uploadDate: String
+data class MenuResponse (
+    val groups: List<Group>? = null,
+    val productCategories: List<ProductCategory>? = null,
+    val products: List<Product>? = null,
+    val revision: Long? = null,
+    val uploadDate: String? = null
 ){
-    fun getByType(type: String):List<Product>{
-        try {
-            return products.groupBy { it.type }[type]!!.toList()
-        }
-        catch (e:Exception){
-            Log.e("invalid type","only: dish, modifier, good")
-            return emptyList<Product>()
-        }
+    fun get_groups(isIncluded: Boolean = true):List<Group>{
+        return groups!!.filter { it.isIncludedInMenu == isIncluded }.sortedBy { it.order }
     }
-    fun groupAndProducts(type: String):Map<Group?,List<Product>>{
-        val tmp = getByType(type)
-        val ids:Map<String?,List<Product>>
-        if (type=="dish")
-            ids= tmp.groupBy { it.parentGroup }
-        else ids = tmp.groupBy { it.groupId }
-        return ids.mapKeys { groups.find {group -> group.id == it.key} }
+    fun get_group_prods(group:Group, isModifier:Boolean=false):List<Product>{
+        if (!isModifier) return products!!.filter { it.parentGroup==group.id}.sortedBy { it.order }
+        else return products!!.filter { it.groupID==group.id}.sortedBy { it.order }
     }
-    fun getModifiers(product: Product, groupNameID: List<String?>):List<Product>{
-        if(groupNameID[0].isNullOrEmpty()){
-            if (product.modifiers.isEmpty())
-                return emptyList()
-            else{
-                return List(product.modifiers.size){
-                    groupAndProducts("modifier")[groups.find { it.name==groupNameID[0]}]!!.find {prod ->
-                        prod.id == product.modifiers[it].modifierId
-                    }!!
-                }
-            }
-        }
-        else{
-            if (product.groupModifiers.isEmpty())
-                return emptyList()
-            else{
-                val tmp = product.groupModifiers.find {
-                    it.modifierId==groupNameID[1]
-                }
-                if (tmp==null)
-                    return emptyList()
-                else return groupAndProducts("modifier")[groups.find { it.id==tmp.modifierId}]!!
-            }
-        }
+    fun get_groups_prods(groups:List<Group>, isModifier: Boolean=false):MutableMap<String,List<Product>>
+    {
+        val map = mutableMapOf<String,List<Product>>()
+        groups.forEach { map.put(it.id!!, get_group_prods(it,isModifier)) }
+        return map
     }
+
+//    fun getByType(type: String):List<Product>{
+//        try {
+//            return products.groupBy { it.type }[type]!!.toList()
+//        }
+//        catch (e:Exception){
+//            Log.e("invalid type","only: dish, modifier, good")
+//            return emptyList<Product>()
+//        }
+//    }
+//    fun groupAndProducts(type: String):Map<Group?,List<Product>>{
+//        val tmp = getByType(type)
+//        val ids:Map<String?,List<Product>>
+//        if (type=="dish")
+//            ids= tmp.groupBy { it.parentGroup }
+//        else ids = tmp.groupBy { it.groupId }
+//        return ids.mapKeys { groups.find {group -> group.id == it.key} }
+//    }
+//    fun getModifiers(product: Product, groupNameID: List<String?>):List<Product>{
+//        if(groupNameID[0].isNullOrEmpty()){
+//            if (product.modifiers.isEmpty())
+//                return emptyList()
+//            else{
+//                return List(product.modifiers.size){
+//                    groupAndProducts("modifier")[groups.find { it.name==groupNameID[0]}]!!.find {prod ->
+//                        prod.id == product.modifiers[it].modifierId
+//                    }!!
+//                }
+//            }
+//        }
+//        else{
+//            if (product.groupModifiers.isEmpty())
+//                return emptyList()
+//            else{
+//                val tmp = product.groupModifiers.find {
+//                    it.modifierId==groupNameID[1]
+//                }
+//                if (tmp==null)
+//                    return emptyList()
+//                else return groupAndProducts("modifier")[groups.find { it.id==tmp.modifierId}]!!
+//            }
+//        }
+//    }
 }
 
 data class OrgsResponse(

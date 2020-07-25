@@ -1,5 +1,6 @@
 package com.example.iikoapi.general.menuadapter
 
+import Product
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
-import com.example.iikoapi.startapp.datatype.Product
 import com.example.iikoapi.utils.Decorations
 
 

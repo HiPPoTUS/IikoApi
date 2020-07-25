@@ -11,18 +11,16 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layerType="none"
-        tools:context=".shopActivity">
+        android:layerType="none">
 
         <ImageView
             android:id="@+id/merch_image"
             android:layout_width="match_parent"
             android:layout_weight="3"
-            android:layout_height="match_parent"
+            android:layout_height="100dp"
             android:longClickable="false"
             tools:srcCompat="@tools:sample/avatars" />
 
     </LinearLayout>
-
 
 </androidx.cardview.widget.CardView>

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.general.bottoNnavigationView
 import com.example.iikoapi.openedmenuitem.order
-import com.example.iikoapi.startapp.datatype.Product
 import com.example.iikoapi.startapp.networking.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

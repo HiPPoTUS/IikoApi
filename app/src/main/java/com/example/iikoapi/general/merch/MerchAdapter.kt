@@ -1,5 +1,6 @@
 package com.example.iikoapi.general.merch
 
+import Product
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
@@ -14,7 +15,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
 import com.example.iikoapi.general.menuadapter.MenuRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.OpenedMenuItem
-import com.example.iikoapi.startapp.datatype.Product
 
 class MerchAdapter(private var items : List<Product>, private  var context : Context) : RecyclerView.Adapter<MerchAdapter.MerchViewHolder>() {
 

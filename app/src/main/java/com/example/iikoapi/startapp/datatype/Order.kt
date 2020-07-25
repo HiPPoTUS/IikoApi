@@ -1,4 +1,5 @@
 package com.example.iikoapi.startapp.datatype
+import Product
 import android.util.Log
 import com.example.dodocopy.dataTypes.Address
 import com.example.dodocopy.dataTypes.Customer
@@ -172,10 +173,10 @@ data class OrderItem(
         id = product.id
         name = product.name
         code = product.code
-        saveSum = product.price
+        saveSum = product.price!!.toInt()
         amount = 1
         imageUrl = product.images.getOrNull(0)?.imageUrl
-        info = product.seoDescription
+        info = product.seoDescription.toString()
         return this
     }
     fun equals(other: OrderItem):Boolean
@@ -212,7 +213,7 @@ data class OrderItemModifier(
     fun fromProduct(product: Product, groupName: List<String?>):OrderItemModifier{
         this.id = product.id
         this.name = product.name
-        this.price = product.price
+        this.price = product.price!!.toInt()
         this.amount = 0
         this.groupId = groupName[1]
         this.groupName = groupName[0]

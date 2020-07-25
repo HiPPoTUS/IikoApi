@@ -48,6 +48,7 @@
             tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".startapp.StartActivity"
+            android:noHistory="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

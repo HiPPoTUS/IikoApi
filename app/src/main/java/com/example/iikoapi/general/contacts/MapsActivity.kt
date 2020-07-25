@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iikoapi.R
-import com.example.iikoapi.startapp.networking.restr
+import com.example.iikoapi.startapp.restr
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback

@@ -1,5 +1,6 @@
 package com.example.iikoapi.openedmenuitem
 
+import Product
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
@@ -20,11 +21,10 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
 import com.example.iikoapi.general.GeneralActivity
+import com.example.iikoapi.general.mods_prods
 import com.example.iikoapi.startapp.datatype.Order
 import com.example.iikoapi.startapp.datatype.OrderItem
 import com.example.iikoapi.startapp.datatype.OrderItemModifier
-import com.example.iikoapi.startapp.datatype.Product
-import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
@@ -35,26 +35,20 @@ import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 
 var order = Order()
-var hlebGroupName = listOf<String?>("-лаваши без питы","840b1dc1-d18e-4cfb-8250-fd86eb59b9ea")
-var hlebPitaGroupName = listOf<String?>("-лаваши с питой","1fc607d6-5075-446a-bdea-58db6b2c5a29")
-var bezGroupName = listOf<String?>("---БЕЗ---","932f004d-0b8a-44c5-b8f7-8f86056e8d93")
-var jalapenoGroupName = listOf<String?>(null,null)
+var Ghleb = listOf<String>("-лаваши без питы","840b1dc1-d18e-4cfb-8250-fd86eb59b9ea")
+var GhlebPita = listOf<String>("-лаваши с питой","1fc607d6-5075-446a-bdea-58db6b2c5a29")
+var Gbez = listOf<String>("---БЕЗ---","932f004d-0b8a-44c5-b8f7-8f86056e8d93")
+var Gjalapeno = listOf<String>("Все Допы","40973942-4a1a-4aa2-b37d-e6f2a9eb519e")
 
 class OpenedMenuItemAdapter(private var items : List<Product>, private var context: Context, var commonPosition : Int) : RecyclerView.Adapter<OpenedMenuItemAdapter.OpenedMenuItemViewHolder>() {
 
-    private lateinit var hlebModifiers: MutableList<OrderItemModifier>
-    private lateinit var jalapenoModifiers : MutableList<OrderItemModifier>
-    private lateinit var bezModifiers : MutableList<OrderItemModifier>
-
     inner class OpenedMenuItemViewHolder(view : View) : RecyclerView.ViewHolder(view){
         private val img = view.findViewById<ImageView>(R.id.image_inside)
-        private val name = view.findViewById<TextView>(R.id.text_inside)
         private val contains = view.findViewById<TextView>(R.id.contains)
         private val weightInfo = view.findViewById<TextView>(R.id.weightInfo)
         private val scrollView = view.findViewById<NestedScrollView>(R.id.whole_lt)
 
         fun bind(currentItem : Product, position: Int, myView : View) {
-
             val requestOptions = RequestOptions()
                 .placeholder(R.drawable.preload)
                 .error(R.drawable.preload)
@@ -64,12 +58,9 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
                 .load(try{currentItem.images[0].imageUrl}catch (e:Exception){"dd"})
                 .into(img)
 
-            name.text = currentItem.name
-            myView.text_inside_collapsed.text = currentItem.name
+            myView.collapsing_layout.title = currentItem.name
             contains.text = currentItem.description
-            weightInfo.text = "г ${(currentItem.weight*1000).toInt()}"
-
-//            showInfo(myView.info_fragment_RL, position)
+            weightInfo.text = "г ${(currentItem.weight!!*1000).toInt()}"
 
             myView.go_back.setOnClickListener {
                 val intent = Intent(context, GeneralActivity::class.java)
@@ -78,35 +69,29 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             }
 
 
-            myView.text_inside_collapsed.alpha = 0f
-            myView.app_bar.addOnOffsetChangedListener(OnOffsetChangedListener { appBarLayout, verticalOffset ->
 
-
-                if(Math.abs(verticalOffset) == appBarLayout.totalScrollRange) {
-                    myView.text_inside_collapsed.animate().alpha(1f).duration = 300
-                }
-                else{
-                    myView.text_inside_collapsed.alpha = 0f
-                }
-
-            })
-
-
-
-            var hleb = menu.getModifiers(currentItem, hlebGroupName)
-            if (hleb.isEmpty()) hleb = menu.getModifiers(currentItem, hlebPitaGroupName)
-            val bez = menu.getModifiers(currentItem, bezGroupName)
-            val jalapenos = menu.getModifiers(currentItem, jalapenoGroupName)
-            if (bez.isEmpty()) myView.bez_group.visibility=View.GONE
-            if (jalapenos.isEmpty()){
-                myView.with_group.visibility=View.GONE
+            var hleb= emptyList<Product>()
+            var hlebP= emptyList<Product>()
+            var bez= emptyList<Product>()
+            val jalapenos= mods_prods.values.elementAt(0)
+            currentItem.groupModifiers!!.forEach {
+                if (it.modifierID == Ghleb[1]) hleb = mods_prods[it.modifierID]!!
+                if (it.modifierID == GhlebPita[1]) hlebP = mods_prods[it.modifierID]!!
+                if (it.modifierID == Gbez[1]) bez = mods_prods[it.modifierID]!!
             }
-            if (hleb.isEmpty()){myView.back_of_the_hleb.visibility=View.GONE
-            myView.group_modifier.visibility=View.GONE}
 
+            if (bez.isEmpty()) myView.bez_group.visibility=View.GONE else showModifiers(bez, myView.bez_modifier, context, "BEZ")
+            if (jalapenos.isEmpty()) myView.with_group.visibility=View.GONE else showModifiers(jalapenos, myView.singled_modifier, context, "DOBAVIT")
+            if (hleb.isEmpty() && hlebP.isEmpty()) {myView.back_of_the_hleb.visibility=View.GONE
+            myView.group_modifier.visibility=View.GONE}
+            else if (hleb.isEmpty()) {
+                showGroupModifier(hlebP, myView.group_modifier, context)
+            }
+            else {
+                showGroupModifier(hleb, myView.group_modifier, context)
+            }
 
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
-
             myView.RL.setOnTouchListener { _, _ ->
                 myView.info_card.animate().alpha(0f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
@@ -114,6 +99,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
             }
 
             myView.info_button.setOnClickListener {
+                showInfo(myView.info_fragment_RL,position)
                 myView.info_card.animate().alpha(1f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
             }
@@ -130,38 +116,15 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
             myView.to_basket_button.setOnClickListener {
                 val orderItem = OrderItem().fromProduct(currentItem)
-                hlebModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-                jalapenoModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-                bezModifiers.forEach { if (it.amount>0) orderItem.modifiers.add(it) }
-                Log.d("AAAAAA",hlebModifiers.toString())
+
                 order.addToOrder(orderItem)
 
                 val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
                 toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
                 toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
                 toast.show()
-
                 setBadges()
-
             }
-
-            jalapenoModifiers = MutableList(jalapenos.size){ OrderItemModifier().fromProduct(jalapenos[it],jalapenoGroupName)}
-            bezModifiers = MutableList(bez.size){ OrderItemModifier().fromProduct(bez[it],bezGroupName)}
-            hlebModifiers = MutableList(hleb.size){ OrderItemModifier().fromProduct(hleb[it], hlebGroupName)}
-            try {
-                hlebModifiers[0].amount=1
-            }
-            catch (e:Exception){}
-
-            Log.d("size", bezModifiers.size.toString())
-
-
-            showGroupModifier(hleb, myView.group_modifier, context)
-            showModifiers(bez, myView.bez_modifier, context, "BEZ")
-            showModifiers(jalapenos, myView.singled_modifier, context, "DOBAVIT")
-
-
-
             myView.expandableLayout.collapse()
         }
     }
@@ -193,6 +156,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     private fun showInfo(view: RelativeLayout, position: Int){
 
         view.info_name.text = items[position].name
+        Log.d("name", items[position].name)
         view.info_carbohydrates.text = try {
             items[position].carbohydrateAmount!!.toInt()
         }catch (e : Exception){}.toString()
@@ -217,15 +181,10 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
         lavashLayout.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
-
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
-
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                hlebModifiers.forEach { it.amount = 0 }
-                hlebModifiers[tab!!.position].amount = 1
             }
-
         })
     }
 
@@ -285,38 +244,14 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
 
         parent.setOnClickListener {
-            when(type){
-                "BEZ" ->{
-                    if(bezModifiers[currentPosition].amount == 0){
-                        bezModifiers[currentPosition].amount = 1
-//                        parent.setBackgroundColor(Color.LTGRAY)
-                        parent.is_checked.setImageResource(R.drawable.ic_contacts_black_24dp)
-                    }
-                    else{
-                        bezModifiers[currentPosition].amount = 0
-//                        parent.setBackgroundColor(Color.WHITE)
-                        parent.is_checked.setImageDrawable(null)
-                    }
-                }
-
-                "DOBAVIT" ->{
-                    if(jalapenoModifiers[currentPosition].amount == 0){
-                        jalapenoModifiers[currentPosition].amount = 1
-//                        parent.setBackgroundColor(Color.LTGRAY)
-                        parent.is_checked.setImageResource(R.drawable.ic_favorite_black_24dp)
-                    }
-                    else{
-                        jalapenoModifiers[currentPosition].amount = 0
-//                        parent.setBackgroundColor(Color.WHITE)
-                        parent.is_checked.setImageDrawable(null)
-                    }
-                }
+            parent.check_box.toggle()
+            if(parent.check_box.isChecked){
+                parent.is_checked.setImageResource(R.drawable.ic_contacts_black_24dp)
+            }
+            else{
+                parent.is_checked.setImageDrawable(null)
             }
         }
-
         return parent
-
     }
 }
-
-

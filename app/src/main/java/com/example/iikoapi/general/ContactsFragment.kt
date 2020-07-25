@@ -12,7 +12,7 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
 import com.example.iikoapi.general.contacts.MapsActivity
-import com.example.iikoapi.startapp.networking.restr
+import com.example.iikoapi.startapp.restr
 import com.google.android.gms.maps.model.LatLng
 
 class ContactsFragment(var contextGeneral: Context) : Fragment() {

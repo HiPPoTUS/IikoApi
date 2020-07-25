@@ -1,26 +1,35 @@
 package com.example.iikoapi.general
 
+import Group
+import Product
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.view.animation.AnimationUtils
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
-import com.example.iikoapi.startapp.networking.menu
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_general.*
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.menu_recycler_view.*
-
+import com.example.iikoapi.startapp.menu
+import kotlinx.android.synthetic.main.activity_start.*
 
 lateinit var bottoNnavigationView : BottomNavigationView
-var mappedMenu = menu.groupAndProducts("dish")
+lateinit var men:List<Group>
+lateinit var mod:List<Group>
+lateinit var menu_prods:MutableMap<String,List<Product>>
+lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
 
 class GeneralActivity : AppCompatActivity() {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general)
@@ -58,6 +67,15 @@ class GeneralActivity : AppCompatActivity() {
 
             true
         }
+        var tmp = menu.get_groups().toMutableList()
+        val divergent = tmp.find { it.name=="Все Допы" }!!
+        tmp.remove(divergent)
+        men = tmp
+        val tmp2 = menu.get_groups(isIncluded = false)
+        mod  = List<Group>(tmp2.size+1){if (it==0) divergent else tmp2[it-1]}
+        menu_prods = menu.get_groups_prods(men)
+        mods_prods = menu.get_groups_prods(mod,true)
+        mods_prods.put(divergent.id!!, menu.get_group_prods(divergent))
     }
 
 
