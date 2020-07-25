@@ -40,8 +40,8 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
         val scrollView = myView.findViewById<NestedScrollView>(R.id.whole_lt)
 
         val requestOptions = RequestOptions()
-            .placeholder(R.drawable.preload)
-            .error(R.drawable.preload)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_background)
 
         Glide.with(contextMy)
             .applyDefaultRequestOptions(requestOptions)

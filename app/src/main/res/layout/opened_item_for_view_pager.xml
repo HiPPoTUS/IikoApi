@@ -16,7 +16,8 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:elevation="2dp">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_layout"
@@ -26,84 +27,79 @@
                 app:contentScrim="@color/yellow"
                 app:title="@string/app_name"
                 app:expandedTitleGravity="start|bottom"
-                app:expandedTitleMarginStart="10dp"
+                app:expandedTitleMarginStart="16dp"
+                app:expandedTitleMarginBottom="62dp"
                 app:collapsedTitleGravity="center"
                 app:scrimAnimationDuration="150"
+                android:layout_marginBottom="-23dp"
                 app:collapsedTitleTextAppearance="@style/CollapsedTitle"
                 app:expandedTitleTextAppearance="@style/ExpandedTitle">
-
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:id="@+id/cardView2"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="fill"-->
-<!--                    app:cardCornerRadius="0dp"-->
-<!--                    app:layout_collapseParallaxMultiplier="0.75"-->
-<!--                    app:layout_collapseMode="parallax"-->
-<!--                    tools:ignore="ContentDescription">-->
-
-<!--                    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content">-->
-<!--                        <ImageView-->
-<!--                            android:id="@+id/image_inside"-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            app:layout_constrainedHeight="true"-->
-<!--                            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                            app:layout_constraintDimensionRatio="1"-->
-<!--                            app:layout_constraintEnd_toEndOf="parent"-->
-<!--                            app:layout_constraintStart_toStartOf="parent"-->
-<!--                            app:layout_constraintTop_toTopOf="parent"-->
-<!--                            tools:srcCompat="@drawable/preload"/>-->
-<!--                    </androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-                <ImageView
-                    android:layout_gravity="center"
-                    android:id="@+id/image_inside"
-                    android:layout_width="400dp"
-                    android:layout_height="400dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/preload"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     app:layout_collapseParallaxMultiplier="0.75"
-                    app:layout_collapseMode="parallax"
-                    tools:ignore="ContentDescription" />
+                    app:layout_collapseMode="parallax">
+                    <ImageView
+                        android:id="@+id/image_inside"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constrainedHeight="true"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:srcCompat="@drawable/ic_launcher_background"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.appcompat.widget.Toolbar
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:id="@+id/toolbar"
+                    android:layout_marginBottom="23dp"
+                    android:paddingBottom="39dp"
                     app:layout_collapseMode="pin"
-                    android:paddingBottom="20dp"
-                    app:contentInsetLeft="0dp"
-                    android:contentInsetLeft="0dp"
-                    app:contentInsetStartWithNavigation="0dp"
-                    app:contentInsetStart="0dp"
-                    android:contentInsetStart="0dp"
-                    app:titleMargin="0dp"/>
-
+                    android:gravity="center">
+                </androidx.appcompat.widget.Toolbar>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/info_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/back_arrow"
+            app:layout_anchor="@id/info_bar"
+            app:layout_anchorGravity="center_vertical|end"
+            android:layout_marginEnd="18dp"
+            android:tintMode="multiply"
+            app:backgroundTint="@color/yellow"
+            app:fabCustomSize="40dp"
+            app:rippleColor="@null"
+            app:layout_behavior=""
+            app:tint="#FFFFFF" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/whole_lt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="-20dp"
             android:scrollbars="none"
+            android:elevation="1dp"
+            android:backgroundTint="@android:color/transparent"
             android:paddingBottom="100dp"
+            android:layout_marginTop="-23dp"
             android:clipToPadding="false"
-            android:elevation="5dp"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:cardPreventCornerOverlap="true"
                 app:contentPadding="16dp"
-                app:cardElevation="5dp"
+                android:elevation="10dp"
+                app:cardElevation="2dp"
                 app:cardCornerRadius="23dp">
 
                 <LinearLayout
@@ -112,6 +108,7 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/info_bar"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:orientation="horizontal">
@@ -132,7 +129,7 @@
                                 android:layout_weight="1"/>
 
                             <com.google.android.material.button.MaterialButton
-                                android:id="@+id/info_button"
+                                android:id="@+id/info_button2"
                                 style="@style/Widget.AppCompat.Button.Borderless"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -274,156 +271,171 @@
         </androidx.core.widget.NestedScrollView>
 
 
-<!--Info Fragment-->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/info_card"
-            android:layout_width="wrap_content"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/go_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:src="@drawable/back_arrow"
+            app:layout_anchor="@id/toolbar"
+            app:layout_anchorGravity="bottom"
+            android:tintMode="multiply"
+            app:backgroundTint="@color/yellow"
+            app:fabCustomSize="40dp"
+            app:rippleColor="@null"
+            app:tint="#FFFFFF" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/info_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        app:elevation="20dp"
+        android:alpha="0"
+        android:outlineSpotShadowColor="@android:color/transparent"
+        android:outlineAmbientShadowColor="@android:color/transparent"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="23dp"
+        app:cardPreventCornerOverlap="true"
+        app:cardUseCompatPadding="false">
+
+        <RelativeLayout
+            android:id="@+id/info_fragment_RL"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            app:elevation="20dp"
-            android:alpha="0"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="23dp"
-            app:cardPreventCornerOverlap="true"
-            app:cardUseCompatPadding="false">
+            android:background="#D9404040"
+            android:padding="16dp">
 
-            <RelativeLayout
-                android:id="@+id/info_fragment_RL"
-                android:layout_width="200dp"
+            <TextView
+                android:id="@+id/info_name"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#D9404040"
-                android:padding="16dp">
+                android:gravity="center"
+                android:text="pizza"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/info_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:text="pizza"
-                    android:textColor="@color/white"
-                    android:textStyle="bold" />
+            <TextView
+                android:id="@+id/text_nv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/info_name"
+                android:layout_marginTop="2dp"
+                android:gravity="left"
+                android:text="Пищевая ценность на 100 г"
+                android:textColor="@color/white"
+                android:textSize="13dp" />
 
-                <TextView
-                    android:id="@+id/text_nv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/info_name"
-                    android:layout_marginTop="2dp"
-                    android:gravity="left"
-                    android:text="Пищевая ценность на 100 г"
-                    android:textColor="@color/white"
-                    android:textSize="13dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_nv"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/text_nv"
-                    android:layout_marginTop="8dp"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:text="Энергетическая ценность"
+                        android:textColor="@color/white" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Энергетическая ценность"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/info_energy"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:gravity="center_vertical|right"
-                            android:text="0"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/info_energy"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Белки"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/info_proteins"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:gravity="center_vertical|right"
-                            android:text="0"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Жиры"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/info_fats"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:layout_weight="4"
-                            android:gravity="center_vertical|right"
-                            android:text="0"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="2dp"
-                        android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:text="Углеводы"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:id="@+id/info_carbohydrates"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="4"
-                            android:gravity="center_vertical|right"
-                            android:text="0"
-                            android:textColor="@color/white" />
-                    </LinearLayout>
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|right"
+                        android:text="0"
+                        android:textColor="@color/white" />
                 </LinearLayout>
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Белки"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/info_proteins"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|right"
+                        android:text="0"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Жиры"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/info_fats"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|right"
+                        android:text="0"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="2dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:text="Углеводы"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/info_carbohydrates"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4"
+                        android:gravity="center_vertical|right"
+                        android:text="0"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
 
     <RelativeLayout
         android:layout_width="0dp"
@@ -464,18 +476,4 @@
                 app:rippleColor="@null" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/go_back"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/back_arrow"
-        android:tintMode="multiply"
-        app:backgroundTint="@color/yellow"
-        app:fabCustomSize="40dp"
-        app:rippleColor="@null"
-        app:tint="#FFFFFF" />
-
 </RelativeLayout>
