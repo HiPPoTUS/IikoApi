@@ -69,23 +69,27 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="20dp"
-            android:src="@drawable/back_arrow"
+            android:elevation="0dp"
+            app:elevation="6dp"
+            android:src="@drawable/info_btn"
             app:layout_anchor="@id/info_bar"
             app:layout_anchorGravity="center_vertical|end"
             android:layout_marginEnd="18dp"
+            android:outlineAmbientShadowColor="@android:color/transparent"
+            android:outlineSpotShadowColor="@android:color/transparent"
             android:tintMode="multiply"
-            app:backgroundTint="@color/yellow"
+            android:layout_marginTop="5dp"
+            app:backgroundTint="@android:color/transparent"
             app:fabCustomSize="40dp"
             app:rippleColor="@null"
-            app:layout_behavior=""
-            app:tint="#FFFFFF" />
+            app:layout_behavior="com.google.android.material.floatingactionbutton.FloatingActionButton$Behavior"
+            app:tint="@color/yellow" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/whole_lt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:elevation="1dp"
             android:backgroundTint="@android:color/transparent"
             android:paddingBottom="100dp"
             android:layout_marginTop="-23dp"
@@ -113,38 +117,31 @@
                         android:layout_height="50dp"
                         android:orientation="horizontal">
 
-                        <LinearLayout
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="3"
-                            android:paddingLeft="24dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
                             <TextView
+                                android:paddingEnd="56dp"
                                 android:id="@+id/weightInfo"
-                                android:gravity="center_vertical|center_horizontal"
+                                android:gravity="center_vertical|end"
                                 android:text="aaa"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"/>
+                                android:layout_height="match_parent"/>
 
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/info_button2"
-                                style="@style/Widget.AppCompat.Button.Borderless"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:layout_weight="1"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                app:backgroundTint="#00000000"
-                                app:cornerRadius="0dp"
-                                app:icon="@drawable/info_btn"
-                                app:iconGravity="textStart"
-                                app:iconPadding="0dp"
-                                app:rippleColor="@null"
-                                app:iconTint="@color/orange" />
-                        </LinearLayout>
+<!--                            <com.google.android.material.button.MaterialButton-->
+<!--                                android:id="@+id/info_button2"-->
+<!--                                style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:layout_gravity="center"-->
+<!--                                android:layout_weight="1"-->
+<!--                                android:insetTop="0dp"-->
+<!--                                android:insetBottom="0dp"-->
+<!--                                app:backgroundTint="#00000000"-->
+<!--                                app:cornerRadius="0dp"-->
+<!--                                app:icon="@drawable/info_btn"-->
+<!--                                app:iconGravity="textStart"-->
+<!--                                app:iconPadding="0dp"-->
+<!--                                app:rippleColor="@null"-->
+<!--                                app:iconTint="@color/orange" />-->
+
                     </LinearLayout>
 
                     <TextView
