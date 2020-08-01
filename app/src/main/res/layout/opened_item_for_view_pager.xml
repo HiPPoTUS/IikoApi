@@ -69,63 +69,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
-            android:backgroundTint="@android:color/transparent"
             android:paddingBottom="80dp"
             android:layout_marginTop="-23dp"
             android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-            <androidx.cardview.widget.CardView
+            <LinearLayout
+                android:background="@xml/r23"
+                android:backgroundTint="@color/white"
+                android:padding="16dp"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardPreventCornerOverlap="true"
-                app:contentPadding="16dp"
-                android:elevation="2dp"
-                app:cardElevation="2dp"
-                app:cardCornerRadius="23dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <TextView
+                    android:id="@+id/contains"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:textSize="15dp"/>
+
+                <LinearLayout
+                    android:id="@+id/info_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/contains"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textSize="15dp"/>
+                        android:id="@+id/weightInfo"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center_vertical|end"
+                        android:text="aaa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
 
-                    <LinearLayout
-                        android:id="@+id/info_bar"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/weightInfo"
-                            android:layout_marginEnd="16dp"
-                            android:gravity="center_vertical|end"
-                            android:text="aaa"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"/>
-
-                        <com.google.android.material.floatingactionbutton.FloatingActionButton
-                            android:id="@+id/info_button"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            app:elevation="3dp"
-                            android:src="@drawable/info_btn"
-                            android:layout_gravity="center_vertical|end"
-                            app:maxImageSize="30dp"
-                            android:outlineAmbientShadowColor="@android:color/transparent"
-                            android:outlineSpotShadowColor="@android:color/transparent"
-                            android:tintMode="multiply"
-                            app:backgroundTint="@android:color/transparent"
-                            app:fabCustomSize="40dp"
-                            app:rippleColor="@null"
-                            app:tint="@color/yellow" />
+                    <com.google.android.material.floatingactionbutton.FloatingActionButton
+                        android:id="@+id/info_button"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        app:elevation="3dp"
+                        android:src="@drawable/info_btn"
+                        android:layout_gravity="center_vertical|end"
+                        app:maxImageSize="30dp"
+                        android:outlineAmbientShadowColor="@android:color/transparent"
+                        android:outlineSpotShadowColor="@android:color/transparent"
+                        android:tintMode="multiply"
+                        app:backgroundTint="@android:color/transparent"
+                        app:fabCustomSize="40dp"
+                        app:rippleColor="@null"
+                        app:tint="@color/yellow" />
 
 <!--                            <com.google.android.material.button.MaterialButton-->
 <!--                                android:id="@+id/info_button2"-->
@@ -144,42 +136,127 @@
 <!--                                app:rippleColor="@null"-->
 <!--                                app:iconTint="@color/orange" />-->
 
-                    </LinearLayout>
+                </LinearLayout>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/back_of_the_hleb"
+                <LinearLayout
+                    android:id="@+id/back_of_the_hleb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@xml/r23"
+                    android:backgroundTint="@color/lightGrey"
+                    android:padding="5dp">
+
+                    <com.google.android.material.tabs.TabLayout
+                        android:id="@+id/group_modifier"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/lightGrey"
-                        app:cardCornerRadius="23dp"
-                        app:cardElevation="0dp"
-                        app:cardPreventCornerOverlap="true"
-                        app:cardUseCompatPadding="true"
-                        app:contentPadding="5dp">
+                        android:background="@android:color/transparent"
+                        app:tabGravity="fill"
+                        android:minWidth="0dp"
+                        app:tabIndicator="@xml/r18"
+                        app:tabIndicatorColor="@color/white"
+                        app:tabIndicatorFullWidth="true"
+                        app:tabIndicatorGravity="stretch"
+                        app:tabTextColor="@color/white"
+                        app:tabSelectedTextColor="@color/middleGrey"
+                        app:tabMode="fixed"
+                        app:tabRippleColor="@null" />
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp">
+                    <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                        android:id="@+id/price_for_lavash"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:ael_duration="200"
+                        app:ael_expanded="false"
+                        app:ael_interpolator="accelerate"
+                        app:ael_orientation="vertical">
 
                         <com.google.android.material.tabs.TabLayout
-                            android:id="@+id/group_modifier"
+                            android:id="@+id/tab_price"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@android:color/transparent"
-                            app:tabGravity="fill"
-                            android:minWidth="0dp"
-                            app:tabIndicator="@drawable/selected_tab"
-                            app:tabIndicatorColor="@color/white"
-                            app:tabIndicatorFullWidth="true"
-                            app:tabIndicatorGravity="stretch"
-                            app:tabTextColor="@color/white"
-                            app:tabSelectedTextColor="@color/middleGrey"
-                            app:tabMode="fixed"
-                            app:tabRippleColor="@null" />
-                    </androidx.cardview.widget.CardView>
+                            app:tabMode="fixed"/>
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="82340"-->
+<!--                                android:gravity="end" />-->
 
-                    <RelativeLayout
+                    </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+                </RelativeLayout>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/with_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="23dp"
+                    app:cardElevation="1dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="20dp">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/add_button"
+                            android:clickable="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="start|center_vertical"
+                            android:text="Добавить"
+                            android:layout_marginBottom="8dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:backgroundTint="@color/lightGrey"/>
+
+                        <TableLayout
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginTop="16dp"
+                            android:id="@+id/singled_modifier"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bez_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:backgroundTint="@color/white"
+                    app:cardCornerRadius="23dp"
+                    app:cardElevation="1dp"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <Button
+                            android:id="@+id/bez_button"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/lightGrey"
+                            android:gravity="start|center_vertical"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp"
+                            android:text="Убрать" />
+
                         <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                            android:id="@+id/price_for_lavash"
+                            android:id="@+id/expandableLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:ael_duration="200"
@@ -187,105 +264,16 @@
                             app:ael_interpolator="accelerate"
                             app:ael_orientation="vertical">
 
-                            <com.google.android.material.tabs.TabLayout
-                                android:id="@+id/tab_price"
+                            <TableLayout
+                                android:id="@+id/bez_modifier"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                app:tabMode="fixed"/>
-<!--                            <TextView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="82340"-->
-<!--                                android:gravity="end" />-->
+                                android:layout_marginTop="16dp" />
 
                         </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-                    </RelativeLayout>
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/with_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="23dp"
-                        app:cardElevation="1dp"
-                        app:cardPreventCornerOverlap="true"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <Button
-                                android:id="@+id/add_button"
-                                android:clickable="false"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="start|center_vertical"
-                                android:text="Добавить"
-                                android:layout_marginBottom="8dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:backgroundTint="@color/lightGrey"/>
-
-                            <TableLayout
-                                android:layout_marginHorizontal="8dp"
-                                android:layout_marginTop="16dp"
-                                android:id="@+id/singled_modifier"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/bez_group"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:backgroundTint="@color/white"
-                        app:cardCornerRadius="23dp"
-                        app:cardElevation="1dp"
-                        app:cardPreventCornerOverlap="true"
-                        app:cardUseCompatPadding="true">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <Button
-                                android:id="@+id/bez_button"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                android:backgroundTint="@color/lightGrey"
-                                android:gravity="start|center_vertical"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="Убрать" />
-
-                            <com.github.aakira.expandablelayout.ExpandableRelativeLayout
-                                android:id="@+id/expandableLayout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                app:ael_duration="200"
-                                app:ael_expanded="false"
-                                app:ael_interpolator="accelerate"
-                                app:ael_orientation="vertical">
-
-                                <TableLayout
-                                    android:id="@+id/bez_modifier"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp" />
-
-                            </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
 
@@ -472,7 +460,6 @@
         android:layout_alignParentBottom="true"
         app:cardPreventCornerOverlap="true"
         app:cardUseCompatPadding="false">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

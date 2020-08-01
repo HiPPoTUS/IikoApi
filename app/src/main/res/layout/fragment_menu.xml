@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="10dp"
             android:clipToPadding="false"
-            app:tabIndicator="@drawable/selected_tab"
+            app:tabIndicator="@xml/r23"
             app:tabIndicatorColor="@color/yellow"
             app:tabIndicatorFullWidth="true"
             app:tabIndicatorGravity="stretch"
