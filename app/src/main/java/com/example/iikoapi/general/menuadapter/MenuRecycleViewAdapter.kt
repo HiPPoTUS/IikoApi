@@ -11,15 +11,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
-import com.example.iikoapi.openedmenuitem.OpenedMenuItem
+import com.example.iikoapi.general.mods_prods
+import com.example.iikoapi.openedmenuitem.*
+import com.example.iikoapi.startapp.datatype.OrderItem
+import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.utils.setBadges
+import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.open_menu_item_for_recycler_view.view.*
+import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 
 class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
@@ -90,8 +96,15 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
             direct_button.text = product.price.toString()
 
             direct_button.setOnClickListener {
-
-//                order.addToOrder(orderItem)
+                var hleb= emptyList<Product>()
+                product.groupModifiers!!.forEach {
+                    if (it.modifierID == Ghleb[1]) hleb = mods_prods[it.modifierID]!!
+                    if (it.modifierID == GhlebPita[1]) hleb = mods_prods[it.modifierID]!!
+                }
+                val orderItem = OrderItem().fromProduct(product)
+                if (hleb.isNotEmpty())
+                    orderItem.modifiers.add(OrderItemModifier().fromProduct(hleb.elementAt(0)))
+                order.addToOrder(orderItem)
 
                 val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
                 toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)

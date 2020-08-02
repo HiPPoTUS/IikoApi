@@ -20,6 +20,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
 import com.example.iikoapi.general.GeneralActivity
 import com.example.iikoapi.general.mods_prods
+import com.example.iikoapi.startapp.datatype.Order
 import com.example.iikoapi.startapp.datatype.OrderItem
 import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.utils.setBadges
@@ -27,7 +28,11 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
-
+var order = Order()
+var Ghleb = listOf<String>("-лаваши без питы","840b1dc1-d18e-4cfb-8250-fd86eb59b9ea")
+var GhlebPita = listOf<String>("-лаваши с питой","1fc607d6-5075-446a-bdea-58db6b2c5a29")
+var Gbez = listOf<String>("---БЕЗ---","932f004d-0b8a-44c5-b8f7-8f86056e8d93")
+var Gjalapeno = listOf<String>("Все Допы","40973942-4a1a-4aa2-b37d-e6f2a9eb519e")
 
 class OpenItemFragment (private val contextMy: Context, var product: Product, var commonPosition : Int) : Fragment()
 {
