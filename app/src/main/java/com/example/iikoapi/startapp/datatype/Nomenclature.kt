@@ -142,7 +142,7 @@ data class Product (
     val groupModifiers: List<GroupModifier>? = null,
     val measureUnit: String? = null,
     val modifiers: List<Modifier>? = null,
-    val price: Long? = null,
+    val price: Int? = null,
 
     @get:JsonProperty("productCategoryId")@field:JsonProperty("productCategoryId")
     val productCategoryID: String? = null,

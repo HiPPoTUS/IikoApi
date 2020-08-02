@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.children
+import androidx.core.view.forEach
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -19,8 +21,10 @@ import com.example.iikoapi.R
 import com.example.iikoapi.general.GeneralActivity
 import com.example.iikoapi.general.mods_prods
 import com.example.iikoapi.startapp.datatype.OrderItem
+import com.example.iikoapi.startapp.datatype.OrderItemModifier
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.modifier_item.view.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
@@ -61,22 +65,20 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
 
 
         var hleb= emptyList<Product>()
-        var hlebP= emptyList<Product>()
         var bez= emptyList<Product>()
-        val jalapenos= mods_prods.values.elementAt(0)
+        var jalapenos= emptyList<Product>()
+        if (currentItem.seoText=="1")
+            jalapenos = mods_prods.values.elementAt(0)
         currentItem.groupModifiers!!.forEach {
             if (it.modifierID == Ghleb[1]) hleb = mods_prods[it.modifierID]!!
-            if (it.modifierID == GhlebPita[1]) hlebP = mods_prods[it.modifierID]!!
+            if (it.modifierID == GhlebPita[1]) hleb = mods_prods[it.modifierID]!!
             if (it.modifierID == Gbez[1]) bez = mods_prods[it.modifierID]!!
         }
 
         if (bez.isEmpty()) myView.bez_group.visibility=View.GONE else showModifiers(bez, myView.bez_modifier, contextMy, "BEZ")
         if (jalapenos.isEmpty()) myView.with_group.visibility=View.GONE else showModifiers(jalapenos, myView.singled_modifier, contextMy, "DOBAVIT")
-        if (hleb.isEmpty() && hlebP.isEmpty()) {myView.back_of_the_hleb.visibility=View.GONE
+        if (hleb.isEmpty()) {myView.back_of_the_hleb.visibility=View.GONE
             myView.group_modifier.visibility=View.GONE}
-        else if (hleb.isEmpty()) {
-            showGroupModifier(hlebP, myView.group_modifier, contextMy, myView.tab_price)
-        }
         else {
             showGroupModifier(hleb, myView.group_modifier, contextMy, myView.tab_price)
         }
@@ -88,7 +90,7 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
             override fun onTabUnselected(tab: TabLayout.Tab?) {
             }
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab!!.text == "-ЛАВАШ СЫРНЫЙ") myView.price_for_lavash.expand()
+                if(hleb[tab!!.position]!!.price != 0) myView.price_for_lavash.expand()
                 else myView.price_for_lavash.collapse()
             }
         })
@@ -96,14 +98,14 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
 
         myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
         myView.RL.setOnTouchListener { _, _ ->
-            myView.info_card.animate().alpha(0f).duration = 100
+            myView.info_fragment_RL.animate().alpha(0f).duration = 100
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
             true
         }
 
         myView.info_button.setOnClickListener {
             showInfo(myView.info_fragment_RL)
-            myView.info_card.animate().alpha(1f).duration = 100
+            myView.info_fragment_RL.animate().alpha(1f).duration = 100
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(
                 RelativeLayout.LayoutParams.MATCH_PARENT,
                 RelativeLayout.LayoutParams.MATCH_PARENT))
@@ -118,9 +120,15 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
 
         myView.to_basket_button.setOnClickListener {
             val orderItem = OrderItem().fromProduct(currentItem)
-
+            if (jalapenos.isNotEmpty())
+                orderItem.modifiers.add(OrderItemModifier().fromProduct(jalapenos[myView.group_modifier.selectedTabPosition]))
+            if (hleb.isNotEmpty())
+                orderItem.modifiers.add(OrderItemModifier().fromProduct(hleb[myView.group_modifier.selectedTabPosition]))
+            if (bez.isNotEmpty())
+                myView.bez_modifier.children.forEach {
+                if (it.check_box.isChecked) orderItem.modifiers.add(OrderItemModifier().fromProduct(bez[myView.bez_modifier.indexOfChild(it)]))
+                }
             order.addToOrder(orderItem)
-
             val toast = Toast.makeText(contextMy, "Добавлено в корзину", Toast.LENGTH_SHORT)
             toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
             toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
@@ -163,10 +171,10 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
         var index = -1
         for(x in data.indices){
             lavashLayout.addTab(lavashLayout.newTab().setText(data[x].name))
-            if(data[x].name == "-ЛАВАШ СЫРНЫЙ") {
+            if(data[x].price != 0) {
                 index = x
                 val tab = tabLayout.newTab()
-                tab.text = "2323"
+                tab.text = data[x].price.toString()
                 tabLayout.addTab(tab)
             }
             else tabLayout.addTab(tabLayout.newTab().setText(""))

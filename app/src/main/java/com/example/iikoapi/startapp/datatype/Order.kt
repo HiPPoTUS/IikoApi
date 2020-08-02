@@ -210,13 +210,13 @@ data class OrderItemModifier(
         0
     )
 
-    fun fromProduct(product: Product, groupName: List<String?>):OrderItemModifier{
+    fun fromProduct(product: Product):OrderItemModifier{
         this.id = product.id
         this.name = product.name
         this.price = product.price!!.toInt()
         this.amount = 0
-        this.groupId = groupName[1]
-        this.groupName = groupName[0]
+        this.groupId = product.groupID
+        this.groupName = null
         return this
     }
 }

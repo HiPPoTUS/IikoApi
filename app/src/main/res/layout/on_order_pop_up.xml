@@ -76,6 +76,7 @@
         <EditText
             android:id="@+id/ulica"
             android:gravity="fill"
+            android:autofillHints=".AUTOFILL_HINT_POSTAL_ADDRESS_STREET_ADDRESS"
             android:paddingHorizontal="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toStartOf="parent"

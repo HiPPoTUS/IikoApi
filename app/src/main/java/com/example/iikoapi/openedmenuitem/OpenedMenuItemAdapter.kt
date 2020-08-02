@@ -93,14 +93,14 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
 
             myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
             myView.RL.setOnTouchListener { _, _ ->
-                myView.info_card.animate().alpha(0f).duration = 100
+                myView.info_fragment_RL.animate().alpha(0f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(0,0))
                 true
             }
 
             myView.info_button.setOnClickListener {
                 showInfo(myView.info_fragment_RL,position)
-                myView.info_card.animate().alpha(1f).duration = 100
+                myView.info_fragment_RL.animate().alpha(1f).duration = 100
                 myView.RL.layoutParams = (RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,RelativeLayout.LayoutParams.MATCH_PARENT))
             }
 
