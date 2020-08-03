@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.fragment_menu.*
 import kotlinx.android.synthetic.main.menu_recycler_view.*
 import com.example.iikoapi.startapp.menu
 import kotlinx.android.synthetic.main.activity_start.*
+import kotlinx.android.synthetic.main.on_order_pop_up.*
 
 lateinit var bottoNnavigationView : BottomNavigationView
 lateinit var men:List<Group>
@@ -52,7 +53,7 @@ class GeneralActivity : AppCompatActivity() {
                 R.id.acces_menu -> {selectedFragment = MenuFragment(0, this); TAG = "1"}
                 R.id.contacts -> {selectedFragment = ContactsFragment(this); TAG = "2"}
                 R.id.profile ->{ selectedFragment = ProfileFragment(); TAG = "3"}
-                R.id.basket ->{ selectedFragment = BasketFragment(this, navigationView); TAG = "4"}
+                R.id.basket ->{ selectedFragment = BasketFragment(this, navigationView, payment); TAG = "4"}
 
             }
 

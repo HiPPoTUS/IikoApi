@@ -55,11 +55,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/clear_basket"
+                android:id="@+id/pay_go_to_menu"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Очистить карзину"
+                android:text="Оплатить"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 app:backgroundTint="@color/yellow"

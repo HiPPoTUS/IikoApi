@@ -4,4 +4,5 @@
     <string name="title_activity_start">StartActivity</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_maps">Map</string>
+    <string name="publicId">test_api_00000000000000000000001</string>
 </resources>
