@@ -2,23 +2,23 @@ package com.example.iikoapi.general
 
 import Group
 import Product
+import android.app.Activity
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.animation.AnimationUtils
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.FragmentActivity
 import com.example.iikoapi.R
+import com.example.iikoapi.startapp.menu
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_general.*
-import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.android.synthetic.main.menu_recycler_view.*
-import com.example.iikoapi.startapp.menu
-import kotlinx.android.synthetic.main.activity_start.*
 import kotlinx.android.synthetic.main.on_order_pop_up.*
 
 lateinit var bottoNnavigationView : BottomNavigationView
@@ -82,6 +82,11 @@ class GeneralActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 
+        if(BottomSheetBehavior.from(payment).state == BottomSheetBehavior.STATE_EXPANDED){
+            BottomSheetBehavior.from(payment).state = BottomSheetBehavior.STATE_COLLAPSED
+            return
+        }
+
         if(supportFragmentManager.findFragmentById(R.id.fragment_container) == supportFragmentManager.findFragmentByTag("1")) {
             this.finishAffinity()
             super.onBackPressed()}
@@ -93,6 +98,11 @@ class GeneralActivity : AppCompatActivity() {
             commit()
 
         navigationView.menu.getItem(0).isChecked = true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
 

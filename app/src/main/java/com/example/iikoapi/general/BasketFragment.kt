@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,7 +38,7 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 if(bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED)
-                    hideKeyboard(activity!!)
+                    hideKeyboard(contextMy as AppCompatActivity)
             }
         })
 
@@ -75,7 +76,7 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
         return view
     }
 
-    fun hideKeyboard(activity: FragmentActivity) {
+    fun hideKeyboard(activity: AppCompatActivity) {
         val imm: InputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
         var view = activity.currentFocus
