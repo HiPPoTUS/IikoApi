@@ -6,11 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
@@ -21,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 
-class BasketFragment(var contextMy : Context, var  navView : BottomNavigationView, var payment : ConstraintLayout) : Fragment() {
+class BasketFragment(var contextMy : Context, var  navView : BottomNavigationView, var payment : RelativeLayout) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
 
@@ -29,6 +30,16 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
         val pay_go_to_menu = view.findViewById<Button>(R.id.pay_go_to_menu)
         val text_empty_basket = view.findViewById<TextView>(R.id.text_empty_basket)
         val bottomSheetBehavior = BottomSheetBehavior.from(payment)
+
+        bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if(bottomSheetBehavior.state == BottomSheetBehavior.STATE_COLLAPSED)
+                    hideKeyboard(activity!!)
+            }
+        })
 
         if(order.items.isEmpty())
             pay_go_to_menu.text = "Вернуться в меню"
@@ -60,7 +71,19 @@ class BasketFragment(var contextMy : Context, var  navView : BottomNavigationVie
             }
         }
 
+
         return view
+    }
+
+    fun hideKeyboard(activity: FragmentActivity) {
+        val imm: InputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
 }
