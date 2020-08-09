@@ -2,17 +2,12 @@ package com.example.iikoapi.general
 
 import Group
 import Product
-import android.app.Activity
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.view.WindowManager
-import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.menu
 import com.example.iikoapi.utils.setBadges

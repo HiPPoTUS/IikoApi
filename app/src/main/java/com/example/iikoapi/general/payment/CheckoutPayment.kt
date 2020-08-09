@@ -1,6 +1,7 @@
 package com.example.iikoapi.general.payment
 
 import android.app.Activity
+import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -23,8 +24,8 @@ class CheckoutPayment(val context: Activity) : ThreeDSDialogListener{
     private lateinit var cardType : String
     private lateinit var bankName : String
 
-    fun init(){
 
+    fun init(){
 //        cardType = CPCard(cardNumber, cardDate, cardCVC).type
 //        val api = CPCardApi(context)
         // GOOGLE PAY
