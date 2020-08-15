@@ -2,6 +2,7 @@ package com.example.iikoapi.general
 
 import android.app.Activity
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -46,8 +47,8 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         val CN_Watcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (CPCard.isValidNumber(s.toString()))
-                    cn_text.setBackgroundColor(Color.GREEN)
-                else cn_text.setBackgroundColor(Color.RED)
+                    cn_text.backgroundTintList = contextMy.getColorStateList(R.color.yellow)
+                else cn_text.backgroundTintList = contextMy.getColorStateList(R.color.orange)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
@@ -71,8 +72,8 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
             }
             override fun afterTextChanged(s: Editable?) {
                 if (CPCard.isValidExpDate(s.toString()))
-                    cd_text.setBackgroundColor(Color.GREEN)
-                else cd_text.setBackgroundColor(Color.RED)
+                    cd_text.backgroundTintList = contextMy.getColorStateList(R.color.yellow)
+                else cd_text.backgroundTintList = contextMy.getColorStateList(R.color.orange)
             }
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }

@@ -176,6 +176,7 @@
 
         <EditText
             android:id="@+id/edit_card_holder_name"
+
             android:gravity="fill"
             android:paddingHorizontal="16dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -190,11 +191,14 @@
     <ImageView
         android:id="@+id/Banklogo"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.05"
         app:layout_constraintTop_toBottomOf="@id/cu_payments"
         app:layout_constraintBottom_toTopOf="@id/check_pay"/>
+
     <Button
         android:id="@+id/check_pay"
         android:layout_width="200dp"
