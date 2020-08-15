@@ -7,8 +7,10 @@ import android.os.Build
 import android.util.Log
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dodocopy.dataTypes.Address
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.DialogFragmentErrorSavedata
+import com.example.iikoapi.startapp.datatype.OrderRequest
 import com.example.iikoapi.startapp.datatype.OrganisationInfo
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,8 +27,43 @@ class Iiko(context:Context, provider: NetworkService, pb:ProgressBar?){
     private var token:String? = null
     private var organisationInfo: OrganisationInfo? = null
 
+
+
     fun addProgressBar(pb:ProgressBar){
         progressBar = pb
+    }
+
+    fun check_order(order:OrderRequest):Int {
+        val call = local_provider.check_order(token, order)
+        var hm = 0
+        call.enqueue(object : Callback<OrderChecksCreationResult> {
+            override fun onFailure(call: Call<OrderChecksCreationResult>, t: Throwable) {
+            }
+            override fun onResponse(
+                call: Call<OrderChecksCreationResult>,
+                response: Response<OrderChecksCreationResult>
+            ) {
+                hm = response.body()!!.resultState
+            }
+        })
+        return hm
+    }
+
+    fun check_address(addr:Address):Boolean {
+        val call = local_provider.check_delivery(token,organisationInfo!!.id, addr)
+        var hm = false
+        call.enqueue(object : Callback<AddressCheckResult> {
+            override fun onFailure(call: Call<AddressCheckResult>, t: Throwable) {
+
+            }
+            override fun onResponse(
+                call: Call<AddressCheckResult>,
+                response: Response<AddressCheckResult>
+            ) {
+                hm = response.body()!!.addressInZone
+            }
+        })
+        return hm
     }
 
     fun authentication() {
@@ -41,21 +78,21 @@ class Iiko(context:Context, provider: NetworkService, pb:ProgressBar?){
 
     fun getRestrictions(){
         val call = local_provider.restrictions(token, organisationInfo!!.id)!!
-        call.enqueue(object: Callback<DeliveryRestrictionsResponse?> {
-            override fun onFailure(call: Call<DeliveryRestrictionsResponse?>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onResponse(call: Call<DeliveryRestrictionsResponse?>, response: Response<DeliveryRestrictionsResponse?>) {
-                deliveryRestrictionsResponse = response.body()!!
-            }
-        })
+        deliveryRestrictionsResponse = call.execute().body()!!
+//        call.enqueue(object: Callback<DeliveryRestrictionsResponse?> {
+//            override fun onFailure(call: Call<DeliveryRestrictionsResponse?>, t: Throwable) {
+//            }
+//
+//            override fun onResponse(call: Call<DeliveryRestrictionsResponse?>, response: Response<DeliveryRestrictionsResponse?>) {
+//                deliveryRestrictionsResponse = response.body()!!
+//            }
+//        })
     }
 
     fun getMenu(){
         val call = local_provider.menu(organisationInfo!!.id, token)!!
         menuResponse = call.execute().body()!!
-        Log.d("menu",menuResponse.revision.toString())
+        Log.d("menu",call.request().url().toString())
     }
 
     fun bad(){

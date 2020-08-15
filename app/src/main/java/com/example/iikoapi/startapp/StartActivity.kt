@@ -63,3 +63,4 @@ class dat(var iiko : Iiko, var context: Context, var progressBar: ProgressBar) :
         context.startActivity(Intent(context, GeneralActivity::class.java))
     }
 }
+

@@ -2,8 +2,10 @@ package com.example.iikoapi.general
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -12,20 +14,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.dodocopy.dataTypes.Address
 import com.example.iikoapi.R
 import com.example.iikoapi.general.basketadapter.BasketRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.order
+import com.example.iikoapi.startapp.menu
+import com.example.iikoapi.startapp.networking.Iiko
+import com.example.iikoapi.startapp.networking.NetworkService
 import com.example.iikoapi.utils.Decorations
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -35,6 +39,7 @@ import ru.cloudpayments.sdk.cp_card.api.CPCardApi
 
 class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val iiko = Iiko(contextMy,provider = NetworkService.instance!!,pb = null)
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
         val api = CPCardApi(contextMy)
         val recyclerViewForBasket = view.findViewById<RecyclerView>(R.id.recycler_view_for_basket)
@@ -44,6 +49,8 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         val cn_text = payment.findViewById<EditText>(R.id.edit_card_number)
         val cd_text = payment.findViewById<EditText>(R.id.edit_card_date)
         val cvc_text = payment.findViewById<EditText>(R.id.edit_card_cvc)
+        val contacts = payment.findViewById<LinearLayout>(R.id.cu_contacts)
+        val addr = payment.findViewById<LinearLayout>(R.id.cu_address)
         val CN_Watcher = object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (CPCard.isValidNumber(s.toString()))
@@ -119,8 +126,7 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
 
         pay_go_to_menu.setOnClickListener {
             if(order.items.isNotEmpty()) {
-                if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
-                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED;
+                dat(iiko, contextMy, bottomSheetBehavior).execute()
             }
             else {
                 navView.menu.getItem(0).isChecked = true
@@ -144,5 +150,17 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         }
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
+}
 
+class dat(var iiko : Iiko, var context: Context, var btsh: BottomSheetBehavior<ConstraintLayout>) : AsyncTask<Void, Void, Void>() {
+    override fun doInBackground(vararg params: Void?): Void? {
+        iiko.authentication()
+        iiko.getOrganisation(0)
+        return null
+    }
+    override fun onPostExecute(result: Void?) {
+        super.onPostExecute(result)
+        if (btsh.state != BottomSheetBehavior.STATE_EXPANDED)
+            btsh.state = BottomSheetBehavior.STATE_EXPANDED
+    }
 }

@@ -74,10 +74,6 @@ data class MenuResponse (
 //    }
 }
 
-data class OrgsResponse(
-    var organisations: List<OrganisationInfo>
-)
-
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class DeliveryRestrictionsResponse(
     var deliveryRegionsMapUrl: String? /*Ссылка на карту регионов обслуживания доставки*/,
@@ -91,4 +87,30 @@ data class DeliveryRestrictionsResponse(
     var useSameRestructionsOnAllWeek: Boolean? /*bool Признак того, что ограничения работы точек распространяются на все дни недели.**/,
     var restrictions: List<DeliveryRestrictionItem>? /*DeliveryRestrictionItem[] Привязки ресторанов к зонам доставки*/,
     var deliveryZones: List<DeliveryZone>? /*DeliveryZone[] Список доставочных зон из Яндекс.Карт*/
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+ data class AddressCheckResult(
+     var addressInZone: Boolean
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class OrderChecksCreationResult(
+    var deliveryRestriction: DeliveryRestrictionItem, //Сработавшее ограничение (в случае, если удалось найти точку, которая может обработать заказ)
+    var problem: String, //Описание ошибки (в случае, если доставка не может быть обработана рестораном)
+    var resultState: Int, /*Результат проверки:
+Success = 0 (Доставка была успешна распределена),
+RejectByMinSum = 1 (Доставка отвергнута по
+минимальной сумме заказа),
+RejectByWorkTime = 2 (Доставка отвергнута по
+времени работы заведения),
+RejectByZone = 3 (Доставка отвергнута по причине
+отсутсвия подходящей зоны. Возможные причины:
+адрес не отгеокодирован, адрес не входит не в одну из
+зон, адрес не был найден (в RMS)),
+RejectByStopList = 4 (Продукт из заказа находятся в
+стоп-листе),
+RejectByPriceList = 5. (Продукт из заказа запрещен к
+продаже)*/
+    var deliveryServiceProductInfo: DeliveryServiceProductInfo //Дополнительная плата за доставку.
 )

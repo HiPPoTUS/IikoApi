@@ -21,3 +21,9 @@ data class CoordinatesInfo(
     var latitude: Double,// decimal Широта *
     var longitude: Double// decimal Долгота *
 )
+
+data class DeliveryServiceProductInfo(
+    var productId: String,// Идентификатор продукта.
+    var productSum: Int, //Дополнительная плата за доставку.
+    var productName: String //Название продукта.
+)

@@ -19,12 +19,12 @@ data class Address(
     var externalCartographyId: String? /* string Идентификатор адреса во внешней картографической системе 255*/,
     var index: String? /* string Индекс улицы в адресе, если есть 255*/
 ){
-    constructor():this(
+    constructor(city:String,street: String,home: String):this(
+        city,
+        street,
         null,
         null,
-        null,
-        null,
-        null,
+        home,
         null,
         null,
         null,
