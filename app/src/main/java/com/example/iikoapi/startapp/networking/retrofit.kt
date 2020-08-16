@@ -1,10 +1,7 @@
 package com.example.iikoapi.startapp.networking
 
 import android.location.Address
-import com.example.iikoapi.startapp.datatype.DeliveryTerminal
-import com.example.iikoapi.startapp.datatype.OrderInfo
-import com.example.iikoapi.startapp.datatype.OrderRequest
-import com.example.iikoapi.startapp.datatype.OrganisationInfo
+import com.example.iikoapi.startapp.datatype.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -56,5 +53,13 @@ interface IIKO_API {
         @Query("organizationId") org: String?,
         @Body addr: com.example.dodocopy.dataTypes.Address
     ):Call<AddressCheckResult>
+}
+
+interface PayMethods {
+    @POST("cp_charge.php")
+    fun charge(
+        @Header("Content-Type") contentType:String,
+        @Body args:PayRequestArgs
+    ):Call<Transaction>
 }
 

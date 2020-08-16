@@ -13,10 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
 import com.example.iikoapi.R
 import com.example.iikoapi.general.GeneralActivity
-import com.example.iikoapi.startapp.networking.DeliveryRestrictionsResponse
-import com.example.iikoapi.startapp.networking.Iiko
-import com.example.iikoapi.startapp.networking.MenuResponse
-import com.example.iikoapi.startapp.networking.NetworkService
+import com.example.iikoapi.startapp.networking.*
 import kotlinx.android.synthetic.main.activity_start.*
 import kotlin.concurrent.thread
 
@@ -25,7 +22,7 @@ lateinit var menu: MenuResponse
 lateinit var restr: DeliveryRestrictionsResponse
 class StartActivity : AppCompatActivity() {
 
-    val iiko = Iiko(this,provider = NetworkService.instance!!,pb = null)
+    val iiko = Iiko(this,provider = iiko_NetworkService.instance!!,pb = null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

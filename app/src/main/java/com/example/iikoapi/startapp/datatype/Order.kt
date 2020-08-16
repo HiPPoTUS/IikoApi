@@ -190,7 +190,6 @@ data class OrderItem(
         }
         sum = saveSum*amount+modifSum
     }
-
 }
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class OrderItemModifier(

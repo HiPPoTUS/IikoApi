@@ -29,7 +29,7 @@ import com.example.iikoapi.general.basketadapter.BasketRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.order
 import com.example.iikoapi.startapp.menu
 import com.example.iikoapi.startapp.networking.Iiko
-import com.example.iikoapi.startapp.networking.NetworkService
+import com.example.iikoapi.startapp.networking.iiko_NetworkService
 import com.example.iikoapi.utils.Decorations
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -39,7 +39,7 @@ import ru.cloudpayments.sdk.cp_card.api.CPCardApi
 
 class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val iiko = Iiko(contextMy,provider = NetworkService.instance!!,pb = null)
+        val iiko = Iiko(contextMy,provider = iiko_NetworkService.instance!!,pb = null)
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
         val api = CPCardApi(contextMy)
         val recyclerViewForBasket = view.findViewById<RecyclerView>(R.id.recycler_view_for_basket)
