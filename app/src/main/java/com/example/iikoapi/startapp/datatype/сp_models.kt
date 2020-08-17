@@ -1,7 +1,8 @@
 package com.example.iikoapi.startapp.datatype
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 data class Transaction (
     @JsonProperty("TransactionId")
     var id: String? = null,
@@ -19,7 +20,7 @@ data class Transaction (
 data class PayRequestArgs (
     @JsonProperty("amount")
     var amount // Сумма платежа (Обязательный)
-            : String? = null,
+            : Int? = null,
     @JsonProperty("currency")
     var currency // Валюта (Обязательный)
             : String? = null,
@@ -41,4 +42,42 @@ data class PayRequestArgs (
     @JsonProperty("json_data")
     var jsonData // Любые другие данные, которые будут связаны с транзакцией (необязательный)
             : String? = null
+){
+    constructor(sum:Int, name:String, crypt:String) : this(
+        sum,
+        "RUB",
+        name,
+        crypt,
+        null,
+        "Заказ",
+        null,
+        null
+    )
+}
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class PayApiResponse<T> (
+    @JsonProperty("Success")
+    var success:Boolean,
+    @JsonProperty("Message")
+    var message:String,
+    @JsonProperty("Model")
+    var data:T?
+) {
+    fun isSuccess():Boolean
+    {
+        if (success == false && data == null)
+            return false;
+        else if (success == false && data != null)
+            return true;
+        else
+            return success;
+    }
+}
+
+data class Post3dsRequestArgs (
+    @JsonProperty("transaction_id")
+    var transactionId: String? = null,
+    @JsonProperty("pa_res")
+    var paRes: String? = null
+
 )

@@ -60,6 +60,12 @@ interface PayMethods {
     fun charge(
         @Header("Content-Type") contentType:String,
         @Body args:PayRequestArgs
-    ):Call<Transaction>
+    ):Call<PayApiResponse<Transaction>>
+
+    @POST("cp_post3ds.php")
+    fun post3ds(
+        @Header("Content-Type") contentType:String,
+        @Body args:Post3dsRequestArgs
+    ):Call<PayApiResponse<Transaction>>
 }
 
