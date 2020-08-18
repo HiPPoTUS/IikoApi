@@ -44,7 +44,8 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
         payment.setOnClickListener {
             hideKeyboard(this)
         }
-        PaymentFragment(this)
+        val paymentFragment = PaymentFragment(this)
+        paymentFragment.initViews()
 
         if (intent.getIntExtra("back_from", 0) != 0)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0), this), "1").commit()
