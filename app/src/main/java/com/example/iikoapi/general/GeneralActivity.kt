@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.menu
+import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -31,6 +32,10 @@ class GeneralActivity : AppCompatActivity() {
         setContentView(R.layout.activity_general)
         bottoNnavigationView = findViewById(R.id.navigationView)
         setBadges()
+        payment.setOnClickListener {
+            hideKeyboard(this)
+        }
+        PaymentFragment(this)
 
         if (intent.getIntExtra("back_from", 0) != 0)
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0), this), "1").commit()
@@ -52,7 +57,7 @@ class GeneralActivity : AppCompatActivity() {
 
             }
 
-            var fragmentTag = supportFragmentManager.findFragmentById(R.id.fragment_container)!!.tag
+            val fragmentTag = supportFragmentManager.findFragmentById(R.id.fragment_container)!!.tag
             if(fragmentTag != TAG) {
                 if(fragmentTag!!.toInt() > TAG.toInt())
                     fragmentTransaction.setCustomAnimations(R.anim.enter_anim_left,R.anim.exit_anim_left)

@@ -15,17 +15,17 @@ import com.example.iikoapi.general.contacts.MapsActivity
 import com.example.iikoapi.startapp.restr
 import com.google.android.gms.maps.model.LatLng
 
-class ContactsFragment(var contextGeneral: Context) : Fragment() {
+class ContactsFragment(private var contextGeneral: Context) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater.inflate(R.layout.fragment_contacts, container, false)
+        val view = inflater.inflate(R.layout.fragment_contacts, container, false)
 
-        var mapsButton = view.findViewById<Button>(R.id.maps_button)
-        var zones = restr.deliveryZones?.get(0)?.coordinates?.get(0)
+        val mapsButton = view.findViewById<Button>(R.id.maps_button)
+//        var zones = restr.deliveryZones?.get(0)?.coordinates?.get(0)
 //        Log.d("tag", zones.toString())
 //        Log.d("tag", ret().toString())
-        mapsButton.setOnClickListener {
-            startActivity(Intent(contextGeneral, MapsActivity::class.java))
-        }
+//        mapsButton.setOnClickListener {
+//            startActivity(Intent(contextGeneral, MapsActivity::class.java))
+//        }
 
         return view
     }
