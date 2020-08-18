@@ -109,7 +109,7 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
                 val card = CPCard(cn_text.text.toString(), cd_text.text.toString(), cvc_text.text.toString())
                 val type = card.getType()
                 val crypt = card.cardCryptogram("test_api_00000000000000000000002") // ASAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!!!!!tention!!!!!!!!!!!!!!!!
-                val req = PayRequestArgs(10,chn_text.text.toString() ,crypt)
+                val req = PayRequestArgs(999,chn_text.text.toString(),crypt)
                 val payment = pay(cp,req)
                 payment.execute()
             }
@@ -189,7 +189,9 @@ class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, Void>() {
                 val sd3 = post3ds(cp,req3ds)
                 sd3.execute()
             }
+            else Log.d("SSSCCCSSS","SSS")
         }
+        else Log.d("FFFFFLLL",resp.toString())
     }
 }
 

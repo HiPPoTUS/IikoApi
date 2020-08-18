@@ -1,5 +1,6 @@
 package com.example.iikoapi.startapp.datatype
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonProperty
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -7,7 +8,7 @@ data class Transaction (
     @JsonProperty("TransactionId")
     var id: String? = null,
     @JsonProperty("ReasonCode")
-    var reasonCode: Int = 0,
+    var reasonCode: Int? = 0,
     @JsonProperty("CardHolderMessage")
     var cardHolderMessage: String? = null,
     // 3DS Begin
@@ -17,6 +18,7 @@ data class Transaction (
     var acsUrl: String? = null
 )
 
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 data class PayRequestArgs (
     @JsonProperty("amount")
     var amount // Сумма платежа (Обязательный)
@@ -59,7 +61,7 @@ data class PayApiResponse<T> (
     @JsonProperty("Success")
     var success:Boolean,
     @JsonProperty("Message")
-    var message:String,
+    var message:String?,
     @JsonProperty("Model")
     var data:T?
 ) {
@@ -73,7 +75,7 @@ data class PayApiResponse<T> (
             return success;
     }
 }
-
+@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 data class Post3dsRequestArgs (
     @JsonProperty("transaction_id")
     var transactionId: String? = null,

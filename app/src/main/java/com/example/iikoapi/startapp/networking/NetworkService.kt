@@ -1,5 +1,7 @@
 package com.example.iikoapi.startapp.networking
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.ObjectMapper
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
@@ -34,7 +36,7 @@ class cp_NetworkService private constructor() {
 
     companion object {
         private var mInstance: cp_NetworkService? = null
-        private const val BASE_URL = "http://localhost:80/"
+        private const val BASE_URL = "http://192.168.0.100:80/"
         val instance: cp_NetworkService?
             get() {
                 if (mInstance == null) {
