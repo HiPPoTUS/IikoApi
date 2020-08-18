@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
 import com.example.iikoapi.startapp.menu
-import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -24,7 +23,8 @@ lateinit var menu_prods:MutableMap<String,List<Product>>
 lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
 
-class GeneralActivity : AppCompatActivity() {
+class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
+    val cp = CP(cp_NetworkService.instance!!)
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -105,5 +105,19 @@ class GeneralActivity : AppCompatActivity() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
 
+    override fun onAuthorizationCompleted(md: String?, paRes: String?) {
+        val tmp = post3ds(cp, Post3dsRequestArgs(md,paRes)).execute().get()
+        Log.d("transms", tmp.cardHolderMessage.toString() )
+    }
 
+    override fun onAuthorizationFailed(html: String?) {
+        Toast.makeText(this,"AuthorizationFailed: " + html, Toast.LENGTH_LONG).show();
+    }
+
+    fun show3DS(trans: Transaction) {
+        ThreeDsDialogFragment.newInstance(trans.acsUrl,
+            trans.id,
+            trans.paReq)
+            .show(getSupportFragmentManager(), "3DS");
+    }
 }

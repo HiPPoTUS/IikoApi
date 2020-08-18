@@ -3,8 +3,6 @@ package com.example.iikoapi.general
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -17,7 +15,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -33,7 +30,6 @@ import com.example.iikoapi.startapp.networking.CP
 import com.example.iikoapi.startapp.networking.Iiko
 import com.example.iikoapi.startapp.networking.NetworkService
 import com.example.iikoapi.utils.Decorations
-import com.example.iikoapi.utils.hideKeyboard
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.cloudpayments.sdk.cp_card.CPCard
@@ -47,9 +43,7 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
     val cp = CP(cp_NetworkService.instance!!)
     val iiko = Iiko(contextMy,provider = iiko_NetworkService.instance!!,pb = null)
 
-class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val iiko = Iiko(contextMy,provider = NetworkService.instance!!,pb = null)
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
         val api = CPCardApi(contextMy)
         val recyclerViewForBasket = view.findViewById<RecyclerView>(R.id.recycler_view_for_basket)
@@ -98,8 +92,6 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         }
         cd_text.addTextChangedListener(CD_Watcher)
         cn_text.addTextChangedListener(CN_Watcher)
-        recyclerViewForBasket.visibility = View.GONE
-
         bottomSheetBehavior.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {
             }
@@ -126,13 +118,13 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
                 }
             }
 
-        if(order.items.isEmpty()) {
-            recyclerViewForBasket.visibility = View.GONE
+        }
+
+        if(order.items.isEmpty())
             pay_go_to_menu.text = "Вернуться в меню"
         else {
             text_empty_basket.alpha = 0f
             pay_go_to_menu.text = "Оплатить"
-            recyclerViewForBasket.visibility = View.VISIBLE
         }
 
         val recyclerViewAdapterForBasket = BasketRecycleViewAdapter(pay_go_to_menu, text_empty_basket)
@@ -199,13 +191,13 @@ class dat(var iiko : Iiko, var context: Context, var btsh: BottomSheetBehavior<C
     }
 }
 
-class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, Transaction>() {
+class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, PayApiResponse<Transaction>>() {
     lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): Transaction? {
+    override fun doInBackground(vararg params: Void?): PayApiResponse<Transaction>? {
         resp = cp.pay(req)
-        return resp.data
+        return resp
     }
-    override fun onPostExecute(result: Transaction?) {
+    override fun onPostExecute(result: PayApiResponse<Transaction>?) {
         super.onPostExecute(result)
     }
 }
