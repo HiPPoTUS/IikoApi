@@ -9,11 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.dodocopy.dataTypes.Address
 import com.example.iikoapi.startapp.DialogFragmentErrorSavedata
 import com.example.iikoapi.startapp.datatype.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class Iiko(context:Context, provider: iiko_NetworkService, pb:ProgressBar?){
+class Iiko(context:Context, provider: IikoNetworkService, pb:ProgressBar?){
 
     private lateinit var progressBar: ProgressBar
     lateinit var deliveryRestrictionsResponse: DeliveryRestrictionsResponse
@@ -106,7 +103,7 @@ class Iiko(context:Context, provider: iiko_NetworkService, pb:ProgressBar?){
     }
 }
 
-class CP(provider: cp_NetworkService){
+class CP(provider: CpNetworkService){
     private val local_provider = provider.cpApi
     private val CONTENT_TYPE = "application/json"
 

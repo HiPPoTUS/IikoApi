@@ -8,13 +8,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
-import com.example.iikoapi.general.bottoNnavigationView
+import com.example.iikoapi.general.bottomNavigationView
 import com.example.iikoapi.openedmenuitem.order
-import com.example.iikoapi.startapp.networking.*
-import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun setBadges(){
-    val badge = bottoNnavigationView.getOrCreateBadge(R.id.basket)
+    val badge = bottomNavigationView.getOrCreateBadge(R.id.basket)
     badge.backgroundColor=Color.rgb(255,102,0)
     order.update()
     if(order.totalItems == 0){

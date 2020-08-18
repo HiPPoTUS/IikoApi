@@ -4,19 +4,28 @@ import Group
 import Product
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
+import com.example.iikoapi.startapp.datatype.Post3dsRequestArgs
+import com.example.iikoapi.startapp.datatype.Transaction
 import com.example.iikoapi.startapp.menu
+import com.example.iikoapi.startapp.networking.CP
+import com.example.iikoapi.startapp.networking.CpNetworkService
+import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.android.synthetic.main.activity_general.*
 import kotlinx.android.synthetic.main.on_order_pop_up.*
+import ru.cloudpayments.sdk.three_ds.ThreeDSDialogListener
+import ru.cloudpayments.sdk.three_ds.ThreeDsDialogFragment
 
-lateinit var bottoNnavigationView : BottomNavigationView
+lateinit var bottomNavigationView : BottomNavigationView
 lateinit var men:List<Group>
 lateinit var mod:List<Group>
 lateinit var menu_prods:MutableMap<String,List<Product>>
@@ -24,13 +33,13 @@ lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
 
 class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
-    val cp = CP(cp_NetworkService.instance!!)
+    val cp = CP(CpNetworkService.instance!!)
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_general)
-        bottoNnavigationView = findViewById(R.id.navigationView)
+        bottomNavigationView = findViewById(R.id.navigationView)
         setBadges()
         payment.setOnClickListener {
             hideKeyboard(this)
@@ -44,7 +53,7 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
 
 
 
-        bottoNnavigationView.setOnNavigationItemSelectedListener { item ->
+        bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             lateinit var selectedFragment : Fragment
             lateinit var TAG :String
             var fragmentTransaction = supportFragmentManager.beginTransaction()
@@ -68,7 +77,7 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
 
             true
         }
-        var tmp = menu.get_groups().toMutableList()
+        val tmp = menu.get_groups().toMutableList()
         val divergent = tmp.find { it.name=="Все Допы" }!!
         tmp.remove(divergent)
         men = tmp
@@ -106,18 +115,18 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
     }
 
     override fun onAuthorizationCompleted(md: String?, paRes: String?) {
-        val tmp = post3ds(cp, Post3dsRequestArgs(md,paRes)).execute().get()
+        val tmp = Post3ds(cp, Post3dsRequestArgs(md,paRes)).execute().get()
         Log.d("transms", tmp.cardHolderMessage.toString() )
     }
 
     override fun onAuthorizationFailed(html: String?) {
-        Toast.makeText(this,"AuthorizationFailed: " + html, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "AuthorizationFailed: $html", Toast.LENGTH_LONG).show();
     }
 
     fun show3DS(trans: Transaction) {
         ThreeDsDialogFragment.newInstance(trans.acsUrl,
             trans.id,
             trans.paReq)
-            .show(getSupportFragmentManager(), "3DS");
+            .show(supportFragmentManager, "3DS");
     }
 }
