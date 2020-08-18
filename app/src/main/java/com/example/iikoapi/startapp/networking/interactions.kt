@@ -40,7 +40,7 @@ class Iiko(context:Context, provider: iiko_NetworkService, pb:ProgressBar?){
     }
 
     fun authentication() {
-        val call = local_provider.auth()!!
+        val call = local_provider.auth("vshaverma","n8mgiKG2")!!
         Log.d("token",call.request().url().toString())
         token = call.execute().body()
     }
@@ -48,7 +48,7 @@ class Iiko(context:Context, provider: iiko_NetworkService, pb:ProgressBar?){
     fun getOrganisation(position: Int){
         val call = local_provider.organisations(token)!!
         Log.d("orgs",call.request().url().toString())
-        organisationInfo = call.execute().body()!![0]
+        organisationInfo = call.execute().body()!![position]
     }
 
     fun getRestrictions(){

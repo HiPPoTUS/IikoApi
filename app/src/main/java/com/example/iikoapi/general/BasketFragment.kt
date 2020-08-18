@@ -3,8 +3,6 @@ package com.example.iikoapi.general
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.AsyncTask
 import android.os.Bundle
 import android.text.Editable
@@ -17,13 +15,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.dodocopy.dataTypes.Address
 import com.example.iikoapi.R
 import com.example.iikoapi.general.basketadapter.BasketRecycleViewAdapter
 import com.example.iikoapi.openedmenuitem.order
@@ -31,7 +26,6 @@ import com.example.iikoapi.startapp.datatype.PayApiResponse
 import com.example.iikoapi.startapp.datatype.PayRequestArgs
 import com.example.iikoapi.startapp.datatype.Post3dsRequestArgs
 import com.example.iikoapi.startapp.datatype.Transaction
-import com.example.iikoapi.startapp.menu
 import com.example.iikoapi.startapp.networking.CP
 import com.example.iikoapi.startapp.networking.Iiko
 import com.example.iikoapi.startapp.networking.cp_NetworkService
@@ -41,12 +35,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import ru.cloudpayments.sdk.cp_card.CPCard
 import ru.cloudpayments.sdk.cp_card.api.CPCardApi
+import ru.cloudpayments.sdk.cp_card.api.models.BinInfo
+import ru.cloudpayments.sdk.three_ds.ThreeDSDialogListener
+import ru.cloudpayments.sdk.three_ds.ThreeDsDialogFragment
 
+class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(),
+    ThreeDSDialogListener {
+    val cp = CP(cp_NetworkService.instance!!)
+    val iiko = Iiko(contextMy,provider = iiko_NetworkService.instance!!,pb = null)
 
-class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val iiko = Iiko(contextMy,provider = iiko_NetworkService.instance!!,pb = null)
-        val cp = CP(cp_NetworkService.instance!!)
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
         val api = CPCardApi(contextMy)
         val recyclerViewForBasket = view.findViewById<RecyclerView>(R.id.recycler_view_for_basket)
@@ -111,7 +109,14 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
                 val crypt = card.cardCryptogram("test_api_00000000000000000000002") // ASAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!!!!!tention!!!!!!!!!!!!!!!!
                 val req = PayRequestArgs(999,chn_text.text.toString(),crypt)
                 val payment = pay(cp,req)
-                payment.execute()
+                val trans = payment.execute().get()
+                if (trans.paReq != null && trans.acsUrl != null) {
+                    // Показываем 3DS форму
+                    show3DS(trans);
+                } else {
+                    // Показываем результат
+                    Toast.makeText(contextMy,trans.cardHolderMessage,Toast.LENGTH_LONG).show();
+                }
             }
 
         }
@@ -147,7 +152,20 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         return view
     }
 
+    override fun onAuthorizationCompleted(md: String?, paRes: String?) {
+        post3ds(cp,Post3dsRequestArgs(md,paRes))
+    }
 
+    override fun onAuthorizationFailed(html: String?) {
+        Toast.makeText(contextMy,"AuthorizationFailed: " + html,Toast.LENGTH_LONG).show();
+    }
+    fun show3DS(transaction:Transaction) {
+        // Открываем 3ds форму
+        ThreeDsDialogFragment.newInstance(transaction.acsUrl,
+            transaction.id,
+            transaction.paReq)
+            .show(fragmentManager!!, "3DS")
+    }
 
     fun hideKeyboard(activity: AppCompatActivity) {
         val imm: InputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -174,38 +192,25 @@ class dat(var iiko : Iiko, var context: Context, var btsh: BottomSheetBehavior<C
     }
 }
 
-class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, Void>() {
+class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, Transaction>() {
     lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): Void? {
+    override fun doInBackground(vararg params: Void?): Transaction? {
         resp = cp.pay(req)
-        return null
+        return resp.data
     }
-    override fun onPostExecute(result: Void?) {
+    override fun onPostExecute(result: Transaction?) {
         super.onPostExecute(result)
-        if (resp.isSuccess()){
-            if(!resp.success)
-            {
-                val req3ds = Post3dsRequestArgs(resp.data!!.id,resp.data!!.paReq)
-                val sd3 = post3ds(cp,req3ds)
-                sd3.execute()
-            }
-            else Log.d("SSSCCCSSS","SSS")
-        }
-        else Log.d("FFFFFLLL",resp.toString())
     }
 }
 
-class post3ds(var cp:CP,var req:Post3dsRequestArgs): AsyncTask<Void,Void,Void>(){
+class post3ds(var cp:CP,var req:Post3dsRequestArgs): AsyncTask<Void,Void,Transaction>(){
     lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): Void? {
+    override fun doInBackground(vararg params: Void?): Transaction? {
         resp = cp.post3ds(req)
-        return null
+        return resp.data
     }
-    override fun onPostExecute(result: Void?) {
+    override fun onPostExecute(result: Transaction?) {
         super.onPostExecute(result)
-        if (resp.isSuccess())
-        {
-            Log.d("EEEEEEEEEEEE!!!3DS!!!!",resp.data!!.cardHolderMessage)
-        }
     }
 }
+
