@@ -86,32 +86,5 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
 
 }
 
-class Dat(private var iiko : Iiko, var context: Context, private var bottomSheetBehavior: BottomSheetBehavior<ConstraintLayout>) : AsyncTask<Void, Void, Void>() {
-    override fun doInBackground(vararg params: Void?): Void? {
-        iiko.authentication()
-        iiko.getOrganisation(0)
-        return null
-    }
-    override fun onPostExecute(result: Void?) {
-        super.onPostExecute(result)
-        if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
-            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
-}
 
-class Pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, PayApiResponse<Transaction>>() {
-    lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): PayApiResponse<Transaction>? {
-        resp = cp.pay(req)
-        return resp
-    }
-}
-
-class Post3ds(var cp:CP, var req:Post3dsRequestArgs): AsyncTask<Void,Void,Transaction>(){
-    lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): Transaction? {
-        resp = cp.post3ds(req)
-        return resp.data
-    }
-}
 
