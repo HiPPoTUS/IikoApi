@@ -1,6 +1,5 @@
 package com.example.iikoapi.startapp.networking
 import android.content.Context
-import android.content.res.Resources
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
@@ -8,16 +7,13 @@ import android.util.Log
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.dodocopy.dataTypes.Address
-import com.example.iikoapi.R
 import com.example.iikoapi.startapp.DialogFragmentErrorSavedata
-import com.example.iikoapi.startapp.datatype.OrderRequest
-import com.example.iikoapi.startapp.datatype.OrganisationInfo
+import com.example.iikoapi.startapp.datatype.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.FieldPosition
 
-class Iiko(context:Context, provider: NetworkService, pb:ProgressBar?){
+class Iiko(context:Context, provider: iiko_NetworkService, pb:ProgressBar?){
 
     private lateinit var progressBar: ProgressBar
     lateinit var deliveryRestrictionsResponse: DeliveryRestrictionsResponse
@@ -35,45 +31,24 @@ class Iiko(context:Context, provider: NetworkService, pb:ProgressBar?){
 
     fun check_order(order:OrderRequest):Int {
         val call = local_provider.check_order(token, order)
-        var hm = 0
-        call.enqueue(object : Callback<OrderChecksCreationResult> {
-            override fun onFailure(call: Call<OrderChecksCreationResult>, t: Throwable) {
-            }
-            override fun onResponse(
-                call: Call<OrderChecksCreationResult>,
-                response: Response<OrderChecksCreationResult>
-            ) {
-                hm = response.body()!!.resultState
-            }
-        })
-        return hm
+        return call.execute().body()!!.resultState
     }
 
     fun check_address(addr:Address):Boolean {
         val call = local_provider.check_delivery(token,organisationInfo!!.id, addr)
-        var hm = false
-        call.enqueue(object : Callback<AddressCheckResult> {
-            override fun onFailure(call: Call<AddressCheckResult>, t: Throwable) {
-
-            }
-            override fun onResponse(
-                call: Call<AddressCheckResult>,
-                response: Response<AddressCheckResult>
-            ) {
-                hm = response.body()!!.addressInZone
-            }
-        })
-        return hm
+        return call.execute().body()!!.addressInZone
     }
 
     fun authentication() {
-        val call = local_provider.auth()!!
+        val call = local_provider.auth("vshaverma","n8mgiKG2")!!
+        Log.d("token",call.request().url().toString())
         token = call.execute().body()
     }
 
     fun getOrganisation(position: Int){
         val call = local_provider.organisations(token)!!
-        organisationInfo = call.execute().body()!![0]
+        Log.d("orgs",call.request().url().toString())
+        organisationInfo = call.execute().body()!![position]
     }
 
     fun getRestrictions(){
@@ -128,5 +103,20 @@ class Iiko(context:Context, provider: NetworkService, pb:ProgressBar?){
             }
         }
         return result
+    }
+}
+
+class CP(provider: cp_NetworkService){
+    private val local_provider = provider.cpApi
+    private val CONTENT_TYPE = "application/json"
+
+    fun pay(req:PayRequestArgs):PayApiResponse<Transaction>{
+        val call = local_provider.charge(CONTENT_TYPE,req)
+        return call.execute().body()!!
+    }
+    fun post3ds(req: Post3dsRequestArgs):PayApiResponse<Transaction>
+    {
+        val call = local_provider.post3ds(CONTENT_TYPE,req)
+        return call.execute().body()!!
     }
 }

@@ -1,20 +1,22 @@
 package com.example.iikoapi.startapp.networking
 
+import com.fasterxml.jackson.core.JsonParser
+import com.fasterxml.jackson.databind.ObjectMapper
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
 
-class NetworkService private constructor() {
+class iiko_NetworkService private constructor() {
     private val mRetrofit: Retrofit
     val iikoApi: IIKO_API
         get() = mRetrofit.create<IIKO_API>(IIKO_API::class.java)
 
     companion object {
-        private var mInstance: NetworkService? = null
+        private var mInstance: iiko_NetworkService? = null
         private const val BASE_URL = "https://iiko.biz:9900/api/0/"
-        val instance: NetworkService?
+        val instance: iiko_NetworkService?
             get() {
                 if (mInstance == null) {
-                    mInstance = NetworkService()
+                    mInstance = iiko_NetworkService()
                 }
                 return mInstance
             }
@@ -27,4 +29,27 @@ class NetworkService private constructor() {
     }
 }
 
+class cp_NetworkService private constructor() {
+    private val mRetrofit: Retrofit
+    val cpApi: PayMethods
+        get() = mRetrofit.create<PayMethods>(PayMethods::class.java)
+
+    companion object {
+        private var mInstance: cp_NetworkService? = null
+        private const val BASE_URL = "http://192.168.0.100:80/"
+        val instance: cp_NetworkService?
+            get() {
+                if (mInstance == null) {
+                    mInstance = cp_NetworkService()
+                }
+                return mInstance
+            }
+    }
+    init {
+        mRetrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(JacksonConverterFactory.create())
+            .build()
+    }
+}
 
