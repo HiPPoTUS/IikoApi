@@ -39,9 +39,7 @@ import ru.cloudpayments.sdk.cp_card.api.models.BinInfo
 import ru.cloudpayments.sdk.three_ds.ThreeDSDialogListener
 import ru.cloudpayments.sdk.three_ds.ThreeDsDialogFragment
 
-class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(),
-    ThreeDSDialogListener {
-    val cp = CP(cp_NetworkService.instance!!)
+class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(){
     val iiko = Iiko(contextMy,provider = iiko_NetworkService.instance!!,pb = null)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -106,19 +104,22 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
             if (CPCard.isValidNumber(cn_text.text.toString())&&CPCard.isValidExpDate(cd_text.text.toString())){
                 val card = CPCard(cn_text.text.toString(), cd_text.text.toString(), cvc_text.text.toString())
                 val type = card.getType()
-                val crypt = card.cardCryptogram("test_api_00000000000000000000002") // ASAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!!!!!tention!!!!!!!!!!!!!!!!
-                val req = PayRequestArgs(999,chn_text.text.toString(),crypt)
-                val payment = pay(cp,req)
-                val trans = payment.execute().get()
-                if (trans.paReq != null && trans.acsUrl != null) {
-                    // Показываем 3DS форму
-                    show3DS(trans);
-                } else {
-                    // Показываем результат
-                    Toast.makeText(contextMy,trans.cardHolderMessage,Toast.LENGTH_LONG).show();
+                val crypt = card.cardCryptogram("pk_8f0f7ed76a09aead999effefde3ff") // ASAAAAAAAAAAAAAAAAAAAAAAAAAAA!!!!!!!!!!!!!!!!!!!!tention!!!!!!!!!!!!!!!!
+                val req = PayRequestArgs(505,chn_text.text.toString(),crypt)
+                val payment = pay((activity as GeneralActivity).cp,req)
+                val resp = payment.execute().get()
+                if (resp.isSuccess()){
+                    Log.d("resp",resp.data.toString())
+                    val trans = resp.data
+                    if (trans?.paReq != null && trans.acsUrl != null) {
+                        // Показываем 3DS форму
+                        (activity as GeneralActivity).show3DS(trans);
+                    } else {
+                        // Показываем результат
+                        Toast.makeText(contextMy,trans?.cardHolderMessage,Toast.LENGTH_LONG).show();
+                    }
                 }
             }
-
         }
 
         if(order.items.isEmpty())
@@ -152,21 +153,6 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         return view
     }
 
-    override fun onAuthorizationCompleted(md: String?, paRes: String?) {
-        post3ds(cp,Post3dsRequestArgs(md,paRes))
-    }
-
-    override fun onAuthorizationFailed(html: String?) {
-        Toast.makeText(contextMy,"AuthorizationFailed: " + html,Toast.LENGTH_LONG).show();
-    }
-    fun show3DS(transaction:Transaction) {
-        // Открываем 3ds форму
-        ThreeDsDialogFragment.newInstance(transaction.acsUrl,
-            transaction.id,
-            transaction.paReq)
-            .show(fragmentManager!!, "3DS")
-    }
-
     fun hideKeyboard(activity: AppCompatActivity) {
         val imm: InputMethodManager = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         //Find the currently focused view, so we can grab the correct window token from it.
@@ -192,13 +178,13 @@ class dat(var iiko : Iiko, var context: Context, var btsh: BottomSheetBehavior<C
     }
 }
 
-class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, Transaction>() {
+class pay(var cp : CP, var req:PayRequestArgs) : AsyncTask<Void, Void, PayApiResponse<Transaction>>() {
     lateinit var resp:PayApiResponse<Transaction>
-    override fun doInBackground(vararg params: Void?): Transaction? {
+    override fun doInBackground(vararg params: Void?): PayApiResponse<Transaction>? {
         resp = cp.pay(req)
-        return resp.data
+        return resp
     }
-    override fun onPostExecute(result: Transaction?) {
+    override fun onPostExecute(result: PayApiResponse<Transaction>?) {
         super.onPostExecute(result)
     }
 }
