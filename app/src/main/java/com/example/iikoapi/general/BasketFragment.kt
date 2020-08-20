@@ -1,5 +1,6 @@
 package com.example.iikoapi.general
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
@@ -27,16 +28,33 @@ import com.example.iikoapi.utils.Decorations
 import com.example.iikoapi.utils.hideKeyboard
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import kotlinx.android.synthetic.main.fragment_basket.*
+import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(){
     val iiko = Iiko(contextMy,provider = IikoNetworkService.instance!!,pb = null)
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_basket, container, false)
         val recyclerViewForBasket = view.findViewById<RecyclerView>(R.id.recycler_view_for_basket)
         val payGoToMenu = view.findViewById<Button>(R.id.pay_go_to_menu)
         val textEmptyBasket = view.findViewById<TextView>(R.id.text_empty_basket)
         val bottomSheetBehavior = BottomSheetBehavior.from(payment)
+        val RLBasket = view.findViewById<RelativeLayout>(R.id.RLBasket)
+        val infoNameBasket = view.findViewById<TextView>(R.id.infoNameBasket)
+        val infoEnergyBasket = view.findViewById<TextView>(R.id.infoEnergyBasket)
+        val infoProteinsBasket = view.findViewById<TextView>(R.id.infoProteinsBasket)
+        val infoFatsBasket = view.findViewById<TextView>(R.id.infoFatsBasket)
+        val infoCarbohydratesBasket = view.findViewById<TextView>(R.id.infoCarbohydratesBasket)
+        val infoLayoutBasket = view.findViewById<RelativeLayout>(R.id.infoLayoutBasket)
+
+
+        RLBasket.setOnTouchListener { _, _ ->
+            infoLayoutBasket.animate().alpha(0f).duration = 100
+            RLBasket.visibility = View.GONE
+            true
+        }
 
         recyclerViewForBasket.visibility = View.GONE
 
@@ -61,6 +79,7 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         }
 
         val recyclerViewAdapterForBasket = BasketRecycleViewAdapter(payGoToMenu, textEmptyBasket, recyclerViewForBasket, contextMy)
+        recyclerViewAdapterForBasket.setBasketFragment(this)
         if (recyclerViewForBasket.itemDecorationCount == 0)
             recyclerViewForBasket.addItemDecoration(Decorations())
 
@@ -84,6 +103,23 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
         return view
     }
 
+    fun openInfo(name : String, carbohydrateAmount : String?, energyAmount : String?, fiberAmount : String?, fatAmount : String?){
+        infoNameBasket.text = name
+        infoCarbohydratesBasket.text = try {
+            carbohydrateAmount!!.toInt()
+        }catch (e : Exception){}.toString()
+        infoEnergyBasket.text = try {
+            energyAmount!!.toInt()
+        }catch (e : Exception){0}.toString()
+        infoProteinsBasket.text =  try {
+            fiberAmount!!.toInt()
+        }catch (e : Exception){0}.toString()
+        infoFatsBasket.text =  try {
+            fatAmount!!.toInt()
+        }catch (e : Exception){0}.toString()
+        infoLayoutBasket.animate().alpha(1f).duration = 100
+        RLBasket.visibility = View.VISIBLE
+    }
 }
 
 

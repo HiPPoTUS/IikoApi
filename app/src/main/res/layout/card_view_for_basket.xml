@@ -45,23 +45,23 @@
                 android:text="классическая"
                 android:textSize="18sp" />
 
-<!--            <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--                android:id="@+id/infoButtonBasket"-->
-<!--                android:layout_width="40dp"-->
-<!--                android:layout_height="40dp"-->
-<!--                app:elevation="3dp"-->
-<!--                android:src="@drawable/info_btn"-->
-<!--                android:layout_gravity="center_vertical|end"-->
-<!--                app:maxImageSize="30dp"-->
-<!--                android:outlineAmbientShadowColor="@android:color/transparent"-->
-<!--                android:outlineSpotShadowColor="@android:color/transparent"-->
-<!--                android:tintMode="multiply"-->
-<!--                app:backgroundTint="@android:color/transparent"-->
-<!--                app:fabCustomSize="40dp"-->
-<!--                app:rippleColor="@null"-->
-<!--                app:tint="@color/yellow"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toTopOf="parent"/>-->
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/infoButtonBasket"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:elevation="3dp"
+                android:src="@drawable/info_btn"
+                android:layout_gravity="center_vertical|end"
+                app:maxImageSize="30dp"
+                android:outlineAmbientShadowColor="@android:color/transparent"
+                android:outlineSpotShadowColor="@android:color/transparent"
+                android:tintMode="multiply"
+                app:backgroundTint="@android:color/transparent"
+                app:fabCustomSize="40dp"
+                app:rippleColor="@null"
+                app:tint="@color/yellow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                 android:paddingVertical="8dp"

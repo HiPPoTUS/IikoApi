@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.iikoapi.R
+import com.example.iikoapi.general.BasketFragment
 import com.example.iikoapi.general.menu_prods
 import com.example.iikoapi.general.mods_prods
 import com.example.iikoapi.openedmenuitem.Ghleb
@@ -31,6 +32,8 @@ lateinit var currentSupplementsItems : MutableList<Product>
 
 class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket : TextView, var recyclerViewForBasket : RecyclerView, var context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>()
 {
+
+    private lateinit var basketFragment: BasketFragment
     private val TYPE_ITEMS = 1
     private val TYPE_SUPPLEMENTS = 2
     private var thisAdapter = this
@@ -38,6 +41,9 @@ class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket 
     private var items: MutableList<OrderItem> = ArrayList()
     private lateinit var supplementsViewHolder : SupplementsViewHolder
 
+    fun setBasketFragment(basketFragment: BasketFragment){
+        this.basketFragment = basketFragment
+    }
 
     override fun getItemViewType(position: Int): Int {
         return if (position == items.size) {
@@ -93,7 +99,7 @@ class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket 
 //        private val item_sum = itemView.item_sum
         private val plus_button= itemView.plus_button
         private val minus_button= itemView.minus_button
-//        private val infoButtonBasket = itemView.infoButtonBasket
+        private val infoButtonBasket = itemView.infoButtonBasket
 
         fun bind(item: OrderItem, position: Int){
 
@@ -110,6 +116,10 @@ class BasketRecycleViewAdapter(var clear_basket : Button, var text_empty_basket 
             item_amount.text = item.amount.toString()
 //            item_description.text = item.info
 //            item_sum.text = item.sum.toString()
+
+            infoButtonBasket.setOnClickListener {
+                basketFragment.openInfo(item.name!!, "-1", "-1", "-1", "-1")
+            }
 
             plus_button.setOnClickListener {
                 item.amount += 1
