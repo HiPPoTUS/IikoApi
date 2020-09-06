@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.iikoapi.R
-import com.example.iikoapi.startapp.restr
+import com.example.iikoapi.startapp.deliveryRestrictionsResponse
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -38,13 +38,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mMap = googleMap
 
-        var r = MutableList(restr.deliveryZones?.get(0)?.coordinates!!.size){
-            LatLng(restr.deliveryZones?.get(0)?.coordinates!![it].latitude, restr.deliveryZones?.get(0)?.coordinates!![it].longitude)
+        var r = MutableList(deliveryRestrictionsResponse.deliveryZones?.get(0)?.coordinates!!.size){
+            LatLng(deliveryRestrictionsResponse.deliveryZones?.get(0)?.coordinates!![it].latitude, deliveryRestrictionsResponse.deliveryZones?.get(0)?.coordinates!![it].longitude)
         } as ArrayList
 
         val polyline1 = googleMap.addPolygon(PolygonOptions().clickable(true).addAll(r))
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-            LatLng(restr.deliveryZones?.get(0)?.coordinates?.get(0)?.latitude!!, restr.deliveryZones?.get(0)?.coordinates?.get(0)?.longitude!!), 13f)
+            LatLng(deliveryRestrictionsResponse.deliveryZones?.get(0)?.coordinates?.get(0)?.latitude!!, deliveryRestrictionsResponse.deliveryZones?.get(0)?.coordinates?.get(0)?.longitude!!), 13f)
         )
 
         polyline1.strokeWidth = 0f

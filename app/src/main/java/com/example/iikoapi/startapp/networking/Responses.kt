@@ -3,10 +3,8 @@ package com.example.iikoapi.startapp.networking
 import Group
 import Product
 import ProductCategory
-import android.util.Log
 import com.example.iikoapi.startapp.datatype.*
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import java.lang.Exception
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class MenuResponse (
@@ -16,17 +14,17 @@ data class MenuResponse (
     val revision: Long? = null,
     val uploadDate: String? = null
 ){
-    fun get_groups(isIncluded: Boolean = true):List<Group>{
+    fun getGroups(isIncluded: Boolean = true):List<Group>{
         return groups!!.filter { it.isIncludedInMenu == isIncluded }.sortedBy { it.order }
     }
-    fun get_group_prods(group:Group, isModifier:Boolean=false):List<Product>{
-        if (!isModifier) return products!!.filter { it.parentGroup==group.id}.sortedBy { it.order }
-        else return products!!.filter { it.groupID==group.id}.sortedBy { it.order }
+    fun getGroupProds(group:Group, isModifier:Boolean=false):List<Product>{
+        return if (!isModifier) products!!.filter { it.parentGroup==group.id}.sortedBy { it.order }
+        else products!!.filter { it.groupID==group.id}.sortedBy { it.order }
     }
-    fun get_groups_prods(groups:List<Group>, isModifier: Boolean=false):MutableMap<String,List<Product>>
+    fun getGroupsProds(groups:List<Group>, isModifier: Boolean=false):MutableMap<String,List<Product>>
     {
         val map = mutableMapOf<String,List<Product>>()
-        groups.forEach { map.put(it.id!!, get_group_prods(it,isModifier)) }
+        groups.forEach { map[it.id!!] = getGroupProds(it,isModifier) }
         return map
     }
 

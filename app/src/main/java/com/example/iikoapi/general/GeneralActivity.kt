@@ -78,15 +78,15 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
 
             true
         }
-        val tmp = menu.get_groups().toMutableList()
+        val tmp = menu.getGroups().toMutableList()
         val divergent = tmp.find { it.name=="Все Допы" }!!
         tmp.remove(divergent)
         men = tmp
-        val tmp2 = menu.get_groups(isIncluded = false)
+        val tmp2 = menu.getGroups(isIncluded = false)
         mod  = List<Group>(tmp2.size+1){if (it==0) divergent else tmp2[it-1]}
-        menu_prods = menu.get_groups_prods(men)
-        mods_prods = menu.get_groups_prods(mod,true)
-        mods_prods.put(divergent.id!!, menu.get_group_prods(divergent))
+        menu_prods = menu.getGroupsProds(men)
+        mods_prods = menu.getGroupsProds(mod,true)
+        mods_prods.put(divergent.id!!, menu.getGroupProds(divergent))
     }
 
 

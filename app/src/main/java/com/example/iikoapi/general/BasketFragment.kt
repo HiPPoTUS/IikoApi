@@ -32,7 +32,7 @@ import kotlinx.android.synthetic.main.fragment_basket.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(){
-    val iiko = Iiko(contextMy,provider = IikoNetworkService.instance!!,pb = null)
+    val iiko = Iiko(contextMy,provider = IikoNetworkService.instance!!,progressBar = null)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
