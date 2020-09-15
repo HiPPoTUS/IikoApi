@@ -1,7 +1,10 @@
 package com.example.dodocopy.dataTypes
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.annotation.JsonProperty
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Address(
     var city: String? /* string Наименование города 255 */,
@@ -63,24 +66,22 @@ data class Address(
         comment=value
     }
 }
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class CityWithStreets(
-    var city: City /*City Ссылка на город */,
-    var streets: List<Street> /*Street[] Коллекция улиц, принадлежащих городу*/
+data class CityWithStreets (
+    val city: City? = null,
+    val streets: List<City>? = null
 )
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class City(
-    var id: String /*Guid Уникальный идентификатор */,
-    var name: String /*string Название */,
-    var classifierId: String? /* string Идентификатор города в классификаторе, например, КЛАДР*/,
-    var additionalInfo: String? /* string Дополнительная информация о городе в свободном формате*/,
-    var externalRevision: Int? /* long? Номер ревизии сущности из РМС*/
-)
-@JsonIgnoreProperties(ignoreUnknown = true)
-data class Street(
-    var id: String /*Guid Уникальный идентификатор */,
-    var name: String /* string Название */,
-    var cityId: String? /* Guid Идентификатор города*/,
-    var classifierId: String? /* string Идентификатор улицы в классификаторе, например, КЛАДР*/,
-    var externalRevision: Int? /* long? Номер ревизии сущности из РМС*/
+
+data class City (
+    val additionalInfo: Any? = null,
+
+    @get:JsonProperty("classifierId")@field:JsonProperty("classifierId")
+    val classifierID: String? = null,
+
+    val deleted: Boolean? = null,
+    val externalRevision: Long? = null,
+    val id: String? = null,
+    val name: String? = null,
+
+    @get:JsonProperty("cityId")@field:JsonProperty("cityId")
+    val cityID: String? = null
 )

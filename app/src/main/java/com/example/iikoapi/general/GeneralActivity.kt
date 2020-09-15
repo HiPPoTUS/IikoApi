@@ -16,6 +16,8 @@ import com.example.iikoapi.startapp.datatype.Transaction
 import com.example.iikoapi.startapp.menu
 import com.example.iikoapi.startapp.networking.CP
 import com.example.iikoapi.startapp.networking.CpNetworkService
+import com.example.iikoapi.startapp.networking.Iiko
+import com.example.iikoapi.startapp.networking.IikoNetworkService
 import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,7 +34,9 @@ lateinit var menu_prods:MutableMap<String,List<Product>>
 lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
 
+lateinit var paymentFragment : PaymentFragment
 class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
+    val iiko = Iiko(this,provider = IikoNetworkService.instance!!,pb = null)
     val cp = CP(CpNetworkService.instance!!)
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -41,10 +45,10 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
         setContentView(R.layout.activity_general)
         bottomNavigationView = findViewById(R.id.navigationView)
         setBadges()
-        payment.setOnClickListener {
+        hideKeyBoardLayout.setOnClickListener {
             hideKeyboard(this)
         }
-        val paymentFragment = PaymentFragment(this)
+        paymentFragment = PaymentFragment(this)
         paymentFragment.initViews()
 
         if (intent.getIntExtra("back_from", 0) != 0)
@@ -63,7 +67,7 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
                 R.id.acces_menu -> {selectedFragment = MenuFragment(0, this); TAG = "1"}
                 R.id.contacts -> {selectedFragment = ContactsFragment(this); TAG = "2"}
                 R.id.profile ->{ selectedFragment = ProfileFragment(); TAG = "3"}
-                R.id.basket ->{ selectedFragment = BasketFragment(this, navigationView, payment); TAG = "4"}
+                R.id.basket ->{ selectedFragment = BasketFragment(this, navigationView, paymentLayout); TAG = "4"}
 
             }
 
@@ -78,22 +82,22 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
 
             true
         }
-        val tmp = menu.getGroups().toMutableList()
+        val tmp = menu.get_groups().toMutableList()
         val divergent = tmp.find { it.name=="Все Допы" }!!
         tmp.remove(divergent)
         men = tmp
-        val tmp2 = menu.getGroups(isIncluded = false)
+        val tmp2 = menu.get_groups(isIncluded = false)
         mod  = List<Group>(tmp2.size+1){if (it==0) divergent else tmp2[it-1]}
-        menu_prods = menu.getGroupsProds(men)
-        mods_prods = menu.getGroupsProds(mod,true)
-        mods_prods.put(divergent.id!!, menu.getGroupProds(divergent))
+        menu_prods = menu.get_groups_prods(men)
+        mods_prods = menu.get_groups_prods(mod,true)
+        mods_prods.put(divergent.id!!, menu.get_group_prods(divergent))
     }
 
 
     override fun onBackPressed() {
 
-        if(BottomSheetBehavior.from(payment).state == BottomSheetBehavior.STATE_EXPANDED){
-            BottomSheetBehavior.from(payment).state = BottomSheetBehavior.STATE_COLLAPSED
+        if(BottomSheetBehavior.from(paymentLayout).state == BottomSheetBehavior.STATE_EXPANDED){
+            BottomSheetBehavior.from(paymentLayout).state = BottomSheetBehavior.STATE_COLLAPSED
             return
         }
 
@@ -117,7 +121,7 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
 
     override fun onAuthorizationCompleted(md: String?, paRes: String?) {
         val tmp = Post3ds(cp, Post3dsRequestArgs(md,paRes)).execute().get()
-        Log.d("transms", tmp.cardHolderMessage.toString() )
+        Toast.makeText(this, tmp.cardHolderMessage, Toast.LENGTH_LONG).show();
     }
 
     override fun onAuthorizationFailed(html: String?) {

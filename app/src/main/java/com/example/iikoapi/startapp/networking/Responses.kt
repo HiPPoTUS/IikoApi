@@ -3,8 +3,11 @@ package com.example.iikoapi.startapp.networking
 import Group
 import Product
 import ProductCategory
+import android.util.Log
 import com.example.iikoapi.startapp.datatype.*
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonProperty
+import java.lang.Exception
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class MenuResponse (
@@ -14,17 +17,17 @@ data class MenuResponse (
     val revision: Long? = null,
     val uploadDate: String? = null
 ){
-    fun getGroups(isIncluded: Boolean = true):List<Group>{
+    fun get_groups(isIncluded: Boolean = true):List<Group>{
         return groups!!.filter { it.isIncludedInMenu == isIncluded }.sortedBy { it.order }
     }
-    fun getGroupProds(group:Group, isModifier:Boolean=false):List<Product>{
-        return if (!isModifier) products!!.filter { it.parentGroup==group.id}.sortedBy { it.order }
-        else products!!.filter { it.groupID==group.id}.sortedBy { it.order }
+    fun get_group_prods(group:Group, isModifier:Boolean=false):List<Product>{
+        if (!isModifier) return products!!.filter { it.parentGroup==group.id}.sortedBy { it.order }
+        else return products!!.filter { it.groupID==group.id}.sortedBy { it.order }
     }
-    fun getGroupsProds(groups:List<Group>, isModifier: Boolean=false):MutableMap<String,List<Product>>
+    fun get_groups_prods(groups:List<Group>, isModifier: Boolean=false):MutableMap<String,List<Product>>
     {
         val map = mutableMapOf<String,List<Product>>()
-        groups.forEach { map[it.id!!] = getGroupProds(it,isModifier) }
+        groups.forEach { map.put(it.id!!, get_group_prods(it,isModifier)) }
         return map
     }
 
@@ -71,31 +74,62 @@ data class MenuResponse (
 //        }
 //    }
 }
-
+data class paymentTypesResponse(
+    val paymentTypes : ArrayList<PaymentType>
+)
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class DeliveryRestrictionsResponse(
-    var deliveryRegionsMapUrl: String? /*Ссылка на карту регионов обслуживания доставки*/,
-    var defaultDeliveryDurationInMinutes: Int? /*Общая продолжительность доставки*/,
-    var useSameDeliveryDuration: Boolean? /*bool Признак того, что ресторан(ы) используют общие ограничения по времени доставки**/,
-    var useSameMinSum: Boolean? /*bool Признак того, что ресторан(ы) по всем зонам используют одинаковую минимальную сумму**/,
-    var defaultMinSum: Int? /*decimal Общая минимальная сумма заказа*/,
-    var useSameWorkTimeInterval: Boolean? /*bool Признак того что ресторан(ы) использует общий интервал работы для всех зон.**/,
-    var defaultFrom: Int? /*Начало интервала по умолчанию работы ресторана, в минутах от начала дня. Используется совместно с useSameWorkTimeInterval*/,
-    var defaultTo: Int? /*Конец интервала по умолчанию работы ресторана, в минутах от начала дня. Если defaultTo < defaultFrom, то это означает, что конец рабочего дня залезает на следующий день. Используется совместно с useSameWorkTimeInterval*/,
-    var useSameRestructionsOnAllWeek: Boolean? /*bool Признак того, что ограничения работы точек распространяются на все дни недели.**/,
-    var restrictions: List<DeliveryRestrictionItem>? /*DeliveryRestrictionItem[] Привязки ресторанов к зонам доставки*/,
-    var deliveryZones: List<DeliveryZone>? /*DeliveryZone[] Список доставочных зон из Яндекс.Карт*/
+data class DeliveryRestrictionsResponse (
+    @get:JsonProperty("deliveryRegionsMapUrl")@field:JsonProperty("deliveryRegionsMapUrl")
+    val deliveryRegionsMapURL: String? = null,
+
+    val defaultDeliveryDurationInMinutes: Long? = null,
+    val defaultSelfServiceDurationInMinutes: Long? = null,
+    val useSameDeliveryDuration: Boolean? = null,
+    val useSameMinSum: Boolean? = null,
+    val defaultMinSum: Long? = null,
+    val useSameWorkTimeInterval: Boolean? = null,
+    val defaultFrom: Any? = null,
+    val defaultTo: Any? = null,
+    val useSameRestrictionsOnAllWeek: Boolean? = null,
+    val restrictions: List<Restriction>? = null,
+    val deliveryZones: List<DeliveryZone>? = null
 )
 
-@JsonIgnoreProperties(ignoreUnknown = true)
- data class AddressCheckResult(
-     var addressInZone: Boolean
+data class DeliveryZone (
+    val name: String? = null,
+    val coordinates: List<Coordinate>? = null
+)
+
+data class Coordinate (
+    val latitude: Double? = null,
+    val longitude: Double? = null
+)
+
+data class Restriction (
+    val minSum: Long? = null,
+
+    @get:JsonProperty("deliveryTerminalId")@field:JsonProperty("deliveryTerminalId")
+    val deliveryTerminalID: String? = null,
+
+    @get:JsonProperty("organizationId")@field:JsonProperty("organizationId")
+    val organizationID: String? = null,
+
+    val zone: String? = null,
+    val weekMap: Long? = null,
+    val from: Any? = null,
+    val to: Any? = null,
+    val priority: Long? = null,
+    val deliveryDurationInMinutes: Long? = null
+)
+
+data class AddressCheckResult (
+    val addressInZone: Boolean? = null
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class OrderChecksCreationResult(
-    var deliveryRestriction: DeliveryRestrictionItem, //Сработавшее ограничение (в случае, если удалось найти точку, которая может обработать заказ)
-    var problem: String, //Описание ошибки (в случае, если доставка не может быть обработана рестораном)
+    var deliveryRestriction: DeliveryRestrictionItem?, //Сработавшее ограничение (в случае, если удалось найти точку, которая может обработать заказ)
+    var problem: String?, //Описание ошибки (в случае, если доставка не может быть обработана рестораном)
     var resultState: Int, /*Результат проверки:
 Success = 0 (Доставка была успешна распределена),
 RejectByMinSum = 1 (Доставка отвергнута по
@@ -110,5 +144,6 @@ RejectByStopList = 4 (Продукт из заказа находятся в
 стоп-листе),
 RejectByPriceList = 5. (Продукт из заказа запрещен к
 продаже)*/
-    var deliveryServiceProductInfo: DeliveryServiceProductInfo //Дополнительная плата за доставку.
+    var deliveryDurationInMinutes: Int,
+    var deliveryServiceProductInfo: DeliveryServiceProductInfo? //Дополнительная плата за доставку.
 )

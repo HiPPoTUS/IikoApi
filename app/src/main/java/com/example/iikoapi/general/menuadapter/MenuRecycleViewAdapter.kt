@@ -110,7 +110,6 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
                 toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
                 toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
                 toast.show()
-
                 setBadges()
             }
         }

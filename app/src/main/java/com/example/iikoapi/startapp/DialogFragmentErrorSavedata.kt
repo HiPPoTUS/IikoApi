@@ -16,18 +16,16 @@ import androidx.fragment.app.DialogFragment
 import com.example.iikoapi.R
 
 
-class DialogFragmentError(private val startActivityContext : Context, private val problem : Boolean, private val progressBar: ProgressBar) : DialogFragment(){
-
+class DialogFragmentErrorSavedata(private val startActivityContext : Context, private val problem : Boolean, private val progressBar: ProgressBar)
+    : DialogFragment(){
     val LOG_TAG = "myLogs"
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        dialog!!.setTitle("Problem with internet connection. Please check connection")
+        dialog!!.setTitle("Error downloading data!")
         val v: View = inflater.inflate(R.layout.dialog_fragment_error_savedata, null)
-        isCancelable = false
         progressBar.visibility = View.GONE
         when(problem){
-            false -> v.findViewById<TextView>(R.id.error_text).text = "Problem with internet connection. Please check connection"
-            true -> v.findViewById<TextView>(R.id.error_text).text = "Problems with server. Please try latter"
+            false -> v.findViewById<TextView>(R.id.error_text).text = "internet"
+            true -> v.findViewById<TextView>(R.id.error_text).text = "Iiko"
         }
         v.findViewById<Button>(R.id.try_again_button).setOnClickListener {
             startActivityContext.startActivity(Intent(startActivityContext, StartActivity::class.java))

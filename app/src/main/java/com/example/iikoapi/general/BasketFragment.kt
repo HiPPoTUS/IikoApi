@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_basket.*
 import kotlinx.android.synthetic.main.opened_item_for_view_pager.view.*
 
 class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, var payment: ConstraintLayout) : Fragment(){
-    val iiko = Iiko(contextMy,provider = IikoNetworkService.instance!!,progressBar = null)
 
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -91,7 +91,11 @@ class BasketFragment(var contextMy: Context, var navView: BottomNavigationView, 
 
         payGoToMenu.setOnClickListener {
             if(order.items.isNotEmpty()) {
-                Dat(iiko, contextMy, bottomSheetBehavior).execute()
+                order.items.forEach { it.update() }
+                order.update()
+                paymentFragment.setCost()
+                if (bottomSheetBehavior.state != BottomSheetBehavior.STATE_EXPANDED)
+                    bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
             }
             else {
                 navView.menu.getItem(0).isChecked = true

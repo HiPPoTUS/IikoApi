@@ -6,9 +6,12 @@ import com.example.dodocopy.dataTypes.Customer
 import com.example.iikoapi.openedmenuitem.order
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.example.iikoapi.startapp.networking.MenuResponse
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonInclude
 import java.lang.Exception
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 data class OrderRequest (
     var organization: String? /*string Идентификатор ресторана, список доступных ресторанов*/,
     var deliveryTerminalId: String? /* Guid Идентификатор доставочного термина, на который нужно отправить заказ.*/,
@@ -20,27 +23,19 @@ data class OrderRequest (
     var customData: String? /*string Служебная информация. Только хранится, доступна через API, на UI не выводится*/,
     var emailForFailedOrderInfo: String? /*string Email для отправки информации о заказе при проблемах с созданием.*/,
     var referrerId: String?){
-    constructor():this(
-        null,  //should be presetted
-        null,
-        Customer(),
-        Order(),
+    constructor(orgID:String,ord:Order,cust:Customer?,dtID:String?):this(
+        orgID,  //should be presetted
+        dtID,
+        cust,
+        ord,
         null,
         null,
         null,
         null,
         null,
         null)
-    fun setOrganisation(value:String){
-        organization=value
-    }
-    fun setThisCustomer(value: Customer){
-        customer=value
-    }
-    fun setThisOrder(value: Order){
-        order=value
-    }
-}
+}@JsonInclude(JsonInclude.Include.NON_NULL)
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class Order(
     var id: String? /* Guid Идентификатор заказа*/,
@@ -63,6 +58,7 @@ data class Order(
     var discountCardSlip: String? /* string Трек скидочной карты, которую надо применить к заказу. Если указан одновременно с discountCardTypeId, то будет применятся скидка по discountCardTypeId.*/,
     var discountOrIncreaseSum: Int? /*decimal Сумма скидки. Необходима только для скидок со свободной суммой.*/,
     var orderCombos: List<DeliveryOrderCombo>? /*DeliveryOrderCombo[] Массив комбо-блюд, включенных в заказ.*/,
+    @JsonIgnore
     var totalItems: Int /*ATTENTION! DO NOT SERIALIZE THIS*/
 ){
     constructor():this(
@@ -90,6 +86,9 @@ data class Order(
     )
     fun setThisItems(value:MutableList<OrderItem>){
         items=value
+    }
+    fun setThisPhone(value: String){
+        phone = value
     }
     fun setThisAddress(value:Address){
         address=value
@@ -120,11 +119,12 @@ data class Order(
         }
     }
     fun update(){
-        fullSum=0
+        setThisFullSum(0)
         totalItems=0
         items.forEach {
             totalItems+=it.amount
             fullSum+=it.sum
+            Log.d("upd",it.sum.toString())
         }
     }
 }
@@ -135,7 +135,7 @@ data class OrderTypeInfo(
     var OrderServiceType: String /* String Сервисный тип заказа */,
     var externalRevision: Int /* long? Номер ревизии сущности из РМС*/
 )
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)@JsonIgnoreProperties(ignoreUnknown = true)
 data class OrderItem(
     var id: String? /* Guid Идентификатор продукта*/,
     var code: String? /* string Артикул товара */,
@@ -147,9 +147,13 @@ data class OrderItem(
     var comment: String? /* string Комментарий 255*/,
     var guestId: String? /* Guid Идентификатор гостя*/,
     var comboInformation: ComboItemInformation? /*ComboItemInformation Информация о комбо-блюде, если позиция в заказе относится к комбо.*/,
+    @JsonIgnore
     var imageUrl: String? /*ATTENTION! DO NOT SERIALIZE THIS*/,
+    @JsonIgnore
     var info: String? /*ATTENTION! DO NOT SERIALIZE THIS*/,
+    @JsonIgnore
     var modifSum: Int,
+    @JsonIgnore
     var saveSum: Int
 ){
     constructor():this(
@@ -213,7 +217,7 @@ data class OrderItemModifier(
         this.id = product.id
         this.name = product.name
         this.price = product.price!!.toInt()
-        this.amount = 0
+        this.amount = 1
         this.groupId = product.groupID
         this.groupName = null
         return this

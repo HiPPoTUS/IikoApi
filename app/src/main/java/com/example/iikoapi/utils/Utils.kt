@@ -1,25 +1,20 @@
 package com.example.iikoapi.utils
 
 import android.app.Activity
-import android.content.Context
 import android.graphics.Color
 import android.graphics.Rect
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.RecyclerView
 import com.example.iikoapi.R
 import com.example.iikoapi.general.bottomNavigationView
 import com.example.iikoapi.openedmenuitem.order
 
-
 fun setBadges(){
     val badge = bottomNavigationView.getOrCreateBadge(R.id.basket)
-    badge.backgroundColor=Color.rgb(255,102,0)
     order.update()
+    badge.backgroundColor=Color.rgb(255,102,0)
     if(order.totalItems == 0){
         badge.isVisible = false
         badge.clearNumber()
@@ -40,12 +35,6 @@ fun hideKeyboard(activity: AppCompatActivity) {
         view = View(activity)
     }
     imm.hideSoftInputFromWindow(view.windowToken, 0)
-}
-
-fun isInternetAvailable(context : Context) : Boolean{
-    val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-    val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
-    return activeNetwork?.isConnectedOrConnecting == true
 }
 
 class Decorations : RecyclerView.ItemDecoration() {

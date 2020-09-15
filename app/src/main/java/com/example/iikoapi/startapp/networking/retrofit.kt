@@ -1,7 +1,9 @@
 package com.example.iikoapi.startapp.networking
 
 import android.location.Address
+import com.example.dodocopy.dataTypes.CityWithStreets
 import com.example.iikoapi.startapp.datatype.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -16,12 +18,18 @@ interface IIKO_API {
     fun organisations(
         @Query("access_token") token: String?
     ): Call<ArrayList<OrganisationInfo>>?
-
-    @GET("deliverySettings/getDeliveryRestrictions?")
-    fun get_terminals(
+//
+    @GET("rmsSettings/getPaymentTypes?")
+    fun get_payment_types(
         @Query("access_token") token: String?,
         @Query("organization") org: String?
-    ): Call<List<DeliveryTerminal>?>?
+    ):Call<paymentTypesResponse>
+
+    @GET("cities/cities?")
+    fun get_streets(
+        @Query("access_token") token: String?,
+        @Query("organization") org: String?
+    ): Call<ArrayList<CityWithStreets>?>?
 
     @GET("deliverySettings/getDeliveryRestrictions?")
     fun restrictions(
@@ -35,18 +43,21 @@ interface IIKO_API {
         @Query("access_token") token: String?
     ): Call<MenuResponse?>?
 
+    @Headers("Content-type:application/json")
     @POST("add?/")
     fun post_order(
         @Query("access_token") token: String?,
         @Body order:OrderRequest
     ):Call<OrderInfo>
 
+    @Headers("Content-type:application/json")
     @POST("/orders/checkCreate?")
     fun check_order (
         @Query("access_token") token: String?,
         @Body order:OrderRequest
     ):Call<OrderChecksCreationResult>
 //
+    @Headers("Content-type:application/json")
     @POST("orders/checkAddress?")
     fun check_delivery(
         @Query("access_token") token: String?,
