@@ -135,8 +135,8 @@ class OpenItemFragment (private val contextMy: Context, var product: Product, va
                 }
             order.addToOrder(orderItem)
             val toast = Toast.makeText(contextMy, "Добавлено в корзину", Toast.LENGTH_SHORT)
-            toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-            toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+            toast.view?.background?.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+            toast.view?.findViewById<TextView>(android.R.id.message)?.setTextColor(Color.WHITE)
             toast.show()
             setBadges()
         }

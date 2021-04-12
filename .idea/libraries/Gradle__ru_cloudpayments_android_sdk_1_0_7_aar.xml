@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: ru.cloudpayments.android:sdk:1.0.7@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eabed641161d5d5335a82e090830c55b/jetified-sdk-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eabed641161d5d5335a82e090830c55b/jetified-sdk-1.0.7/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eabed641161d5d5335a82e090830c55b/jetified-sdk-1.0.7/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.cloudpayments.android/sdk/1.0.7/65c85fb20f1ae228bbeee8ac59418ef0a09c183b/sdk-1.0.7-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.cloudpayments.android/sdk/1.0.7/db57055d32cf58666c2d48a7268d1781b9f5d464/sdk-1.0.7-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

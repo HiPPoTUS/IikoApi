@@ -116,8 +116,8 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
                 order.addToOrder(orderItem)
 
                 val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
-                toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-                toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+                toast.view?.background?.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+                toast.view?.findViewById<TextView>(android.R.id.message)?.setTextColor(Color.WHITE)
                 toast.show()
                 setBadges()
             }
@@ -152,7 +152,7 @@ class OpenedMenuItemAdapter(private var items : List<Product>, private var conte
     private fun showInfo(view: RelativeLayout, position: Int){
 
         view.info_name.text = items[position].name
-        Log.d("name", items[position].name)
+        Log.d("name", items[position].name.toString())
         view.info_carbohydrates.text = try {
             items[position].carbohydrateAmount!!.toInt()
         }catch (e : Exception){}.toString()

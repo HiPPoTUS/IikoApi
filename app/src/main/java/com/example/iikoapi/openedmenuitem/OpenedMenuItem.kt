@@ -2,6 +2,7 @@ package com.example.iikoapi.openedmenuitem
 
 import Product
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -26,7 +27,7 @@ class OpenedMenuItem : AppCompatActivity() {
         val pagerAdapter = ScreenSlidePagerAdapter(this, menu_prods.values.elementAt(commonPos).size, menu_prods.values.elementAt(commonPos), commonPos)
         opened_menu_item_pager.adapter = pagerAdapter
         opened_menu_item_pager.setCurrentItem(position, false)
-        opened_menu_item_pager.offscreenPageLimit = menu_prods.values.elementAt(commonPos).size
+//        opened_menu_item_pager.offscreenPageLimit = menu_prods.values.elementAt(commonPos).size
 
     }
 

@@ -1,22 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <com.yandex.mapkit.mapview.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-    <Button
-        android:id="@+id/maps_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="maps"
-        android:layout_above="@id/contacts"
-        android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/contacts"
+        android:id="@+id/zoomUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="contacts"
-        android:layout_centerInParent="true" />
+        android:text="+"
+        tools:ignore="MissingConstraints"
+        android:padding="8dp"
+        android:textSize="20sp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/zoomDown"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:textColor="#000000"/>
 
-</RelativeLayout>
+    <TextView
+        android:id="@+id/zoomDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="-"
+        android:textSize="20sp"
+        android:background="@color/white"
+        android:textColor="#000000"
+        tools:ignore="MissingConstraints"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+    <ImageView
+        android:id="@+id/positionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_navigation_24"
+        android:tint="#000000"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints"
+        android:padding="4dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/zoomDown"
+        android:layout_marginTop="10dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

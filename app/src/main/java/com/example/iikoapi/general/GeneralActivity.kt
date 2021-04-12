@@ -22,6 +22,7 @@ import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_general.*
 import kotlinx.android.synthetic.main.on_order_pop_up.*
 import ru.cloudpayments.sdk.three_ds.ThreeDSDialogListener
@@ -42,6 +43,10 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        MapKitFactory.setApiKey("my_key")
+        MapKitFactory.initialize(this)
+
         setContentView(R.layout.activity_general)
         bottomNavigationView = findViewById(R.id.navigationView)
         setBadges()

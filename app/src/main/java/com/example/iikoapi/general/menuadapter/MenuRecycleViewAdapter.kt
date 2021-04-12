@@ -107,8 +107,8 @@ class MenuRecycleViewAdapter(private var context: Context, var commonPos : Int) 
                 order.addToOrder(orderItem)
 
                 val toast = Toast.makeText(context, "Добавлено в корзину", Toast.LENGTH_SHORT)
-                toast.view.background.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
-                toast.view.findViewById<TextView>(android.R.id.message).setTextColor(Color.WHITE)
+                toast.view?.background?.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN)
+                toast.view?.findViewById<TextView>(android.R.id.message)?.setTextColor(Color.WHITE)
                 toast.show()
                 setBadges()
             }
