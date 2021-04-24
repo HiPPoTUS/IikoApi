@@ -4,13 +4,15 @@ import Group
 import Product
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
+import com.example.iikoapi.general.contacts.ContactsFragmentMap
+import com.example.iikoapi.general.contacts.InfoInterface
+import com.example.iikoapi.general.contacts.PlaceInfoFragment
 import com.example.iikoapi.startapp.datatype.Post3dsRequestArgs
 import com.example.iikoapi.startapp.datatype.Transaction
 import com.example.iikoapi.startapp.menu
@@ -36,15 +38,17 @@ lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
 
 lateinit var paymentFragment : PaymentFragment
-class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
+class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener, InfoInterface {
     val iiko = Iiko(this,provider = IikoNetworkService.instance!!,pb = null)
     val cp = CP(CpNetworkService.instance!!)
+
+    private val placeInfoFragment = PlaceInfoFragment()
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        MapKitFactory.setApiKey("my_key")
+        MapKitFactory.setApiKey("32c93b24-eff5-4556-a26f-8fc93aec62cf")
         MapKitFactory.initialize(this)
 
         setContentView(R.layout.activity_general)
@@ -96,6 +100,7 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
         menu_prods = menu.get_groups_prods(men)
         mods_prods = menu.get_groups_prods(mod,true)
         mods_prods.put(divergent.id!!, menu.get_group_prods(divergent))
+
     }
 
 
@@ -138,5 +143,9 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener {
             trans.id,
             trans.paReq)
             .show(supportFragmentManager, "3DS");
+    }
+
+    override fun show() {
+        placeInfoFragment.show(supportFragmentManager, "tag")
     }
 }

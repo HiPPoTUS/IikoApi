@@ -11,6 +11,7 @@ class IikoNetworkService private constructor() {
     companion object {
         private var mInstance: IikoNetworkService? = null
         private const val BASE_URL = "https://iiko.biz:9900/api/0/"
+//        private const val BASE_URL = "https://vkusnaya-shaverma-co.iiko.it:9900/api/0/"
         val instance: IikoNetworkService?
             get() {
                 if (mInstance == null) {

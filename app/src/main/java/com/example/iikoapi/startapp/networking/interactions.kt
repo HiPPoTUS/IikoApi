@@ -45,7 +45,7 @@ class Iiko(context:Context, provider: IikoNetworkService, pb:ProgressBar?){
     }
 
     fun authentication() {
-        val call = local_provider.auth("vshaverma","n8mgiKG2")!!
+
         Log.d("token",call.request().url().toString())
         token = call.execute().body()
     }
