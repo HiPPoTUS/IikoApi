@@ -1,5 +1,6 @@
 package com.example.dodocopy.dataTypes
 
+import com.example.iikoapi.startapp.datatype.Address
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)

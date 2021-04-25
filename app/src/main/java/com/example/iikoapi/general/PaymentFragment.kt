@@ -1,28 +1,21 @@
 package com.example.iikoapi.general
 
 import android.app.Activity
-import android.content.Context
 import android.os.AsyncTask
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
 import android.widget.*
-import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.dodocopy.dataTypes.Address
+import com.example.iikoapi.startapp.datatype.Address
 import com.example.dodocopy.dataTypes.Customer
 import com.example.iikoapi.R
 import com.example.iikoapi.openedmenuitem.order
 import com.example.iikoapi.startapp.datatype.*
-import com.example.iikoapi.startapp.networking.AddressCheckResult
 import com.example.iikoapi.startapp.networking.CP
 import com.example.iikoapi.startapp.networking.Iiko
 import com.example.iikoapi.startapp.networking.OrderChecksCreationResult
 import com.example.iikoapi.startapp.streets
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import org.json.JSONObject
 import ru.cloudpayments.sdk.cp_card.CPCard
 
 class PaymentFragment(val contextMy: Activity){

@@ -4,10 +4,9 @@ import android.content.Context
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.view.WindowManager
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dodocopy.dataTypes.CityWithStreets
+import com.example.iikoapi.startapp.datatype.CityWithStreets
 import com.example.iikoapi.R
 import com.example.iikoapi.general.GeneralActivity
 import com.example.iikoapi.startapp.networking.*

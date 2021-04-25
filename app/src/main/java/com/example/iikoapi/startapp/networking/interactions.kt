@@ -6,14 +6,10 @@ import android.os.Build
 import android.util.Log
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dodocopy.dataTypes.Address
-import com.example.dodocopy.dataTypes.CityWithStreets
+import com.example.iikoapi.startapp.datatype.Address
+import com.example.iikoapi.startapp.datatype.CityWithStreets
 import com.example.iikoapi.startapp.DialogFragmentErrorSavedata
 import com.example.iikoapi.startapp.datatype.*
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class Iiko(context:Context, provider: IikoNetworkService, pb:ProgressBar?){
 
@@ -39,7 +35,7 @@ class Iiko(context:Context, provider: IikoNetworkService, pb:ProgressBar?){
         return call.execute().body()
     }
 
-    fun check_address(addr:Address):AddressCheckResult {
+    fun check_address(addr: Address):AddressCheckResult {
         val call = local_provider.check_delivery(token,organisationInfo!!.id, addr)
         return call.execute().body()!!
     }

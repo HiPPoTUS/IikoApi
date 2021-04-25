@@ -4,12 +4,15 @@ import Group
 import Product
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
+import com.example.iikoapi.entities.District
+import com.example.iikoapi.entities.DistrictResponse
 import com.example.iikoapi.general.contacts.ContactsFragmentMap
 import com.example.iikoapi.general.contacts.InfoInterface
 import com.example.iikoapi.general.contacts.PlaceInfoFragment
@@ -20,10 +23,12 @@ import com.example.iikoapi.startapp.networking.CP
 import com.example.iikoapi.startapp.networking.CpNetworkService
 import com.example.iikoapi.startapp.networking.Iiko
 import com.example.iikoapi.startapp.networking.IikoNetworkService
+import com.example.iikoapi.utils.data
 import com.example.iikoapi.utils.hideKeyboard
 import com.example.iikoapi.utils.setBadges
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.gson.Gson
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.android.synthetic.main.activity_general.*
 import kotlinx.android.synthetic.main.on_order_pop_up.*
@@ -36,6 +41,7 @@ lateinit var mod:List<Group>
 lateinit var menu_prods:MutableMap<String,List<Product>>
 lateinit var mods_prods:MutableMap<String,List<Product>>
 //general Activity
+
 
 lateinit var paymentFragment : PaymentFragment
 class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener, InfoInterface {
@@ -64,7 +70,6 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener, InfoInterfac
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(intent.getIntExtra("back_from", 0), this), "1").commit()
         else
             supportFragmentManager.beginTransaction().replace(R.id.fragment_container, MenuFragment(0, this), "1").commit()
-
 
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -145,7 +150,8 @@ class GeneralActivity : AppCompatActivity(), ThreeDSDialogListener, InfoInterfac
             .show(supportFragmentManager, "3DS");
     }
 
-    override fun show() {
+    override fun show(district: District) {
+        placeInfoFragment.setData(district)
         placeInfoFragment.show(supportFragmentManager, "tag")
     }
 }

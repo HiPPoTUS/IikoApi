@@ -1,14 +1,10 @@
 package com.example.iikoapi.startapp.datatype
 import Product
 import android.util.Log
-import com.example.dodocopy.dataTypes.Address
 import com.example.dodocopy.dataTypes.Customer
-import com.example.iikoapi.openedmenuitem.order
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.example.iikoapi.startapp.networking.MenuResponse
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
-import java.lang.Exception
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -90,7 +86,7 @@ data class Order(
     fun setThisPhone(value: String){
         phone = value
     }
-    fun setThisAddress(value:Address){
+    fun setThisAddress(value: Address){
         address=value
     }
     fun setThisPayments(value:List<PaymentItem>){

@@ -1,9 +1,7 @@
 package com.example.iikoapi.startapp.networking
 
-import android.location.Address
-import com.example.dodocopy.dataTypes.CityWithStreets
+import com.example.iikoapi.startapp.datatype.CityWithStreets
 import com.example.iikoapi.startapp.datatype.*
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -62,7 +60,7 @@ interface IIKO_API {
     fun check_delivery(
         @Query("access_token") token: String?,
         @Query("organizationId") org: String?,
-        @Body addr: com.example.dodocopy.dataTypes.Address
+        @Body addr: com.example.iikoapi.startapp.datatype.Address
     ):Call<AddressCheckResult>
 }
 

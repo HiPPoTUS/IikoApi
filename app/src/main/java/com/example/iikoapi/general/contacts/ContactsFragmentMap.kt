@@ -2,6 +2,7 @@ package com.example.iikoapi.general.contacts
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +11,12 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
+import com.example.iikoapi.entities.District
+import com.example.iikoapi.entities.DistrictResponse
+import com.example.iikoapi.utils.data
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.google.gson.Gson
+import com.google.gson.internal.LinkedTreeMap
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
 import com.yandex.mapkit.MapKitFactory
@@ -91,10 +98,44 @@ class ContactsFragmentMap(private val listener: InfoInterface) : Fragment(R.layo
 //            placemark.userData = "data $i"
 //        }
 
-        pointCollection.addPlacemark(
-            Point(59.932897, 30.342307),
-            ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
-        )
+        val places = DistrictResponse.fromJson(data)
+
+        val p = mutableListOf<LinkedTreeMap<*,*>>()
+        places.forEach{
+            p.addAll(listOf(it.value as LinkedTreeMap<*,*>))
+//            Log.d("hjfs", it.value.size.toString() + "- > " + it.value.toString())
+//            it.value.forEach{ district ->
+//                Log.d("hjfs", district.adr)
+////                val placemark = pointCollection.addPlacemark(
+////                    Point(district.lat, district.lng),
+////                    ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
+////                )
+////                placemark.userData = district
+//            }
+        }
+
+        for (x in p){
+            val placemark = pointCollection.addPlacemark(
+                Point(x[4] as Double, x[5] as Double),
+                ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
+            )
+            placemark.userData = x
+        }
+
+//        val placemark = pointCollection.addPlacemark(
+//            Point(it.value., 32.347221),
+//            ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
+//        )
+//        placemark.userData = "data $i"
+
+
+//        pointCollection.addPlacemark(
+//            Point(59.932897, 30.342307),
+//            ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
+//        )
+
+        pointCollection.addTapListener(this)
+
 //        mapView.map.mapObjects.addPlacemark(
 //            Point(61.904428, 32.347221),
 //            ImageProvider.fromResource(context, R.drawable.search_layer_pin_selected_default)
@@ -195,7 +236,7 @@ class ContactsFragmentMap(private val listener: InfoInterface) : Fragment(R.layo
     }
 
     override fun onMapObjectTap(mapObject: MapObject, p1: Point): Boolean {
-        listener.show()
+        listener.show(mapObject.userData as District)
         Toast.makeText(context, mapObject.userData.toString(), Toast.LENGTH_SHORT).show()
         return true
     }
@@ -203,5 +244,5 @@ class ContactsFragmentMap(private val listener: InfoInterface) : Fragment(R.layo
 }
 
 interface InfoInterface{
-    fun show()
+    fun show(district: District)
 }

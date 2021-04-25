@@ -1,4 +1,4 @@
-package com.example.dodocopy.dataTypes
+package com.example.iikoapi.startapp.datatype
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.fasterxml.jackson.annotation.JsonInclude
