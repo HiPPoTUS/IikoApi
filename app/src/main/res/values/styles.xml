@@ -82,4 +82,8 @@
         <item name="android:textColor">@color/darkGrey</item>
     </style>
 
+    <style name="ToolBar">
+        <item name="android:background">@color/main_yelow</item>
+    </style>
+
 </resources>

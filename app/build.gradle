@@ -1,6 +1,10 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android-extensions'
+}
 
 android {
     compileSdkVersion 30
@@ -34,40 +38,70 @@ android {
         targetCompatibility 1.8
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    dataBinding {
+        enabled true
+    }
+
 }
 
 dependencies {
-    implementation group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.5.0'
+    implementation group: 'com.squareup.retrofit2', name: 'converter-jackson', version: '2.9.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.core:core-ktx:1.3.1'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
 
-    implementation "androidx.viewpager2:viewpager2:1.0.0"
+//    old
 
-    implementation 'com.google.android.material:material:1.3.0'
 
+//    implementation 'com.android.volley:volley:1.2.0'
+//    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4"
+//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+//
+//    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+//    implementation 'ru.cloudpayments.android:sdk:1.0.7'
+//
+//    implementation 'se.emilsjolander:StickyScrollViewItems:1.1.0'
+//
+//
+//
+//    implementation 'com.google.code.gson:gson:2.8.6'
+
+
+//    new
+
+    def hilt_version = "2.33-beta"
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+
+    def lifecycle_version = "2.3.1"
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    // Saved state module for ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
 
     def glide_version = "4.12.0"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
-
-    implementation 'com.android.volley:volley:1.2.0'
-    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4"
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-
-    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
-    implementation 'ru.cloudpayments.android:sdk:1.0.7'
-
-    implementation 'se.emilsjolander:StickyScrollViewItems:1.1.0'
-
+    def fragment_version = "1.3.3"
+    // Kotlin
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+    // Testing Fragments in Isolation
+    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
 
     // Ynadex
     implementation 'com.yandex.android:mapkit:3.5.0'
@@ -78,19 +112,17 @@ dependencies {
     implementation 'com.yandex.android:search:3.5.0'
     implementation 'com.yandex.android:transport:3.5.0'
 
-    def fragment_version = "1.3.2"
+    def retrofit_version = "2.9.0"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-scalars:2.1.0"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.fasterxml.jackson.module:jackson-module-kotlin:2.11.4"
 
-    // Java language implementation
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    // Kotlin
-    implementation "androidx.fragment:fragment-ktx:$fragment_version"
-    // Testing Fragments in Isolation
-    debugImplementation "androidx.fragment:fragment-testing:$fragment_version"
-
-
-//    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+    // other
+    implementation 'com.github.aakira:expandable-layout:1.6.0@aar'
+    implementation 'ru.cloudpayments.android:sdk:1.0.7'
     implementation 'com.google.code.gson:gson:2.8.6'
-
-
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
+    implementation 'com.google.android.material:material:1.3.0'
 
 }

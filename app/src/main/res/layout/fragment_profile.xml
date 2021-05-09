@@ -7,20 +7,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/profile"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="профиль"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:background="@color/yellow"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="?attr/actionBarSize"
+        style="@style/ToolBar"
+        app:title="Profile"
+        android:elevation="4dp"/>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/profile"
+        android:layout_below="@id/toolBar"
         android:id="@+id/archive_L">
         <ImageView
             android:id="@+id/achive_pic"
@@ -111,5 +110,6 @@
             </RelativeLayout>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
+
 
 </RelativeLayout>

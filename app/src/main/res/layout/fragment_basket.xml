@@ -7,16 +7,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/text_korsina"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="корзина"
-        android:textSize="20sp"
-        android:gravity="center"
-        android:background="@color/yellow"
-        android:padding="10dp"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="?attr/actionBarSize"
+        style="@style/ToolBar"
+        app:title="Basket"
+        android:elevation="4dp"/>
 
     <TextView
         android:id="@+id/text_empty_basket"
@@ -27,7 +24,7 @@
         android:layout_centerInParent="true" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/text_korsina"
+        android:layout_below="@+id/toolBar"
         android:paddingBottom="56dp"
         android:clipToPadding="false"
         android:layout_width="match_parent"
@@ -55,7 +52,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/pay_go_to_menu"
+                android:id="@+id/payGoToMenu"
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

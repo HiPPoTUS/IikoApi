@@ -1,26 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="10dp"
-    app:cardCornerRadius="2dp"
-    app:cardPreventCornerOverlap="false">
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <data>
+        <import type="android.view.View" />
+
+        <variable
+            name="item"
+            type="com.example.iikoapi.entities.MerchItem" />
+
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
+        <variable
+            name="action"
+            type="com.example.iikoapi.utils.OnItemClickListener"/>
+
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/merchItem"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layerType="none">
+        android:layout_height="match_parent"
+        app:onClickListener="@{view -> action.onClick(view, item, position)}">
+
 
         <ImageView
-            android:id="@+id/merch_image"
-            android:layout_width="match_parent"
-            android:layout_weight="3"
-            android:layout_height="match_parent"
-            android:longClickable="false"
-            tools:srcCompat="@tools:sample/avatars" />
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/merchImage"
+            android:src="@drawable/shav_placeholder"
+            app:image="@{item.url}"/>
 
-    </LinearLayout>
 
-</androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:cardElevation="10dp"-->
+<!--        app:cardCornerRadius="2dp"-->
+<!--        app:cardPreventCornerOverlap="false"-->
+<!--        app:onClickListener="@{view -> action.onClick(view, item)}">-->
+
+<!--        <LinearLayout xmlns:tools="http://schemas.android.com/tools"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layerType="none">-->
+
+<!--            <ImageView-->
+<!--                android:id="@+id/merch_image"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_weight="3"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:longClickable="false"-->
+<!--                tools:srcCompat="@tools:sample/avatars"-->
+<!--                android:src="@drawable/shav_placeholder" />-->
+
+<!--        </LinearLayout>-->
+
+<!--    </androidx.cardview.widget.CardView>-->
+</layout>

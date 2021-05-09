@@ -1,20 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:id="@+id/mLayoutManager"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <data>
+
+        <import type="com.example.iikoapi.entities.datatype.Product"/>
+
+        <variable
+            name="groupProduct"
+            type="com.example.iikoapi.entities.GroupProducts" />
+
+        <variable
+            name="buyListener"
+            type="com.example.iikoapi.utils.OnItemClickListener" />
+
+    </data>
+
+    <FrameLayout
+        android:id="@+id/mLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        android:background="@android:color/transparent" >
 
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:id="@+id/menuRecyclerView"
+            android:layout_marginHorizontal="8dp"
+            app:onItemListener="@{buyListener}"
+            app:products="@{groupProduct}"
+
+            android:background="@android:color/transparent" />
+
+    </FrameLayout>
+</layout>

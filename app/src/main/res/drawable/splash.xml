@@ -3,9 +3,10 @@
     <!-- Цвет фона, предпочтительно как в главной теме -->
     <item android:drawable="@color/yellow"/>
 
-<!--    <item-->
-<!--        android:gravity="center"-->
-<!--        android:height="200dp"-->
-<!--        android:width="175dp"-->
-<!--        android:drawable="@drawable/lico"/>-->
+    <item
+        android:gravity="center"
+        android:height="200dp"
+        android:width="175dp"
+        android:drawable="@drawable/newlogo_2xxxhdpi"/>
+
 </layer-list>
