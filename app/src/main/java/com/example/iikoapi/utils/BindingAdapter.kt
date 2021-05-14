@@ -7,8 +7,10 @@ import com.bumptech.glide.Glide
 import com.example.iikoapi.R
 import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.MerchItem
+import com.example.iikoapi.entities.datatype.GroupModifier
 import com.example.iikoapi.entities.datatype.Image
 import com.example.iikoapi.entities.datatype.Product
+import com.google.android.material.tabs.TabLayout
 
 object BindingAdapter {
 
@@ -41,6 +43,20 @@ object BindingAdapter {
                 adapter.setLayoutId(R.layout.menu_product_item)
                 adapter.setListener(onItemListener as OnItemClickListener<Product>)
             }
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:hleb", "app:listener")
+    fun setUpHleb(tabLayout: TabLayout, x: Int, listener: TabLayout.OnTabSelectedListener){
+
+        tabLayout.removeAllTabs()
+
+        for(i in 0..x){
+            tabLayout.addTab(tabLayout.newTab().setText(" tab $i"))
+
+        }
+
+        tabLayout.addOnTabSelectedListener(listener)
     }
 
 }

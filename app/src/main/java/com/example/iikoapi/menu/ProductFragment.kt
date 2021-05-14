@@ -9,6 +9,7 @@ import com.example.iikoapi.entities.datatype.Product
 import com.example.iikoapi.main.MainViewModel
 import com.example.iikoapi.utils.GeneralAdapter
 import com.example.iikoapi.utils.OnItemClickListener
+import com.google.android.material.tabs.TabLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.products_view_pager.view.*
 import javax.inject.Inject
@@ -16,13 +17,34 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ProductFragment: Fragment(R.layout.products_view_pager) {
 
-    private var adapter: GeneralAdapter<Product> = GeneralAdapter<Product>()
+    @Inject
+    lateinit var viewModel: MainViewModel
+
+
+    private var adapter: GeneralAdapter<Product> = ProductAdapter<Product>()
         .apply {
             setData(listOf())
-            setLayoutId(R.layout.opened_item_for_view_pager)
+            setLayoutId(R.layout.layout_for_product)
+            setHlebListener(object : TabLayout.OnTabSelectedListener{
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+
+                }
+
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    Log.d("tab", tab?.parent?.tag.toString())
+                }
+
+            })
             setListener(object : OnItemClickListener<Product> {
                 override fun onClick(view: View, item: Product, position: Int?) {
-                    Log.d("click", "product")
+                    when(view.id){
+                        R.id.infoButton -> viewModel.showProductInfo(product = item)
+                        R.id.backButton -> viewModel.back()
+                    }
                 }
             })
         }
@@ -32,9 +54,6 @@ class ProductFragment: Fragment(R.layout.products_view_pager) {
         adapter.setData(products)
         adapter.notifyDataSetChanged()
     }
-
-    @Inject
-    lateinit var viewModel: MainViewModel
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

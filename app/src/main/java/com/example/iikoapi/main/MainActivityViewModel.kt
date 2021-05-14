@@ -13,10 +13,12 @@ import com.example.iikoapi.menu.ProductFragment
 import com.example.iikoapi.R
 import com.example.iikoapi.basket.BasketFragment
 import com.example.iikoapi.contacts.ContactsFragment
+import com.example.iikoapi.dialogs.ProductInfoDialog
 import com.example.iikoapi.entities.District
 import com.example.iikoapi.entities.datatype.Product
 import com.example.iikoapi.menu.MenuFragment
 import com.example.iikoapi.profile.ProfileFragment
+import com.example.iikoapi.utils.LoadingState
 import com.example.iikoapi.utils.Repository
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.launch
@@ -44,11 +46,24 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
         this.mainContainer = mainContainer
     }
 
-    fun getMenu(): LiveData<String>{
+    private val _loadingState = MutableLiveData<LoadingState>()
+    private val loadingState: LiveData<LoadingState>
+        get() = _loadingState
+
+    fun getMenu(): LiveData<LoadingState>{
 
         viewModelScope.launch {
-            val token = repository.authentication()
-            menu.value = token
+
+            try {
+                _loadingState.value = LoadingState.LOADING
+                val token = repository.authentication()
+                _loadingState.value = LoadingState.LOADED
+            } catch (e: Exception) {
+                _loadingState.value = LoadingState.error(e.message)
+            }
+
+//            val token = repository.authentication()
+//            menu.value = token
 //            val organisations = repository.getOrganisations(token)
 //            val organisation = organisations[0]
 //            menu.value = repository.getMenu(organisation.id!!, token)
@@ -57,7 +72,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
 
         }
 
-        return _menu
+        return loadingState
     }
 
     fun setUpMapKit(){
@@ -150,11 +165,15 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
 
     fun openMainFragment(){
         supportFragmentManager.beginTransaction().add(mainContainer.id, productFragment).hide(productFragment).commit()
-        supportFragmentManager.beginTransaction().add(mainContainer.id, mainFragment).commit()
+        supportFragmentManager.beginTransaction().add(mainContainer.id, mainFragment, MainFragment.TAG).commit()
     }
 
     fun showInfo(district: District){
 
+    }
+
+    fun showProductInfo(product: Product){
+        ProductInfoDialog(product).show(supportFragmentManager, ProductInfoDialog.TAG)
     }
 
     fun back(){
@@ -165,6 +184,8 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
             .show(mainFragment)
             .commit()
     }
+
+    fun needToCloseApp() = mainFragment.isVisible
 
     companion object Fragments{
         private val menuFragment = MenuFragment()

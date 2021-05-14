@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class Repository @Inject constructor(private val api: Api){
 
-    suspend fun authentication() = api.authentication("vshaverma","n8mgiKG2")
+    suspend fun authentication() = api.authentication()
 
     suspend fun getOrganisations(token: String) = api.getOrganisations(token)
 

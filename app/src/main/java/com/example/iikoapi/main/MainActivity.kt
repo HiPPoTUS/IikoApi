@@ -2,10 +2,12 @@ package com.example.iikoapi.main
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.iikoapi.R
+import com.example.iikoapi.utils.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
@@ -33,10 +35,22 @@ class MainActivity : AppCompatActivity() {
         viewModel.openMainFragment()
 
 
-        viewModel.getMenu().observe(this, Observer{ menu ->
-            if(menu != null){
-                Log.d("tag", menu.toString())
+        viewModel.getMenu().observe(this, Observer { loadingState ->
+            when (loadingState.status) {
+                LoadingState.Status.FAILED -> Toast.makeText(baseContext, loadingState.msg, Toast.LENGTH_SHORT).show()
+                LoadingState.Status.RUNNING -> Toast.makeText(baseContext, "Loading", Toast.LENGTH_SHORT).show()
+                LoadingState.Status.SUCCESS -> Toast.makeText(baseContext, "Success", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onBackPressed() {
+
+        if(viewModel.needToCloseApp()){
+            super.onBackPressed()
+        }
+        else{
+            viewModel
+        }
     }
 }

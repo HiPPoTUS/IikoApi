@@ -23,4 +23,8 @@ class MainFragment: Fragment(R.layout.fragment_main) {
             viewModel.changeFragment(menuItem.itemId)
         }
     }
+
+    companion object{
+        const val TAG = "MAIN_FRAGMENT"
+    }
 }

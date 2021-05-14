@@ -45,13 +45,13 @@ class MenuFragment : Fragment(R.layout.fragment_menu){
     )
 
     private val pr = listOf(
-        Product(name = "first 0", description = "1 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 1.0, price = 1),
-        Product(name = "first 1", description = "2 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 2.0, price = 2),
-        Product(name = "first 2", description = "3 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 3.0, price = 3),
-        Product(name = "first 3", description = "4 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 4.0, price = 4),
-        Product(name = "first 4", description = "5 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 5.0, price = 5),
-        Product(name = "first 5", description = "6 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 6.0, price = 6),
-        Product(name = "first 6", description = "7 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 7.0, price = 7),
+        Product(name = "first 0", description = "1 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 1.0, price = 1, carbohydrateAmount = 1.0, fatAmount = 1.0, fiberAmount = 1.0, energyAmount = 1.0),
+        Product(name = "first 1", description = "2 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 2.0, price = 2, carbohydrateAmount = 2.0, fatAmount = null, fiberAmount = 1.0, energyAmount = 1.0),
+        Product(name = "first 2", description = "3 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 3.0, price = 3, carbohydrateAmount = 3.0, fatAmount = 1.0, fiberAmount = null, energyAmount = 1.0),
+        Product(name = "first 3", description = "4 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 4.0, price = 4, carbohydrateAmount = 4.0, fatAmount = 1.0, fiberAmount = 1.0, energyAmount = 1.0),
+        Product(name = "first 4", description = "5 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 5.0, price = 5, carbohydrateAmount = 5.0, fatAmount = 1.0, fiberAmount = 1.0, energyAmount = 1.0),
+        Product(name = "first 5", description = "6 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 6.0, price = 6, carbohydrateAmount = 6.0, fatAmount = 1.0, fiberAmount = 1.0, energyAmount = 1.0),
+        Product(name = "first 6", description = "7 descr", images = listOf(Image(imageUrl = "https://picsum.photos/300")), weight = 7.0, price = 7, carbohydrateAmount = 7.0, fatAmount = 1.0, fiberAmount = 1.0, energyAmount = 1.0),
     )
 
     private val groupProducts = listOf(
