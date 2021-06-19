@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-basement:11.6.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f27a90f01cddbc5f77ef29a73b95275/jetified-play-services-basement-11.6.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f27a90f01cddbc5f77ef29a73b95275/jetified-play-services-basement-11.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1f27a90f01cddbc5f77ef29a73b95275/jetified-play-services-basement-11.6.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08f1802cc781922d3eb3fcd8e28b2dc6/jetified-play-services-basement-11.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08f1802cc781922d3eb3fcd8e28b2dc6/jetified-play-services-basement-11.6.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/08f1802cc781922d3eb3fcd8e28b2dc6/jetified-play-services-basement-11.6.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04b1c9137c187fbc73374419040b7977/jetified-play-services-basement-11.6.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04b1c9137c187fbc73374419040b7977/jetified-play-services-basement-11.6.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/04b1c9137c187fbc73374419040b7977/jetified-play-services-basement-11.6.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a985e61d7a4b1470135ec55bdbbf386/jetified-play-services-basement-11.6.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a985e61d7a4b1470135ec55bdbbf386/jetified-play-services-basement-11.6.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9a985e61d7a4b1470135ec55bdbbf386/jetified-play-services-basement-11.6.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
