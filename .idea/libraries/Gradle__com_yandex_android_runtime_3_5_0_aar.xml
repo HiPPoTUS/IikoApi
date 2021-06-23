@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.yandex.android:runtime:3.5.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/091d695dbaa93306dcda2cb5427ca265/jetified-runtime-3.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/091d695dbaa93306dcda2cb5427ca265/jetified-runtime-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/091d695dbaa93306dcda2cb5427ca265/jetified-runtime-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/005fbfec3e980556ad7698a5b41b0f17/jetified-runtime-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/005fbfec3e980556ad7698a5b41b0f17/jetified-runtime-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/005fbfec3e980556ad7698a5b41b0f17/jetified-runtime-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/601b7ce9553856997053bb0a2849c24f/jetified-runtime-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/601b7ce9553856997053bb0a2849c24f/jetified-runtime-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/601b7ce9553856997053bb0a2849c24f/jetified-runtime-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddda5f126198a98090747c41ab414cc6/jetified-runtime-3.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddda5f126198a98090747c41ab414cc6/jetified-runtime-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ddda5f126198a98090747c41ab414cc6/jetified-runtime-3.5.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

@@ -1,16 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.yandex.android:directions:3.5.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf12103f4e055bbc100f82d85d6a45a7/jetified-directions-3.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf12103f4e055bbc100f82d85d6a45a7/jetified-directions-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bf12103f4e055bbc100f82d85d6a45a7/jetified-directions-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de2b77e492c7ffa8a68f9c97c09a2a65/jetified-directions-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de2b77e492c7ffa8a68f9c97c09a2a65/jetified-directions-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/de2b77e492c7ffa8a68f9c97c09a2a65/jetified-directions-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d311bc664ed79a0a75922a55bd43c93/jetified-directions-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/24850ce6b007359aa46d5745a86eb1ad/jetified-directions-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/24850ce6b007359aa46d5745a86eb1ad/jetified-directions-3.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/24850ce6b007359aa46d5745a86eb1ad/jetified-directions-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/49254a68ca96926a3604c694b6bd6344/jetified-directions-3.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/49254a68ca96926a3604c694b6bd6344/jetified-directions-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/49254a68ca96926a3604c694b6bd6344/jetified-directions-3.5.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

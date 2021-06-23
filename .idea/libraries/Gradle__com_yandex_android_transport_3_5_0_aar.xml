@@ -1,16 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.yandex.android:transport:3.5.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1149091d948a107472a15a8c58f45d1/jetified-transport-3.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1149091d948a107472a15a8c58f45d1/jetified-transport-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d1149091d948a107472a15a8c58f45d1/jetified-transport-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4326eb3b425d0fc9f5e15c9e66aa2b95/jetified-transport-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4326eb3b425d0fc9f5e15c9e66aa2b95/jetified-transport-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4326eb3b425d0fc9f5e15c9e66aa2b95/jetified-transport-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4adf87297c500a9fdaa633dd753738d7/jetified-transport-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e199ae4207c9d77e3758a344a3fb115/jetified-transport-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e199ae4207c9d77e3758a344a3fb115/jetified-transport-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e199ae4207c9d77e3758a344a3fb115/jetified-transport-3.5.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cb77cf621dbda448a2e88272d0416f0c/jetified-transport-3.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cb77cf621dbda448a2e88272d0416f0c/jetified-transport-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/cb77cf621dbda448a2e88272d0416f0c/jetified-transport-3.5.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

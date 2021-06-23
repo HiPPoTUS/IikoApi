@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.yandex.android:search:3.5.0@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb29d5a8cf5dad2c2dcea79ef455ccb4/jetified-search-3.5.0/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb29d5a8cf5dad2c2dcea79ef455ccb4/jetified-search-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fb29d5a8cf5dad2c2dcea79ef455ccb4/jetified-search-3.5.0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e70d1d5a7960b6bf9834cca93a179968/jetified-search-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e70d1d5a7960b6bf9834cca93a179968/jetified-search-3.5.0/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e70d1d5a7960b6bf9834cca93a179968/jetified-search-3.5.0/jars/classes.jar!/" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c89b0aba8b5abe704028d5d5f388d347/jetified-search-3.5.0/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c89b0aba8b5abe704028d5d5f388d347/jetified-search-3.5.0/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c89b0aba8b5abe704028d5d5f388d347/jetified-search-3.5.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a504e64fd9edbf8145f44f57c674e2e5/jetified-search-3.5.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a504e64fd9edbf8145f44f57c674e2e5/jetified-search-3.5.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a504e64fd9edbf8145f44f57c674e2e5/jetified-search-3.5.0/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

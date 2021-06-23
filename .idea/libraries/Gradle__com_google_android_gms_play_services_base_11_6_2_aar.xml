@@ -1,15 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: com.google.android.gms:play-services-base:11.6.2@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3d590035b5a9802270516891273f729/jetified-play-services-base-11.6.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3d590035b5a9802270516891273f729/jetified-play-services-base-11.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f3d590035b5a9802270516891273f729/jetified-play-services-base-11.6.2/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d78413d64ec38ec2ecb0b03897d5344/jetified-play-services-base-11.6.2/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d78413d64ec38ec2ecb0b03897d5344/jetified-play-services-base-11.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1d78413d64ec38ec2ecb0b03897d5344/jetified-play-services-base-11.6.2/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aec06a585c6ddc60e9b92dec92950297/jetified-play-services-base-11.6.2/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aec06a585c6ddc60e9b92dec92950297/jetified-play-services-base-11.6.2/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aec06a585c6ddc60e9b92dec92950297/jetified-play-services-base-11.6.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10fd96d2758cc4a4c777792087f82d37/jetified-play-services-base-11.6.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10fd96d2758cc4a4c777792087f82d37/jetified-play-services-base-11.6.2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/10fd96d2758cc4a4c777792087f82d37/jetified-play-services-base-11.6.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
