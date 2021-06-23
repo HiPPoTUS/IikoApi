@@ -86,7 +86,7 @@ class MenuFragment : Fragment(R.layout.fragment_menu){
                 setData(items)
                 setLayoutId(R.layout.layout_for_merch_item)
                 setListener(object : OnItemClickListener<MerchItem> {
-                    override fun onClick(view: View, item: MerchItem, position: Int?) {
+                    override fun onClick(view: View, item: MerchItem, position: Int) {
                         when (view.id) {
                             R.id.merchItem -> Log.d("click", "merchItem")
                         }
@@ -100,9 +100,9 @@ class MenuFragment : Fragment(R.layout.fragment_menu){
                 setData(groupProducts)
                 setLayoutId(R.layout.menu_recycler_view)
                 setInnerListener(object : OnItemClickListener<Product>{
-                    override fun onClick(view: View, item: Product, position: Int?) {
+                    override fun onClick(view: View, item: Product, position: Int) {
                         when (view.id) {
-                            R.id.menuProductItem -> viewModel.openProduct(groupProducts[menuTabLayout.selectedTabPosition].products, position!!)
+                            R.id.menuProductItem -> viewModel.openProduct(groupProducts[menuTabLayout.selectedTabPosition].products, position)
                             R.id.menuItemBuyButton -> Log.d("click", "byeButton")
                         }
                     }

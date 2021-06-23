@@ -6,6 +6,8 @@
     <data>
         <import type="android.view.View" />
 
+        <import type="com.google.android.material.tabs.TabLayout"/>
+
         <variable
             name="item"
             type="com.example.iikoapi.entities.MerchItem" />

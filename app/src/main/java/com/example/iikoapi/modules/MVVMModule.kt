@@ -1,6 +1,6 @@
 package com.example.iikoapi.modules
 
-import android.app.Application
+import android.content.Context
 import com.example.iikoapi.api.Api
 import com.example.iikoapi.main.MainViewModel
 import com.example.iikoapi.main.MainViewModelFactory
@@ -8,6 +8,7 @@ import com.example.iikoapi.utils.Repository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
@@ -33,14 +34,8 @@ object MVVMModule {
         return MainViewModelFactory(mainViewModel)
     }
 
+//    @Singleton
 //    @Provides
-//    fun provideStartFragmentViewModel(repository: Repository, mainViewModel: MainViewModel): StartFragmentViewModel {
-//        return StartFragmentViewModel(repository, mainViewModel)
-//    }
-//
-//    @Provides
-//    fun provideStartFragmentViewModelFactory(startFragmentViewModel: StartFragmentViewModel): StartFragmentViewModelFactory {
-//        return StartFragmentViewModelFactory(startFragmentViewModel)
-//    }
+//    fun getActivity(@ApplicationContext appContext: Context) = appContext
 
 }

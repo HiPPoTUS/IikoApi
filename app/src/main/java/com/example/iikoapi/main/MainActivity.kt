@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
         else{
-            viewModel
+            viewModel.back()
         }
     }
 }

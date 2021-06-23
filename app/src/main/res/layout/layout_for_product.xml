@@ -17,11 +17,37 @@
 
         <variable
             name="action"
-            type="com.example.iikoapi.utils.OnItemClickListener"/>
+            type="android.view.View.OnClickListener" />
 
-        <variable
-            name="hlebListener"
-            type="com.google.android.material.tabs.TabLayout.OnTabSelectedListener"/>
+        <import type="java.util.List" />
+
+        <import type="com.example.iikoapi.entities.MerchItem" />
+
+        <import type="com.google.android.material.tabs.TabLayout" />
+
+        <!--        <variable-->
+        <!--            name="hlebPriceTabLayout"-->
+        <!--            type="com.google.android.material.tabs.TabLayout" />-->
+
+        <!--        <variable-->
+        <!--            name="hlebPriceExpandableLayout"-->
+        <!--            type="com.github.aakira.expandablelayout.ExpandableRelativeLayout" />-->
+
+        <!--        <variable-->
+        <!--            name="deleteExpandableLayout"-->
+        <!--            type="com.github.aakira.expandablelayout.ExpandableRelativeLayout" />-->
+
+        <!--        <variable-->
+        <!--            name="dobavitList"-->
+        <!--            type="List&lt;MerchItem>"/>-->
+
+        <!--        <variable-->
+        <!--            name="tabLayout"-->
+        <!--            type="com.google.android.material.tabs.TabLayout" />-->
+
+        <!--        <variable-->
+        <!--            name="dobavitAdapter"-->
+        <!--            type="com.example.iikoapi.menu.ModifiersAdapter" />-->
 
     </data>
 
@@ -44,45 +70,45 @@
                     android:id="@+id/collapsingLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                    app:contentScrim="@color/yellow"
-                    app:title="@{item.name}"
-                    app:expandedTitleGravity="start|bottom"
-                    app:expandedTitleMarginStart="16dp"
-                    app:expandedTitleMarginBottom="62dp"
-                    app:collapsedTitleGravity="center"
-                    app:scrimAnimationDuration="150"
                     android:layout_marginBottom="-23dp"
+                    app:collapsedTitleGravity="center"
                     app:collapsedTitleTextAppearance="@style/CollapsedTitle"
-                    app:expandedTitleTextAppearance="@style/ExpandedTitle">
+                    app:contentScrim="@color/yellow"
+                    app:expandedTitleGravity="start|bottom"
+                    app:expandedTitleMarginBottom="62dp"
+                    app:expandedTitleMarginStart="16dp"
+                    app:expandedTitleTextAppearance="@style/ExpandedTitle"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                    app:scrimAnimationDuration="150"
+                    app:title="@{item.name}">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_collapseParallaxMultiplier="0.75"
-                        app:layout_collapseMode="parallax">
+                        app:layout_collapseMode="parallax"
+                        app:layout_collapseParallaxMultiplier="0.75">
 
                         <ImageView
                             android:id="@+id/image_inside"
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
+                            app:image="@{item.images[0]}"
                             app:layout_constrainedHeight="true"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="1"
                             app:layout_constraintTop_toTopOf="parent"
-                            tools:srcCompat="@drawable/ic_launcher_background"
-                            app:image="@{item.images[0]}" />
+                            tools:srcCompat="@drawable/ic_launcher_background" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        android:id="@+id/toolbar"
                         android:layout_marginBottom="23dp"
+                        android:gravity="center"
                         android:paddingBottom="39dp"
-                        app:layout_collapseMode="pin"
-                        android:gravity="center" />
+                        app:layout_collapseMode="pin" />
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -92,10 +118,10 @@
                 android:id="@+id/nestedScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="none"
-                android:paddingBottom="80dp"
                 android:layout_marginTop="-23dp"
                 android:clipToPadding="false"
+                android:paddingBottom="80dp"
+                android:scrollbars="none"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,40 +135,40 @@
                         android:id="@+id/descriptionText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layout_constraintTop_toTopOf="parent"
                         android:text="@{item.description}"
-                        android:textSize="15dp" />
+                        android:textSize="15dp"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
                         android:id="@+id/infoButton"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        app:elevation="3dp"
-                        android:src="@drawable/info_btn"
                         android:layout_gravity="center_vertical|end"
-                        app:maxImageSize="30dp"
-                        app:layout_constraintTop_toBottomOf="@id/descriptionText"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        android:onClick="@{action}"
                         android:outlineAmbientShadowColor="@android:color/transparent"
                         android:outlineSpotShadowColor="@android:color/transparent"
+                        android:src="@drawable/info_btn"
                         android:tintMode="multiply"
                         app:backgroundTint="@android:color/transparent"
+                        app:elevation="3dp"
                         app:fabCustomSize="40dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/descriptionText"
+                        app:maxImageSize="30dp"
                         app:rippleColor="@null"
-                        app:tint="@color/yellow"
-                        app:onClickListener="@{view -> action.onClick(view, item, position)}"/>
+                        app:tint="@color/yellow" />
 
                     <TextView
-                        app:layout_constraintTop_toTopOf="@id/infoButton"
-                        app:layout_constraintBottom_toBottomOf="@id/infoButton"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/infoButton"
                         android:id="@+id/weightText"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
                         android:layout_marginEnd="16dp"
                         android:gravity="center_vertical|end"
                         android:text="@{Double.toString(item.weight) + ` гр`}"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent" />
+                        app:layout_constraintBottom_toBottomOf="@id/infoButton"
+                        app:layout_constraintEnd_toStartOf="@id/infoButton"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/infoButton" />
 
                     <FrameLayout
                         android:id="@+id/hlebLayoutBackground"
@@ -155,26 +181,95 @@
                         app:layout_constraintTop_toBottomOf="@id/weightText">
 
                         <com.google.android.material.tabs.TabLayout
-                            android:tag="@{position}"
                             android:id="@+id/hlebModifierTabLayout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:tabGravity="fill"
+                            android:background="@xml/r23"
+                            android:backgroundTint="@color/lightGrey"
                             android:minWidth="0dp"
+                            app:hleb="@{3}"
+                            app:hlebPriceExpandableLayout="@{hlebPriceExpandableLayout}"
+                            app:hlebPriceTabLayout="@{hlebPriceTabLayout}"
+                            app:tabGravity="fill"
                             app:tabIndicator="@xml/r18"
                             app:tabIndicatorColor="@color/white"
                             app:tabIndicatorFullWidth="true"
                             app:tabIndicatorGravity="stretch"
-                            app:tabTextColor="@color/white"
-                            app:tabSelectedTextColor="@color/middleGrey"
                             app:tabMode="fixed"
                             app:tabRippleColor="@null"
-                            android:background="@xml/r23"
-                            android:backgroundTint="@color/lightGrey"
-                            app:hleb="@{3}"
-                            app:listener="@{hlebListener}"/>
+                            app:tabSelectedTextColor="@color/middleGrey"
+                            app:tabTextColor="@color/white" />
 
                     </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/hlebPriceLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        app:layout_constraintTop_toBottomOf="@id/hlebLayoutBackground">
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/hlebPriceExpandableLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="30dp"
+                            app:el_duration="200"
+                            app:el_expanded="false">
+
+                            <com.google.android.material.tabs.TabLayout
+                                android:id="@+id/hlebPriceTabLayout"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                app:tabGravity="fill"
+                                app:tabMode="fixed" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
+                    </FrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewDobavit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/hlebPriceLayout"
+                        app:spanCount="3" />
+
+                    <LinearLayout
+                        android:id="@+id/deleteLinearLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:background="@xml/r23"
+                        android:backgroundTint="@android:color/transparent"
+                        android:orientation="vertical"
+                        app:layout_constraintTop_toBottomOf="@id/recyclerViewDobavit">
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/deleteButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/background_ripple_23"
+                            android:backgroundTint="@color/lightGrey"
+                            android:onClick="@{action}"
+                            android:text="Delete" />
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/deleteExpandableLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:el_duration="200"
+                            app:el_expanded="false"
+                            app:layout_constraintTop_toBottomOf="@id/deleteButton">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="dfshvkujsd" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
+
+                    </LinearLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -186,16 +281,28 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="20dp"
+                android:onClick="@{action}"
                 android:src="@drawable/back_arrow"
-                app:layout_anchor="@id/toolbar"
-                app:layout_anchorGravity="bottom"
                 android:tintMode="multiply"
                 app:backgroundTint="@color/yellow"
                 app:fabCustomSize="40dp"
-                app:onClickListener="@{view -> action.onClick(view, item, position)}"/>
+                app:layout_anchor="@id/toolbar"
+                app:layout_anchorGravity="bottom" />
+
 
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/addToBasketButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_ripple_23"
+            android:backgroundTint="@color/main_yelow"
+            android:onClick="@{action}"
+            android:text="to basket"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
