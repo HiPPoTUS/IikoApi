@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.example.iikoapi.entities.datatype.Image" />
+
+        <variable
+            name="item"
+            type="com.example.iikoapi.entities.nomenclature.Product" />
+
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
+        <variable
+            name="action"
+            type="com.example.iikoapi.utils.OnItemClickListener" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menuProductItem"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_ripple_23"
+        android:backgroundTint="@color/white"
+        android:padding="16dp"
+        app:onClickListener="@{view -> action.onClick(view, item, position)}">
+
+        <ImageView
+            android:id="@+id/menuItemImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@android:color/transparent"
+            android:scaleType="centerCrop"
+            app:image="@{item.images[0]}"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.45"
+            tools:src="@drawable/ic_info_icon" />
+
+        <TextView
+            android:id="@+id/menuItemName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:lines="2"
+            android:text="@{item.name}"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/menuItemImage"
+            tools:text="Shaverma" />
+
+        <TextView
+            android:id="@+id/menuItemPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="@{Long.toString(item.price)  + ` ₽`}"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/menuItemName"
+            tools:text="148 ₽" />
+
+        <TextView
+            android:id="@+id/product_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:gravity="center"
+            android:text="@{Double.toString(item.weight) + ` гр`}"
+            app:layout_constraintBottom_toBottomOf="@id/menuItemBuyButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/menuItemBuyButton"
+            tools:text="456" />
+
+        <ImageView
+            android:id="@+id/menuItemBuyButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/background_ripple_23"
+            android:src="@drawable/ic_menu_plus_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/menuItemPrice"
+            app:onClickListener="@{view -> action.onClick(view, item, position)}"
+            tools:ignore="ContentDescription" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

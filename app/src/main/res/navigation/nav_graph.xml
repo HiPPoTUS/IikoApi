@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <include app:graph="@navigation/menu_nav_graph" />
+
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.iikoapi.main.MainActivity"
+        android:label="MainActivity" />
+
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.example.iikoapi.contacts.ContactsFragment"
+        android:label="ContactsFragment"
+        tools:layout="@layout/fragment_contacts">
+        <argument
+            android:name="terminals"
+            app:argType="com.example.iikoapi.entities.start.Terminals" />
+        <action
+            android:id="@+id/action_contactsFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/enter_anim_right"
+            app:exitAnim="@anim/exit_anim_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.iikoapi.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+        <argument
+            android:name="district"
+            app:argType="com.example.iikoapi.entities.start.District" />
+        <action
+            android:id="@+id/action_mainFragment_to_productsFragment"
+            app:destination="@id/productsFragment"
+            app:enterAnim="@anim/enter_anim_right"
+            app:exitAnim="@anim/exit_anim_right"
+            app:popEnterAnim="@anim/enter_anim_left"
+            app:popExitAnim="@anim/exit_anim_left" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/productsFragment"
+        android:name="com.example.iikoapi.menu.ProductsFragment"
+        android:label="ProductsFragment"
+        tools:layout="@layout/layout_for_product">
+        <argument
+            android:name="groupPosition"
+            app:argType="integer" />
+        <argument
+            android:name="productPosition"
+            app:argType="integer" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/productInfoDialog"
+        android:name="com.example.iikoapi.dialogs.ProductInfoDialog"
+        tools:layout="@layout/dialog_product_info" />
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.iikoapi.start.StartFragment"
+        android:label="StartFragment"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_contactsFragment"
+            app:destination="@id/contactsFragment"
+            app:enterAnim="@anim/enter_anim_right"
+            app:exitAnim="@anim/exit_anim_right"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

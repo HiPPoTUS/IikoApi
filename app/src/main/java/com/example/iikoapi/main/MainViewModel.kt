@@ -1,24 +1,22 @@
 package com.example.iikoapi.main
 
 import android.app.Activity
-import androidx.annotation.IdRes
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.iikoapi.menu.ProductsFragment
-import com.example.iikoapi.R
-import com.example.iikoapi.basket.BasketFragment
-import com.example.iikoapi.contacts.ContactsFragment
 import com.example.iikoapi.dialogs.ProductInfoDialog
-import com.example.iikoapi.entities.District
+import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.MerchItem
-import com.example.iikoapi.entities.datatype.Product
-import com.example.iikoapi.menu.MenuFragment
-import com.example.iikoapi.profile.ProfileFragment
+import com.example.iikoapi.entities.menu.ChildModifier
+import com.example.iikoapi.entities.menu.Menu
+import com.example.iikoapi.entities.menu.Modifier
+import com.example.iikoapi.entities.nomenclature.Product
+import com.example.iikoapi.entities.start.MenuIdBody
+import com.example.iikoapi.entities.start.OrganisationIdBody
+import com.example.iikoapi.entities.start.Terminals
+import com.example.iikoapi.start.StartFragmentDirections
 import com.example.iikoapi.utils.LoadingState
 import com.example.iikoapi.utils.Repository
 import com.yandex.mapkit.MapKitFactory
@@ -27,40 +25,92 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val menu = MutableLiveData<String>(null)
-    private val _menu: LiveData<String> = menu
+    var supportFragmentManager: FragmentManager? = null
 
-    private lateinit var supportFragmentManager: FragmentManager
-    private var activeFragment: Fragment = menuFragment
-    private lateinit var mainContainer: FragmentContainerView
+    var activity: Activity? = null
 
-    private lateinit var activity: Activity
+    private lateinit var menu: Menu
+    private val groupsProduct = mutableListOf<GroupProducts>()
 
-    fun setActivity(activity: Activity){
-        this.activity = activity
+    fun getGroups() = menu.groups_products
+
+    fun getGroupsProducts() = groupsProduct
+
+    fun getModifiersType(id: String) = menu.groups_modifiers.find {
+        it.id == id
     }
 
-    var menuPosition = 0
+    fun geGroupsModifiers(childModifiers: List<ChildModifier>?) = childModifiers?.let {
+        mutableListOf<Modifier>().also {list ->
+            childModifiers.forEach {childModifier ->
+                menu.modifiers.find {modifier ->
+                    modifier.id == childModifier.modifierId
+                }.apply {
+                    this?.let {
+                        list.add(this)
+                    }
+                }
 
-    fun setUpMainNavigation(supportFragmentManager: FragmentManager, mainContainer: FragmentContainerView){
-        this.supportFragmentManager = supportFragmentManager
-        this.mainContainer = mainContainer
+            }
+        }
     }
 
     private val _loadingState = MutableLiveData<LoadingState>()
     private val loadingState: LiveData<LoadingState>
         get() = _loadingState
 
-    fun getMenu(): LiveData<LoadingState>{
+    private val terminalsLiveData = MutableLiveData<Terminals>(null)
+
+    fun getTerminals(): LiveData<LoadingState>{
+        viewModelScope.launch {
+
+            _loadingState.value = LoadingState.Loading
+            try {
+                val terminalsList = repository.getTerminals(OrganisationIdBody())
+                val terminals = Terminals(terminal = terminalsList)
+                StartFragmentDirections.actionStartFragmentToContactsFragment(terminals)
+                terminalsLiveData.value = terminals
+                _loadingState.value = LoadingState.SuccessTerminals(terminals)
+            } catch (e: Exception) {
+                _loadingState.value = LoadingState.Error(e.message)
+            }
+
+//            val token = repository.authentication()
+//            menu.value = token
+//            val organisations = repository.getOrganisations(token)
+//            val organisation = organisations[0]
+//            menu.value = repository.getMenu(organisation.id!!, token)
+//            MainScope().launch {  }
+//            val restrictions = repository.getRestrictions(token, organisation.id)
+
+        }
+        return loadingState
+    }
+
+
+    fun getMenuResponse(): LiveData<LoadingState> {
 
         viewModelScope.launch {
 
             try {
-                _loadingState.value = LoadingState.LOADING
-                val token = repository.authentication()
-                _loadingState.value = LoadingState.LOADED
+                _loadingState.value = LoadingState.Loading
+                val terminals = repository.getTerminals(OrganisationIdBody())
+                menu = repository.getMenu(MenuIdBody(terminals.firstOrNull()?.deliveryTerminalId))
+                menu.groups_products.forEachIndexed { index, group ->
+                    groupsProduct.add(
+                        GroupProducts(
+                            products = menu.products.filter { product ->
+                                product.parentGroup == group.id
+                            },
+                            groupName = group.name,
+                            groupIndex = index
+                        )
+                    )
+                }
+
+                _loadingState.value = LoadingState.SuccessMenu(menu)
             } catch (e: Exception) {
-                _loadingState.value = LoadingState.error(e.message)
+                _loadingState.value = LoadingState.Error(e.message)
             }
 
 //            val token = repository.authentication()
@@ -76,133 +126,27 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
         return loadingState
     }
 
-    fun setUpMapKit(){
+    fun setUpMapKit() {
         MapKitFactory.setApiKey("32c93b24-eff5-4556-a26f-8fc93aec62cf")
         MapKitFactory.initialize(activity)
     }
 
-    fun setUpNavigationFragments(@IdRes container: Int){
+    fun getOpenProducts(position: Int) = groupsProduct[position].products
 
-        supportFragmentManager.beginTransaction().apply {
-            add(container, contactsFragment, "2").hide(contactsFragment)
-            add(container, profileFragment, "3").hide(profileFragment)
-            add(container, basketFragment, "4").hide(basketFragment)
-            add(container, menuFragment, "1")
+    private lateinit var mainFragment: MainFragment
 
-        }.commit()
+    fun setMainFragment(fr: MainFragment) = apply { mainFragment = fr }
 
+    fun openProduct(groupPosition: Int, position: Int) =
+        apply { mainFragment.openProduct(groupPosition, position) }
+
+    fun showProductInfo(product: Product) {
+        ProductInfoDialog(product).show(supportFragmentManager!!, ProductInfoDialog.TAG)
     }
 
-    fun changeFragment(@IdRes menuItem: Int): Boolean = when (menuItem) {
-        R.id.menuItem-> {
-            if(activeFragment != menuFragment){
-                beginTransaction(menuFragment, menuFragment.INDEX_TAG)
-                true
-            }
-            else{
-                false
-            }
-        }
-        R.id.contactsItem -> {
-            if(activeFragment != contactsFragment){
-                beginTransaction(contactsFragment, contactsFragment.INDEX_TAG)
-                true
-            }
-            else{
-                false
-            }
-        }
-        R.id.profileItem -> {
-            if(activeFragment != profileFragment){
-                beginTransaction(profileFragment, profileFragment.INDEX_TAG)
-                true
-            }
-            else{
-                false
-            }
-        }
-        R.id.basketItem -> {
-            if(activeFragment != basketFragment){
-                beginTransaction(basketFragment, basketFragment.INDEX_TAG)
-                true
-            }
-            else{
-                false
-            }
-        }
-        else -> false
-    }
-
-    private fun beginTransaction(fr: Fragment, tag: Int){
-        if(activeFragment.tag!!.toInt() > tag){
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_anim_left, R.anim.exit_anim_left)
-                .hide(activeFragment)
-                .show(fr)
-                .commit()
-        }
-        else{
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.enter_anim_right, R.anim.exit_anim_right)
-                .hide(activeFragment)
-                .show(fr)
-                .commit()
-        }
-
-        activeFragment = fr
-    }
-
-    fun openProduct(products: List<Product>, position: Int){
-        supportFragmentManager
-            .beginTransaction()
-            .setCustomAnimations(R.anim.enter_anim_right, R.anim.exit_anim_right, R.anim.enter_anim_left, R.anim.exit_anim_left)
-            .add(
-                mainContainer.id,
-                ProductsFragment(products, position),
-                "productsFragment"
-            )
-            .addToBackStack("productsFragment")
-            .commit()
-    }
-
-
-    fun openMainFragment(){
-        supportFragmentManager.beginTransaction().add(mainContainer.id, mainFragment, MainFragment.TAG).commit()
-    }
-
-    fun showInfo(district: District){
-
-    }
-
-    fun showProductInfo(product: Product){
-        ProductInfoDialog(product).show(supportFragmentManager, ProductInfoDialog.TAG)
-    }
-
-    fun back(){
-        supportFragmentManager
-            .popBackStack()
-//            .setCustomAnimations(R.anim.enter_anim_left, R.anim.exit_anim_left)
-//            .hide(productFragment)
-//            .show(mainFragment)
-//            .commit()
-    }
-
-    fun addToOreder(product: Product, hlebPosition: Int, dobavitModifiers: List<MerchItem>){
+    fun addToOrder(product: Product, hlebPosition: Int, dobavitModifiers: List<MerchItem>) {
 
         hlebPosition
     }
 
-    fun needToCloseApp() = mainFragment.isVisible
-
-    companion object Fragments{
-        private val menuFragment = MenuFragment()
-        private val contactsFragment = ContactsFragment()
-        private val profileFragment = ProfileFragment()
-        private val basketFragment = BasketFragment()
-
-//        private val productFragment = ProductFragment()
-        private val mainFragment = MainFragment()
-    }
 }

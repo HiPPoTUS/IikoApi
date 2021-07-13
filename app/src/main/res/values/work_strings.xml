@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <string name="organisation_name_id" tools:ignore="TypographyDashes">05961721–b9bd-11e9-80e9-d8d38565926f</string>
+
+    <string name="start_fragment_go">Поехали</string>
+    <string name="start_fragment_order_delivery">Заказать доставку:</string>
+    <string name="start_fragment_error_title">Произошла ошибка</string>
+    <string name="start_fragment_error_subtitle">Попробуйте повторить позднее</string>
+
+    <string name="contacts_fragment_title">Контакты</string>
+    <string name="contacts_fragment_list">Список</string>
+    <string name="contacts_fragment_map">Карта</string>
+
+    <string name="product_for_layout_add_ingredients">Добавить ингридиенты</string>
+    <string name="product_for_layout_remove_ingredients">Убрать ингридиенты</string>
+    <string name="product_for_layout_add_to_basket">Добавить в корзину</string>
+    <string name="product_for_layout_added_to_basket">Добавлено в корзину</string>
+
+    <string name="dialog_product_info_nutritional_value">Пищевая ценность на 100г</string>
+    <string name="dialog_product_info_energy_value">Энергетическая ценность</string>
+    <string name="dialog_product_info_protein_value">Белки</string>
+    <string name="dialog_product_info_fat_value">Жиры</string>
+    <string name="dialog_product_info_carbohydrates_value">Углеводы</string>
+
+
+</resources>

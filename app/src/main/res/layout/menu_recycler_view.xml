@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.example.iikoapi.entities.datatype.Product"/>
+        <import type="com.example.iikoapi.entities.nomenclature.Product"/>
 
         <variable
             name="groupProduct"
@@ -25,7 +25,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
             android:id="@+id/menuRecyclerView"
             android:layout_marginHorizontal="8dp"
             app:onItemListener="@{buyListener}"

@@ -6,13 +6,23 @@
 
         <variable
             name="item"
-            type="com.example.iikoapi.entities.District" />
+            type="com.example.iikoapi.entities.start.District" />
+
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
+        <variable
+            name="action"
+            type="com.example.iikoapi.utils.OnItemClickListener"/>
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_ripple"
+        app:onClickListener="@{view -> action.onClick(view, item, position)}">
 
         <TextView
             android:id="@+id/itemTextView"

@@ -2,14 +2,20 @@
 
 package com.example.iikoapi.utils
 
+import android.widget.FrameLayout
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iikoapi.R
+import com.example.iikoapi.entities.ExpandableState
 import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.datatype.Image
-import com.example.iikoapi.entities.datatype.Product
+import com.example.iikoapi.entities.menu.Modifier
+import com.example.iikoapi.entities.nomenclature.Product
+import com.example.iikoapi.utils.adapters.GeneralAdapter
 import com.google.android.material.tabs.TabLayout
 import net.cachapa.expandablelayout.ExpandableLayout
 
@@ -17,7 +23,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["app:image"])
-    fun setImage(view: ImageView, im: Image?){
+    fun setImage(view: ImageView, im: Image?) {
         Glide
             .with(view.context)
             .load(im?.imageUrl)
@@ -27,7 +33,7 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["app:image"])
-    fun setImage(view: ImageView, url: String?){
+    fun setImage(view: ImageView, url: String?) {
         Glide
             .with(view.context)
             .load(url)
@@ -37,42 +43,62 @@ object BindingAdapter {
 
     @JvmStatic
     @BindingAdapter(value = ["app:products", "app:onItemListener"], requireAll = true)
-    fun setUpMenuRecyclerView(recyclerView: RecyclerView, products: GroupProducts, onItemListener: OnItemClickListener<*>){
+    fun setUpMenuRecyclerView(
+        recyclerView: RecyclerView,
+        products: GroupProducts,
+        onItemListener: OnItemClickListener<*>
+    ) {
         recyclerView.adapter = GeneralAdapter<Product>()
             .also { adapter ->
                 adapter.setData(products.products)
-                adapter.setLayoutId(R.layout.menu_product_item)
+                adapter.setLayoutId(R.layout.menu_product_item_new)
                 adapter.setListener(onItemListener as OnItemClickListener<Product>)
             }
     }
 
     @JvmStatic
-    @BindingAdapter("app:hleb", "app:hlebPriceTabLayout", "app:hlebPriceExpandableLayout")
-    fun setUpHleb(tabLayout: TabLayout, x: Int, hlebPriceTabLayout: TabLayout, hlebPriceExpandableLayout: ExpandableLayout){
+    @BindingAdapter(
+        "app:hleb",
+        "app:hlebPriceTabLayout",
+        "app:hlebPriceExpandableLayout",
+        "app:hlebLayoutBackground"
+    )
+    fun setUpHleb(
+        tabLayout: TabLayout,
+        hleb: List<Modifier>?,
+        hlebPriceTabLayout: TabLayout,
+        hlebPriceExpandableLayout: ExpandableLayout,
+        hlebLayoutBackground: FrameLayout
+    ) {
+
+        if (hleb == null || hleb.isEmpty()) {
+            hlebPriceExpandableLayout.isVisible = false
+            hlebLayoutBackground.isVisible = false
+            return
+        }
 
         tabLayout.removeAllTabs()
         hlebPriceTabLayout.removeAllTabs()
         hlebPriceExpandableLayout.collapse()
 
-        for(i in 0 until x){
-            tabLayout.addTab(tabLayout.newTab().setText("tab $i"))
+        hleb.forEachIndexed { index, modifier ->
+            tabLayout.addTab(tabLayout.newTab().setText(modifier.name))
 
-            if(i == 1) {
+            if (modifier.price.toInt() > 0) {
                 val tab = hlebPriceTabLayout.newTab()
-                tab.text = "tab $i"
+                tab.text = modifier.price + " ₽"
                 hlebPriceTabLayout.addTab(tab)
-                hlebPriceTabLayout.getTabAt(i)?.select()
-            }
-            else {
+                hlebPriceTabLayout.getTabAt(index)?.select()
+            } else {
                 hlebPriceTabLayout.addTab(hlebPriceTabLayout.newTab().setText(""))
             }
-
         }
+
 
         val touchableList = hlebPriceTabLayout.touchables
         touchableList?.forEach { it.isEnabled = false }
 
-        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
@@ -82,11 +108,24 @@ object BindingAdapter {
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if(tab?.text == "tab 1") hlebPriceExpandableLayout.expand()
+                if (tab?.text == "-ЛАВАШ СЫРНЫЙ") hlebPriceExpandableLayout.expand()
                 else hlebPriceExpandableLayout.collapse()
             }
 
         })
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:arrow"])
+    fun rotateExpandableArrow(view: ImageView, state: ExpandableState) {
+        val angle = if (state == ExpandableState.Collapsed) 90f else 0f
+        view.rotation = angle
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:double"])
+    fun setUpDouble(view: TextView, double: Double) {
+        view.text = double.toInt().toString()
     }
 
 }

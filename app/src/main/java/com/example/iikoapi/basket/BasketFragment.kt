@@ -1,6 +1,7 @@
 package com.example.iikoapi.basket
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
@@ -21,6 +22,7 @@ class BasketFragment : Fragment(R.layout.fragment_basket){
 
 //        foo(3)
         view.payGoToMenu
+
     }
 
     companion object {

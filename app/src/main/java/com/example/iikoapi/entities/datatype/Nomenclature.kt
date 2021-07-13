@@ -1,6 +1,7 @@
 package com.example.iikoapi.entities.datatype
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import java.io.Serializable
 
 //
 //import com.fasterxml.jackson.annotation.JsonIgnoreProperties
@@ -64,11 +65,12 @@ import com.fasterxml.jackson.annotation.JsonProperty
 //    var useBalanceForSell: Boolean? /*Товар продается на вес*/
 //)
 //@JsonIgnoreProperties(ignoreUnknown = true)
-data class Image (
+data class Image(
     var imageId: String? = null /*Guid Идентификатор картинки */,
     var imageUrl: String /*URL для загрузки картинки */,
     var uploadDate: String? = null/*Дата выгрузки картинки в формате "yyyy-MM-dd HH:mm:ss"*/
-)
+) : Serializable
+
 //@JsonIgnoreProperties(ignoreUnknown = true)
 //data class Modifer (
 //    var modifierId: String /* Guid Идентификатор модификатора. Идентификатор продукта для одиночного модификатора и идентификатор группы - для группового.*/,
@@ -82,13 +84,13 @@ data class Image (
 //data class ID(
 //    var terminalId: String?
 //)
-data class Group (
+data class Group(
     val additionalInfo: Any? = null,
     val code: Any? = null,
     val description: Any? = null,
     val id: String? = null,
 
-    @get:JsonProperty("isDeleted")@field:JsonProperty("isDeleted")
+    @get:JsonProperty("isDeleted") @field:JsonProperty("isDeleted")
     val isDeleted: Boolean? = null,
 
     val name: String? = null,
@@ -99,25 +101,25 @@ data class Group (
     val tags: Any? = null,
     val images: List<Any?>? = null,
 
-    @get:JsonProperty("isIncludedInMenu")@field:JsonProperty("isIncludedInMenu")
+    @get:JsonProperty("isIncludedInMenu") @field:JsonProperty("isIncludedInMenu")
     val isIncludedInMenu: Boolean? = null,
 
     val order: Long? = null,
     val parentGroup: Any? = null
 )
 
-data class ProductCategory (
+data class ProductCategory(
     val id: String? = null,
     val name: String? = null
 )
 
-data class Product (
+data class Product(
     val additionalInfo: Any? = null,
     val code: String? = null,
     val description: String? = null,
     val id: String? = null,
 
-    @get:JsonProperty("isDeleted")@field:JsonProperty("isDeleted")
+    @get:JsonProperty("isDeleted") @field:JsonProperty("isDeleted")
     val isDeleted: Boolean? = null,
 
     val name: String? = null,
@@ -137,7 +139,7 @@ data class Product (
     val fiberAmount: Double? = null,
     val fiberFullAmount: Double? = null,
 
-    @get:JsonProperty("groupId")@field:JsonProperty("groupId")
+    @get:JsonProperty("groupId") @field:JsonProperty("groupId")
     val groupID: String? = null,
 
     val groupModifiers: List<GroupModifier>? = null,
@@ -145,7 +147,7 @@ data class Product (
     val modifiers: List<Modifier>? = null,
     val price: Int? = null,
 
-    @get:JsonProperty("productCategoryId")@field:JsonProperty("productCategoryId")
+    @get:JsonProperty("productCategoryId") @field:JsonProperty("productCategoryId")
     val productCategoryID: String? = null,
 
     val prohibitedToSaleOn: List<Any?>? = null,
@@ -154,7 +156,7 @@ data class Product (
     val weight: Double? = null,
     val images: List<Image> = emptyList<Image>(),
 
-    @get:JsonProperty("isIncludedInMenu")@field:JsonProperty("isIncludedInMenu")
+    @get:JsonProperty("isIncludedInMenu") @field:JsonProperty("isIncludedInMenu")
     val isIncludedInMenu: Boolean? = null,
 
     val order: Long? = null,
@@ -162,11 +164,11 @@ data class Product (
     val warningType: Long? = null
 )
 
-data class GroupModifier (
+data class GroupModifier(
     val maxAmount: Long? = null,
     val minAmount: Long? = null,
 
-    @get:JsonProperty("modifierId")@field:JsonProperty("modifierId")
+    @get:JsonProperty("modifierId") @field:JsonProperty("modifierId")
     val modifierID: String? = null,
 
     val required: Boolean? = null,
@@ -174,11 +176,11 @@ data class GroupModifier (
     val childModifiersHaveMinMaxRestrictions: Boolean? = null
 )
 
-data class Modifier (
+data class Modifier(
     val maxAmount: Long? = null,
     val minAmount: Long? = null,
 
-    @get:JsonProperty("modifierId")@field:JsonProperty("modifierId")
+    @get:JsonProperty("modifierId") @field:JsonProperty("modifierId")
     val modifierID: String? = null,
 
     val required: Boolean? = null,

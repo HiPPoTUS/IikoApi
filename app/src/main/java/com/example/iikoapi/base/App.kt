@@ -1,6 +1,7 @@
-package com.example.iikoapi.old.entities.base
+package com.example.iikoapi.base
 
 import android.app.Application
+import android.content.Context
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp

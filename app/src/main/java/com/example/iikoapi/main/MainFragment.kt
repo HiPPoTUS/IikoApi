@@ -1,30 +1,54 @@
 package com.example.iikoapi.main
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import com.example.iikoapi.R
+import com.example.iikoapi.entities.start.District
+import com.example.iikoapi.views.setupWithNavControllerCustom
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainFragment: Fragment(R.layout.fragment_main) {
+class MainFragment : Fragment(R.layout.fragment_main) {
 
     @Inject
     lateinit var viewModel: MainViewModel
 
+    private lateinit var district: District
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        viewModel.setMainFragment(this)
+        super.onCreate(savedInstanceState)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        arguments?.let {
+            val args = MainFragmentArgs.fromBundle(requireArguments())
+            district = args.district
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setUpNavigationFragments(view.mainContainer.id)
-
-        view.bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
-            viewModel.changeFragment(menuItem.itemId)
-        }
+        val navController = Navigation.findNavController(requireActivity(), R.id.container)
+        view.bottomNavigationView.setupWithNavControllerCustom(navController)
     }
 
-    companion object{
-        const val TAG = "MAIN_FRAGMENT"
+    fun openProduct(groupPosition: Int, productPosition: Int){
+        val action = MainFragmentDirections.actionMainFragmentToProductsFragment(groupPosition, productPosition)
+        findNavController().navigate(action)
     }
+
 }

@@ -9,7 +9,7 @@
 
         <variable
             name="item"
-            type="com.example.iikoapi.entities.datatype.Product" />
+            type="com.example.iikoapi.entities.nomenclature.Product" />
 
         <variable
             name="position"

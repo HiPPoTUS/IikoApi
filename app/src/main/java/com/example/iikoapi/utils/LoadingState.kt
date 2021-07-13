@@ -1,15 +1,14 @@
 package com.example.iikoapi.utils
 
-data class LoadingState private constructor(val status: Status, val msg: String? = null) {
-    companion object {
-        val LOADED = LoadingState(Status.SUCCESS)
-        val LOADING = LoadingState(Status.RUNNING)
-        fun error(msg: String?) = LoadingState(Status.FAILED, msg)
-    }
+import com.example.iikoapi.entities.menu.Menu
+import com.example.iikoapi.entities.start.Terminals
 
-    enum class Status {
-        RUNNING,
-        SUCCESS,
-        FAILED
-    }
+sealed class LoadingState {
+    object Loading : LoadingState()
+
+    class SuccessMenu(val menu: Menu) : LoadingState()
+
+    class SuccessTerminals(val terminals: Terminals) : LoadingState()
+
+    class Error(val error: String?) : LoadingState()
 }

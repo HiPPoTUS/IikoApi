@@ -6,10 +6,11 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.iikoapi.R
 import com.example.iikoapi.databinding.DialogProductInfoBinding
-import com.example.iikoapi.entities.datatype.Product
+import com.example.iikoapi.entities.nomenclature.Product
 
 
 class ProductInfoDialog(private val product: Product): DialogFragment(R.layout.dialog_product_info) {
@@ -20,14 +21,6 @@ class ProductInfoDialog(private val product: Product): DialogFragment(R.layout.d
         val dialog = super.onCreateDialog(savedInstanceState)
         dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return dialog
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val window: Window? = dialog!!.window
-        val windowParams = window?.attributes
-        windowParams?.dimAmount = 0f
-        window?.attributes = windowParams
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

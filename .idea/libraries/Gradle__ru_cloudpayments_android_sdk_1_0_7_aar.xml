@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: ru.cloudpayments.android:sdk:1.0.7@aar">
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b7304245f5f6d96ebe4477fefd875ae/jetified-sdk-1.0.7/AndroidManifest.xml" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b7304245f5f6d96ebe4477fefd875ae/jetified-sdk-1.0.7/res" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/0b7304245f5f6d96ebe4477fefd875ae/jetified-sdk-1.0.7/jars/classes.jar!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc57073ee341f4d11c0e61e3807dcf73/jetified-sdk-1.0.7/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc57073ee341f4d11c0e61e3807dcf73/jetified-sdk-1.0.7/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/fc57073ee341f4d11c0e61e3807dcf73/jetified-sdk-1.0.7/res" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ru.cloudpayments.android/sdk/1.0.7/65c85fb20f1ae228bbeee8ac59418ef0a09c183b/sdk-1.0.7-javadoc.jar!/" />

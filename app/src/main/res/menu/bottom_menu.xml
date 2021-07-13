@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<!--    <item-->
+<!--        android:id="@+id/acces_menu"-->
+<!--        android:icon="@drawable/ic_format_align_left_black_24dp"-->
+<!--        android:title="Меню" />-->
+
+    <item
+        android:id="@+id/menuFragment"
+        android:icon="@drawable/ic_shav7"
+        android:title="Меню" />
+
+    <item
+        android:id="@+id/contactsFragment"
+        android:icon="@drawable/ic_contacts_black_24dp"
+        android:title="Контакты" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:icon="@drawable/ic_favorite_black_24dp"
+        android:title="Профиль" />
+
+    <item
+        android:id="@+id/basketFragment"
+        android:icon="@drawable/ic_bag4"
+        android:title="Корзина" />
+
+</menu>

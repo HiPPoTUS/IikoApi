@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="product"
-            type="com.example.iikoapi.entities.datatype.Product" />
+            type="com.example.iikoapi.entities.nomenclature.Product" />
 
     </data>
 
@@ -14,42 +15,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@xml/r23"
-        android:backgroundTint="#D9404040"
+        android:backgroundTint="@color/white"
         android:padding="16dp">
 
         <TextView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/infoName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@{product.name}"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textAmount"
             android:layout_width="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/infoName"
             android:layout_marginTop="2dp"
-            android:gravity="left"
-            android:text="Пищевая ценность на 100г"
-            android:textColor="@color/white"
-            android:textSize="13dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:gravity="start"
+            android:text="@string/dialog_product_info_nutritional_value"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/infoName" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textAmount"
             android:layout_marginTop="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/textAmount">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -61,18 +60,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Энергетическая ценность"
-                    android:textColor="@color/white" />
+                    android:text="@string/dialog_product_info_energy_value"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/infoEnergy"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:layout_weight="4"
-                    android:gravity="center_vertical|right"
-                    android:text="@{Double.toString(product.energyAmount)}"
-                    android:textColor="@color/white" />
+                    android:gravity="center_vertical|end"
+                    app:double="@{product.energyFullAmount}" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,18 +84,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Белки"
-                    android:textColor="@color/white" />
+                    android:text="@string/dialog_product_info_protein_value"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/infoProteins"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:layout_weight="4"
-                    android:gravity="center_vertical|right"
-                    android:text="@{Double.toString(product.fiberAmount)}"
-                    android:textColor="@color/white" />
+                    android:gravity="center_vertical|end"
+                    app:double="@{product.fiberFullAmount}" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,18 +108,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Жиры"
-                    android:textColor="@color/white" />
+                    android:text="@string/dialog_product_info_fat_value"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/infoFats"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center"
+                    android:layout_gravity="end"
                     android:layout_weight="4"
-                    android:gravity="center_vertical|right"
-                    android:text="@{Double.toString(product.fatAmount)}"
-                    android:textColor="@color/white" />
+                    android:gravity="center_vertical|end"
+                    app:double="@{product.fatFullAmount}" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,17 +132,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="Углеводы"
-                    android:textColor="@color/white" />
+                    android:text="@string/dialog_product_info_carbohydrates_value"
+                    tools:ignore="NestedWeights" />
 
                 <TextView
                     android:id="@+id/infoCarbohydrates"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_gravity="end"
                     android:layout_weight="4"
-                    android:gravity="center_vertical|right"
-                    android:text="@{Double.toString(product.carbohydrateAmount)}"
-                    android:textColor="@color/white" />
+                    android:gravity="center_vertical|end"
+                    app:double="@{product.carbohydrateFullAmount}" />
             </LinearLayout>
         </LinearLayout>
 

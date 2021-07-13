@@ -9,7 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.iikoapi.R
-import com.example.iikoapi.entities.District
+import com.example.iikoapi.entities.start.District
 import com.example.iikoapi.utils.InfoInterface
 import com.yandex.mapkit.Animation
 import com.yandex.mapkit.MapKit
@@ -23,7 +23,6 @@ import com.yandex.mapkit.mapview.MapView
 import com.yandex.mapkit.user_location.UserLocationLayer
 import com.yandex.mapkit.user_location.UserLocationObjectListener
 import com.yandex.mapkit.user_location.UserLocationView
-import com.yandex.runtime.image.ImageProvider
 import kotlinx.android.synthetic.main.fragment_contacts_map.view.*
 
 

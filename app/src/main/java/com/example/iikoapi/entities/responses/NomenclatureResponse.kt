@@ -1,6 +1,6 @@
 package com.example.iikoapi.entities.responses
 
-import com.example.iikoapi.entities.mapper
+import com.example.iikoapi.entities.start.mapper
 import com.example.iikoapi.entities.nomenclature.Group
 import com.fasterxml.jackson.module.kotlin.readValue
 
