@@ -6,7 +6,9 @@
     <string name="start_fragment_go">Поехали</string>
     <string name="start_fragment_order_delivery">Заказать доставку:</string>
     <string name="start_fragment_error_title">Произошла ошибка</string>
-    <string name="start_fragment_error_subtitle">Попробуйте повторить позднее</string>
+    <string name="start_fragment_error_subtitle">Проверьте подключение к сети и/или Попробуйте повторить позднее</string>
+
+    <string name="menu_fragment_title">Меню</string>
 
     <string name="contacts_fragment_title">Контакты</string>
     <string name="contacts_fragment_list">Список</string>
@@ -23,5 +25,27 @@
     <string name="dialog_product_info_fat_value">Жиры</string>
     <string name="dialog_product_info_carbohydrates_value">Углеводы</string>
 
+    <string name="fragment_basket_title">Корзина</string>
+    <string name="fragment_basket_pay">Оплатить</string>
+    <string name="fragment_basket_go_to_menu">Вернуться в меню</string>
+    <string name="fragment_basket_empty_basket_warning">Ваша корзина пуста</string>
+    <string name="fragment_basket_footer_title">ИТОГО К ОПЛАТЕ</string>
+
+    <string name="profile_fragment_title">Профиль</string>
+    <string name="profile_fragment_phone">Телефон</string>
+    <string name="profile_fragment_name">Имя*</string>
+    <string name="profile_fragment_b_day">День родж.</string>
+    <string name="profile_fragment_sex">Пол</string>
+    <string name="profile_fragment_mail">Эл. адрес</string>
+    <string name="profile_fragment_get_push">Получать PUSH-уведомления</string>
+    <string name="profile_fragment_login">Войти</string>
+
+    <string name="user_creation_fragment_title">Регистрация</string>
+    <string name="user_creation_fragment_name">Имя</string>
+    <string name="user_creation_fragment_phone">Телефон</string>
+    <string name="user_creation_fragment_password">Пароль</string>
+    <string name="user_creation_fragment_registration">Зарегистрироваться</string>
+
+    <string name="order_fragment_title">Оформление</string>
 
 </resources>

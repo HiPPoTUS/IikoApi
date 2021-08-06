@@ -84,8 +84,8 @@ class MenuFragment : Fragment(R.layout.fragment_menu) {
                                     requireContext(),
                                     "added to basket",
                                     Toast.LENGTH_SHORT
-                                )
-                                    .show()
+                                ).show()
+                                viewModel.addToOrder(item)
                             }
                         }
                     }

@@ -28,7 +28,6 @@
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
             android:id="@+id/menuRecyclerView"
-            android:layout_marginHorizontal="8dp"
             app:onItemListener="@{buyListener}"
             app:products="@{groupProduct}"
 

@@ -34,7 +34,7 @@
         android:background="@drawable/background_ripple_23"
         android:text="@string/start_fragment_go"
         android:textAllCaps="false"
-        android:textColor="#000"
+        android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="@id/arrow"
         app:layout_constraintTop_toBottomOf="@id/arrow" />

@@ -56,24 +56,28 @@ class ContactsFragmentList(private val downloading: View? = null) : Fragment(R.l
                     when(loadingState){
                         is LoadingState.Loading -> {
                             downloading?.isVisible = true
+                            (parentFragment as ContactsFragment).binding.toolBar.isVisible = false
                         }
                         is LoadingState.SuccessMenu -> {
+                            (parentFragment as ContactsFragment).binding.toolBar.isVisible = true
                             val menu = loadingState.menu
                             val action = ContactsFragmentDirections.actionContactsFragmentToMainFragment(District(adr = "adress number -> 3"))
                             findNavController().navigate(action)
                         }
                         is LoadingState.Error -> {
+                            (parentFragment as ContactsFragment).binding.toolBar.isVisible = true
                             val error = loadingState.error
                             downloading?.isVisible = false
                             AlertDialog.Builder(context)
                                 .setTitle(requireContext().resources.getString(R.string.start_fragment_error_title))
                                 .setMessage(requireContext().resources.getString(R.string.start_fragment_error_subtitle))
-                                .setPositiveButton(
-                                    android.R.string.yes, null)
+                                .setPositiveButton(android.R.string.yes){ dialog, _ ->
+                                    dialog.dismiss()
+                                }
                                 .setIcon(android.R.drawable.ic_dialog_alert)
                                 .show()
                         }
-                        is LoadingState.SuccessTerminals -> {
+                        else -> {
 
                         }
                     }

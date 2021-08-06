@@ -22,7 +22,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ContactsFragment : Fragment(R.layout.fragment_contacts){
 
-    private lateinit var binding: FragmentContactsBinding
+    lateinit var binding: FragmentContactsBinding
 
     private val districts = List(20) {
         District(adr = "adress number -> $it")

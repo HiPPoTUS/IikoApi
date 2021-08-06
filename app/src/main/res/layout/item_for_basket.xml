@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.example.iikoapi.entities.basket.BasketItemEntity" />
+
+        <variable
+            name="action"
+            type="com.example.iikoapi.utils.OnItemClickListener" />
+
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:image="@{item.basketItem.product.images[0]}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.3"
+            tools:srcCompat="@drawable/preload" />
+
+        <ImageView
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_ripple_23"
+            android:src="@drawable/ic_menu_plus_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onClickListener="@{view -> action.onClick(view, item, position)}"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/minusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/background_ripple_23"
+            android:src="@drawable/ic_menu_plus_button"
+            app:layout_constraintEnd_toStartOf="@id/addButton"
+            app:layout_constraintTop_toTopOf="parent"
+            app:onClickListener="@{view -> action.onClick(view, item, position)}"
+            tools:ignore="ContentDescription" />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{Long.toString(item.basketItem.product.price)  + ` ₽`}"
+            app:layout_constraintEnd_toEndOf="@id/addButton"
+            app:layout_constraintStart_toStartOf="@id/minusButton"
+            app:layout_constraintTop_toBottomOf="@id/minusButton"
+            tools:text="12432 R" />
+
+        <TextView
+            android:id="@+id/numberOfItems"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="@{Integer.toString(item.count)  + ` шт`}"
+            app:layout_constraintEnd_toEndOf="@id/addButton"
+            app:layout_constraintStart_toStartOf="@id/minusButton"
+            app:layout_constraintTop_toBottomOf="@id/priceTextView"
+            tools:text="1 sht" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginTop="8dp"
+            android:lines="2"
+            android:text="@{item.basketItem.product.name}"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toStartOf="@id/minusButton"
+            app:layout_constraintStart_toEndOf="@id/itemImage"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="SHava hz" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="8dp"
+            android:layout_marginVertical="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/itemImage"
+            app:layout_constraintEnd_toStartOf="@id/minusButton"
+            app:layout_constraintStart_toEndOf="@id/itemImage"
+            app:layout_constraintTop_toBottomOf="@id/name"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

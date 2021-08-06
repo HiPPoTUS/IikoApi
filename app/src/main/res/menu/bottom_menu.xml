@@ -9,21 +9,21 @@
     <item
         android:id="@+id/menuFragment"
         android:icon="@drawable/ic_shav7"
-        android:title="Меню" />
+        android:title="@string/menu_fragment_title" />
 
     <item
         android:id="@+id/contactsFragment"
         android:icon="@drawable/ic_contacts_black_24dp"
-        android:title="Контакты" />
+        android:title="@string/contacts_fragment_title" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_favorite_black_24dp"
-        android:title="Профиль" />
+        android:title="@string/profile_fragment_title" />
 
     <item
         android:id="@+id/basketFragment"
         android:icon="@drawable/ic_bag4"
-        android:title="Корзина" />
+        android:title="@string/fragment_basket_title" />
 
 </menu>

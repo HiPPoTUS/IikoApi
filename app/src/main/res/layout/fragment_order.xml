@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.iikoapi.room.entity.User" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            style="@style/ToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/order_fragment_title" />
+
+        <TextView
+            android:id="@+id/nameTV"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="17sp"
+            android:text="@{user.name}"
+            tools:text="fds"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/phoneTV"
+            android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/nameTV"
+            android:layout_marginTop="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:textSize="17sp"
+            android:text="@{user.phone}"
+            tools:text="fd322424s"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/phoneTV"
+            android:layout_height="wrap_content"
+            android:background="@xml/r23"
+            android:backgroundTint="@color/lightGrey"
+            android:minWidth="0dp"
+            android:layout_marginHorizontal="16dp`"
+            app:tabGravity="fill"
+            app:tabIndicator="@xml/r18"
+            app:tabIndicatorColor="@color/white"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorGravity="stretch"
+            app:tabMode="fixed"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/middleGrey"
+            app:tabTextColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

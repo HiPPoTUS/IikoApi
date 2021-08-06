@@ -2,6 +2,8 @@
 
 package com.example.iikoapi.utils
 
+import android.graphics.Rect
+import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +17,7 @@ import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.datatype.Image
 import com.example.iikoapi.entities.menu.Modifier
 import com.example.iikoapi.entities.nomenclature.Product
+import com.example.iikoapi.utils.adapters.CustomItemDecoration
 import com.example.iikoapi.utils.adapters.GeneralAdapter
 import com.google.android.material.tabs.TabLayout
 import net.cachapa.expandablelayout.ExpandableLayout
@@ -48,10 +51,14 @@ object BindingAdapter {
         products: GroupProducts,
         onItemListener: OnItemClickListener<*>
     ) {
-        recyclerView.adapter = GeneralAdapter<Product>()
+        recyclerView.apply {
+            if(itemDecorationCount == 0){
+                addItemDecoration(CustomItemDecoration())
+            }
+        }.adapter = GeneralAdapter<Product>()
             .also { adapter ->
                 adapter.setData(products.products)
-                adapter.setLayoutId(R.layout.menu_product_item_new)
+                adapter.setLayoutId(R.layout.item_menu_product_item_new)
                 adapter.setListener(onItemListener as OnItemClickListener<Product>)
             }
     }

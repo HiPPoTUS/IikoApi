@@ -5,7 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/main_yelow</item>
         <item name="colorPrimaryDark">@color/yellow</item>
-        <item name="colorAccent">@color/orange</item>
+        <item name="colorAccent">@color/main_yelow</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:navigationBarColor">@color/yellow</item>
     </style>
@@ -85,7 +85,7 @@
     </style>
 
     <style name="ToolBar">
-        <item name="android:background">@color/main_yelow</item>
+        <item name="android:background">@color/yellow</item>
     </style>
 
 </resources>

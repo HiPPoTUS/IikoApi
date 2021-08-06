@@ -33,7 +33,7 @@
             android:gravity="center_vertical"
             android:lines="2"
             android:text="@{item.item.name}"
-            android:textColor="#000"
+            android:textColor="@color/black"
             android:textSize="17dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

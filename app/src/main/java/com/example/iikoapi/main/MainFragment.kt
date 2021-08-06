@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.iikoapi.R
 import com.example.iikoapi.entities.start.District
+import com.example.iikoapi.profile.Authorisation
 import com.example.iikoapi.views.setupWithNavControllerCustom
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_main.view.*
@@ -43,6 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
         val navController = Navigation.findNavController(requireActivity(), R.id.container)
+        viewModel.bottomNavigationView = view.bottomNavigationView
         view.bottomNavigationView.setupWithNavControllerCustom(navController)
     }
 
@@ -51,4 +53,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         findNavController().navigate(action)
     }
 
+    fun openAuthorisation(type: Authorisation){
+        val action = MainFragmentDirections.actionMainFragmentToUserCreationFragment(type, false)
+        findNavController().navigate(action)
+    }
+
+    fun openProfile(isOrder: Boolean){
+        val action = MainFragmentDirections.actionMainFragmentToAuthorisationFragment(isOrder)
+        findNavController().navigate(action)
+    }
 }

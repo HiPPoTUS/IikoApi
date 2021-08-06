@@ -1,7 +1,6 @@
 package com.example.iikoapi.utils
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.iikoapi.entities.ChildRemove
 import com.example.iikoapi.entities.ExpandableEntity
 
 
@@ -27,14 +26,5 @@ class RemoveDiffUtilsCallback(private val oldList: List<ExpandableEntity<*>>, pr
         val newProduct: ExpandableEntity<*> = newList[newItemPosition]
         return oldItem.toString() == newProduct.toString()
     }
-
-//    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-//        val oldItem = oldList[oldItemPosition]
-//        val newItem = newList[newItemPosition]
-//
-//        return Change(
-//            oldItem,
-//            newItem)
-//    }
 
 }

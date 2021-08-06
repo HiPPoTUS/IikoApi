@@ -45,6 +45,16 @@
             app:exitAnim="@anim/exit_anim_right"
             app:popEnterAnim="@anim/enter_anim_left"
             app:popExitAnim="@anim/exit_anim_left" />
+        <action
+            android:id="@+id/action_mainFragment_to_userCreationFragment"
+            app:destination="@id/userCreationFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_authorisationFragment"
+            app:destination="@id/authorisationFragment"
+            app:enterAnim="@anim/enter_anim_right"
+            app:exitAnim="@anim/exit_anim_right"
+            app:popEnterAnim="@anim/enter_anim_left"
+            app:popExitAnim="@anim/exit_anim_left"/>
     </fragment>
 
     <fragment
@@ -78,5 +88,49 @@
             app:popUpTo="@+id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/userCreationFragment"
+        android:name="com.example.iikoapi.profile.UserCreationFragment"
+        android:label="UserCreationFragment"
+        tools:layout="@layout/fragment_user_creation">
+        <argument
+            android:name="type"
+            app:argType="com.example.iikoapi.profile.Authorisation"/>
+        <argument
+            android:name="isOrder"
+            app:argType="java.lang.Boolean"/>
+        <action
+            android:id="@+id/action_userCreationFragment_to_orderFragment"
+            app:destination="@id/orderFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/authorisationFragment"
+        android:name="com.example.iikoapi.basket.AuthorisationFragment"
+        android:label="AuthorisationFragment"
+        tools:layout="@layout/fragment_profile">
+
+        <argument
+            android:name="isOrder"
+            app:argType="java.lang.Boolean"/>
+
+        <action
+            android:id="@+id/action_authorisationFragment_to_userCreationFragment"
+            app:destination="@id/userCreationFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/orderFragment"
+        android:name="com.example.iikoapi.order.OrderFragment"
+        tools:layout="@layout/fragment_order"/>
 
 </navigation>

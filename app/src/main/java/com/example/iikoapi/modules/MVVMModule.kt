@@ -4,6 +4,7 @@ import android.content.Context
 import com.example.iikoapi.api.Api
 import com.example.iikoapi.main.MainViewModel
 import com.example.iikoapi.main.MainViewModelFactory
+import com.example.iikoapi.room.UserDao
 import com.example.iikoapi.utils.Repository
 import dagger.Module
 import dagger.Provides
@@ -18,8 +19,8 @@ object MVVMModule {
 
     @Singleton
     @Provides
-    fun provideRepository(api: Api): Repository {
-        return Repository(api)
+    fun provideRepository(api: Api, userDao: UserDao): Repository {
+        return Repository(api, userDao)
     }
 
     @Singleton
@@ -33,9 +34,5 @@ object MVVMModule {
     fun provideMainViewModelFactory(mainViewModel: MainViewModel): MainViewModelFactory {
         return MainViewModelFactory(mainViewModel)
     }
-
-//    @Singleton
-//    @Provides
-//    fun getActivity(@ApplicationContext appContext: Context) = appContext
 
 }

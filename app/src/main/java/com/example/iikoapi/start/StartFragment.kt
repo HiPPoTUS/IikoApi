@@ -1,6 +1,7 @@
 package com.example.iikoapi.start
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE
@@ -16,6 +17,7 @@ import com.example.iikoapi.R
 import com.example.iikoapi.main.MainViewModel
 import com.example.iikoapi.utils.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_contacts_map.*
 import kotlinx.android.synthetic.main.fragment_start.view.*
 import javax.inject.Inject
 
@@ -87,19 +89,23 @@ class StartFragment: Fragment(R.layout.fragment_start) {
                     }
                     is LoadingState.Error -> {
                         val error = loadingState.error
-                        view.button.isVisible = false
-                        view.downloading.isVisible = true
+                        view.button.isVisible = true
+                        view.downloading.isVisible = false
                         AlertDialog.Builder(context)
                             .setTitle(requireContext().resources.getString(R.string.start_fragment_error_title))
                             .setMessage(requireContext().resources.getString(R.string.start_fragment_error_subtitle))
-                            .setPositiveButton(
-                                android.R.string.yes, null)
+                            .setPositiveButton(android.R.string.yes){ dialog, _ ->
+                                dialog.dismiss()
+                            }
                             .setIcon(android.R.drawable.ic_dialog_alert)
                             .show()
                     }
                     is LoadingState.SuccessTerminals -> {
                         val action = StartFragmentDirections.actionStartFragmentToContactsFragment(loadingState.terminals)
                         findNavController().navigate(action)
+                    }
+                    else -> {
+
                     }
                 }
 

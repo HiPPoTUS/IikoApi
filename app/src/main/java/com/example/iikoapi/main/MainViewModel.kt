@@ -1,27 +1,33 @@
 package com.example.iikoapi.main
 
+import android.R.id
 import android.app.Activity
 import androidx.fragment.app.FragmentManager
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.iikoapi.dialogs.ProductInfoDialog
 import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.MerchItem
+import com.example.iikoapi.entities.basket.BasketEntity
+import com.example.iikoapi.entities.basket.BasketItem
 import com.example.iikoapi.entities.menu.ChildModifier
 import com.example.iikoapi.entities.menu.Menu
 import com.example.iikoapi.entities.menu.Modifier
 import com.example.iikoapi.entities.nomenclature.Product
+import com.example.iikoapi.entities.profile.LoginRequest
 import com.example.iikoapi.entities.start.MenuIdBody
 import com.example.iikoapi.entities.start.OrganisationIdBody
 import com.example.iikoapi.entities.start.Terminals
+import com.example.iikoapi.profile.Authorisation
+import com.example.iikoapi.room.entity.User
 import com.example.iikoapi.start.StartFragmentDirections
 import com.example.iikoapi.utils.LoadingState
 import com.example.iikoapi.utils.Repository
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.yandex.mapkit.MapKitFactory
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 import javax.inject.Inject
+
 
 class MainViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
@@ -29,8 +35,17 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
 
     var activity: Activity? = null
 
+    lateinit var bottomNavigationView: BottomNavigationView
+
     private lateinit var menu: Menu
     private val groupsProduct = mutableListOf<GroupProducts>()
+    val order by lazy {
+        BasketEntity(
+            items = mutableListOf()
+        ).apply {
+            this.bottomNavigationView = this@MainViewModel.bottomNavigationView
+        }
+    }
 
     fun getGroups() = menu.groups_products
 
@@ -41,9 +56,9 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     }
 
     fun geGroupsModifiers(childModifiers: List<ChildModifier>?) = childModifiers?.let {
-        mutableListOf<Modifier>().also {list ->
-            childModifiers.forEach {childModifier ->
-                menu.modifiers.find {modifier ->
+        mutableListOf<Modifier>().also { list ->
+            childModifiers.forEach { childModifier ->
+                menu.modifiers.find { modifier ->
                     modifier.id == childModifier.modifierId
                 }.apply {
                     this?.let {
@@ -61,7 +76,7 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
 
     private val terminalsLiveData = MutableLiveData<Terminals>(null)
 
-    fun getTerminals(): LiveData<LoadingState>{
+    fun getTerminals(): LiveData<LoadingState> {
         viewModelScope.launch {
 
             _loadingState.value = LoadingState.Loading
@@ -144,9 +159,146 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
         ProductInfoDialog(product).show(supportFragmentManager!!, ProductInfoDialog.TAG)
     }
 
-    fun addToOrder(product: Product, hlebPosition: Int, dobavitModifiers: List<MerchItem>) {
-
-        hlebPosition
+    fun addToOrder(
+        product: Product,
+        hlebPosition: Int? = null,
+        dobavitModifiers: List<MerchItem>? = null
+    ) {
+        order.add(
+            BasketItem(
+                product = product,
+                modifiers = listOf()
+            )
+        )
     }
+
+    fun makeOrder(isOrder: Boolean) {
+        viewModelScope.launch {
+            val users = repository.getUser()
+            if(users.isEmpty()){
+                mainFragment.openProfile(isOrder)
+            }
+        }
+    }
+
+    private val _registrationState = MutableLiveData<LoadingState>()
+    private val registrationState: LiveData<LoadingState>
+        get() = _registrationState
+
+    fun openAuthorisation(type: Authorisation) =
+        apply { mainFragment.openAuthorisation(type) }
+
+    fun registerUser(user: User): LiveData<LoadingState> {
+        viewModelScope.launch {
+            _registrationState.value = LoadingState.Loading
+            try {
+                val registrationResponse = repository.registerUser(user)
+
+                val loginResponse = repository.loginUser(LoginRequest(
+                    phone = registrationResponse.phone,
+                    password = user.password!!
+                ))
+
+                repository.addUser(User(
+                    phone = registrationResponse.phone,
+                    name = registrationResponse.first_name,
+                    token = loginResponse.auth_token
+                    ))
+
+                _registrationState.value = LoadingState.SuccessRegistration(registrationResponse)
+
+            } catch (e: Exception) {
+                when (e) {
+                    is HttpException -> {
+                        val t = e.response()?.errorBody()
+                        t
+                    }
+                    else -> {
+                        //Other errors like Network ...
+                    }
+                }
+                _registrationState.value = LoadingState.Error(e.message)
+            }
+
+        }
+        return registrationState
+    }
+
+    fun loginUser(user: User): LiveData<LoadingState> {
+        viewModelScope.launch {
+            _registrationState.value = LoadingState.Loading
+            try {
+
+                val loginResponse = repository.loginUser(LoginRequest(
+                    phone = user.phone!!,
+                    password = user.password!!
+                ))
+
+                val userInfo = repository.getUserInfo("Token ${loginResponse.auth_token}")
+
+                repository.addUser(User(
+                    phone = userInfo.phone,
+                    name = userInfo.first_name,
+                    token = loginResponse.auth_token
+                ))
+
+                _registrationState.value = LoadingState.SuccessLogin(loginResponse)
+
+            } catch (e: Exception) {
+                when (e) {
+                    is HttpException -> {
+                        val t = e.response()?.errorBody()
+                        t
+                    }
+                    else -> {
+                        //Other errors like Network ...
+                    }
+                }
+                _registrationState.value = LoadingState.Error(e.message)
+            }
+
+        }
+        return registrationState
+    }
+
+//   fun addUser(){
+//       viewModelScope.launch {
+//           val t = repository.addUser(User(
+//               name = "name",
+//               phone = "phone",
+//               token = "token"
+//           ))
+//           t
+//       }
+//   }
+
+    fun getUsers() = repository.getUsers()
+
+    fun logOutUser(){
+
+    }
+
+    fun deleteUser(){
+        viewModelScope.launch {
+            val t = repository.deleteUser(User(
+                id = 1,
+                name = "name",
+                phone = "phone",
+                token = "token"
+            ))
+            t
+        }
+    }
+
+//    private fun convertErrorBody(throwable: HttpException): ErrorResponse? {
+//        return try {
+//            throwable.response()?.errorBody()?.source()?.let {
+//               val t = it.buffer.re
+//                null
+//            }
+//        } catch (exception: Exception) {
+//            null
+//        }
+//    }
 
 }

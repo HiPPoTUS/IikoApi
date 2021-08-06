@@ -1,115 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/mLayoutManager"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolBar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        style="@style/ToolBar"
-        app:title="Profile"
-        android:elevation="4dp"/>
+    <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="user"
+            type="com.example.iikoapi.room.entity.User" />
+
+        <variable
+            name="action"
+            type="android.view.View.OnClickListener" />
+
+
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolBar"
-        android:id="@+id/archive_L">
-        <ImageView
-            android:id="@+id/achive_pic"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintWidth_percent="0.5"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="1"
-            app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
+            style="@style/ToolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
             app:layout_constraintTop_toTopOf="parent"
+            app:title="@string/profile_fragment_title" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:paddingBottom="16dp"
+            android:src="@drawable/vasya"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/preload" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolBar" />
+
+        <include
+            layout="@layout/layout_profile_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{user == null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/image"
+            app:user="@{user}"
+            tools:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_ripple_23"
+            android:backgroundTint="@color/main_yelow"
+            android:text="@string/profile_fragment_login"
+            android:textAllCaps="false"
+            android:visibility="@{user != null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/image" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/registerButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_ripple_23"
+            android:backgroundTint="@color/main_yelow"
+            android:text="@string/user_creation_fragment_registration"
+            android:textAllCaps="false"
+            android:visibility="@{user != null ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/loginButton" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.cardview.widget.CardView
-        android:layout_marginTop="-18dp"
-        android:id="@+id/customer_card"
-        app:cardCornerRadius="18dp"
-        android:elevation="2dp"
-        app:cardElevation="2dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/archive_L"
-        app:contentPadding="20dp">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/customer_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Имя"
-                android:textSize="40dp"
-                android:padding="10dp" />
-
-            <RelativeLayout
-                android:id="@+id/addresses_L"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/customer_name">
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Адреса"
-                    android:textSize="25dp"
-                    android:layout_toLeftOf="@id/number_orders"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/number_orders"
-                    android:layout_toLeftOf="@+id/addresses_button"
-                    android:text="0"
-                    android:textSize="25dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginHorizontal="10dp" />
-
-                <Button
-                    android:id="@+id/addresses_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_below="@id/addresses_L"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_centerVertical="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="История заказов"
-                    android:textSize="25dp"
-                    android:layout_toLeftOf="@id/history_button"/>
-
-                <Button
-                    android:id="@+id/history_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true" />
-            </RelativeLayout>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-
-
-</RelativeLayout>
+</layout>
