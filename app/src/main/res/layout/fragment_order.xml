@@ -55,7 +55,7 @@
             android:background="@xml/r23"
             android:backgroundTint="@color/lightGrey"
             android:minWidth="0dp"
-            android:layout_marginHorizontal="16dp`"
+            android:layout_marginHorizontal="16dp"
             app:tabGravity="fill"
             app:tabIndicator="@xml/r18"
             app:tabIndicatorColor="@color/white"
