@@ -19,6 +19,7 @@ import com.example.iikoapi.entities.nomenclature.Product
 import com.example.iikoapi.main.MainViewModel
 import com.example.iikoapi.utils.DimensionsConverter.dp
 import com.example.iikoapi.utils.ModifiersItemDecoration
+import com.example.iikoapi.utils.OnItemClickListener
 import com.example.iikoapi.utils.adapters.ExpandableScrollableAdapter
 
 class OpenProductFragment(private val product: Product, private val viewModel: MainViewModel) :
@@ -35,6 +36,8 @@ class OpenProductFragment(private val product: Product, private val viewModel: M
         setParentLayoutId(R.layout.item_header_remove)
     }
 
+    private val removeModifiers = mutableListOf<ChildRemove>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,6 +53,13 @@ class OpenProductFragment(private val product: Product, private val viewModel: M
                                 children = it
                             ))
                             removeAdapter.context = requireContext()
+                            removeAdapter.listener = object : OnItemClickListener<ChildRemove>{
+                                override fun onClick(view: View, item: ChildRemove, position: Int) {
+                                    if(removeModifiers.contains(item)) removeModifiers.remove(item)
+                                    else removeModifiers.add(item)
+                                }
+
+                            }
                         }
                 }
                 ModifiersTypes.HLEB_WITH_PITA -> {
@@ -92,10 +102,12 @@ class OpenProductFragment(private val product: Product, private val viewModel: M
             action = View.OnClickListener { view ->
                 when (view.id) {
                     addToBasketButton.id -> {
+
                         viewModel.addToOrder(
                             product,
                             binding.hlebModifierTabLayout.selectedTabPosition,
-                            dobavitAdapter.getModifiers()
+                            dobavitAdapter.getModifiers(),
+                            if(removeModifiers.isEmpty()) null else removeModifiers.map { it.item }
                         )
 
                         Toast.makeText(requireContext(), requireContext().resources.getString(R.string.product_for_layout_added_to_basket), Toast.LENGTH_SHORT)

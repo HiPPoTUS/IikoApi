@@ -13,7 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/phone"
@@ -174,5 +174,18 @@
             android:background="@color/lightGrey"
             app:layout_constraintTop_toBottomOf="@id/bDay" />
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/logOutButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/background_ripple_23"
+            android:backgroundTint="@color/main_yelow"
+            android:text="@string/profile_fragment_logout"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

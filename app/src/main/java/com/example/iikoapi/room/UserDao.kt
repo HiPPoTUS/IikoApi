@@ -16,6 +16,6 @@ interface UserDao {
     @Query("SELECT * FROM User")
     suspend fun getUser(): List<User>
 
-    @Delete
-    suspend fun deleteUser(user: User)
+    @Query("DELETE FROM User")
+    suspend fun deleteUser()
 }

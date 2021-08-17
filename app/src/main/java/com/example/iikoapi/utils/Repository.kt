@@ -27,6 +27,8 @@ class Repository @Inject constructor(private val api: Api, private val userDao: 
 
     suspend fun loginUser(loginRequest: LoginRequest) = api.login(loginRequest)
 
+    suspend fun logOutUser(token: String) = api.logOutUser(token)
+
     suspend fun getUserInfo(token: String) = api.getUserInfo(token)
 
     suspend fun addUser(user: User) = userDao.insert(user)
@@ -35,6 +37,6 @@ class Repository @Inject constructor(private val api: Api, private val userDao: 
 
     suspend fun getUser() = userDao.getUser()
 
-    suspend fun deleteUser(user: User) = userDao.deleteUser(user)
+    suspend fun deleteUser() = userDao.deleteUser()
 
 }

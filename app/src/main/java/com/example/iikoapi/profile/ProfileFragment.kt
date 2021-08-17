@@ -19,6 +19,7 @@ import com.example.iikoapi.room.entity.User
 import com.example.iikoapi.utils.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_profile.view.*
+import kotlinx.android.synthetic.main.layout_profile_info.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -63,6 +64,11 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
             registerButton.setOnClickListener {
                 viewModel.openAuthorisation(Authorisation.Registration)
+            }
+
+            logOutButton.setOnClickListener {
+                viewModel.logOutUser()
+                user = null
             }
 //            action = View.OnClickListener {
 //                when (view.id) {

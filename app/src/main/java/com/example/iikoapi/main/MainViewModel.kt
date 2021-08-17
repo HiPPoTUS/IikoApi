@@ -162,12 +162,14 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     fun addToOrder(
         product: Product,
         hlebPosition: Int? = null,
-        dobavitModifiers: List<MerchItem>? = null
+        dobavitModifiers: List<MerchItem>? = null,
+        removeModifiers: List<Modifier>? = null
     ) {
         order.add(
             BasketItem(
                 product = product,
-                modifiers = listOf()
+                modifiers = listOf(),
+                removeModifiers = removeModifiers
             )
         )
     }
@@ -177,6 +179,9 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
             val users = repository.getUser()
             if(users.isEmpty()){
                 mainFragment.openProfile(isOrder)
+            }
+            else{
+                mainFragment.openOrderFragment()
             }
         }
     }
@@ -275,18 +280,10 @@ class MainViewModel @Inject constructor(private val repository: Repository) : Vi
     fun getUsers() = repository.getUsers()
 
     fun logOutUser(){
-
-    }
-
-    fun deleteUser(){
         viewModelScope.launch {
-            val t = repository.deleteUser(User(
-                id = 1,
-                name = "name",
-                phone = "phone",
-                token = "token"
-            ))
-            t
+            val users = repository.getUser()
+            repository.logOutUser("Token ${users.firstOrNull()?.token}")
+            repository.deleteUser()
         }
     }
 

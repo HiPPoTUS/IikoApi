@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.iikoapi.R
@@ -13,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class OrderFragment: Fragment(R.layout.fragment_order) {
+class OrderFragment : Fragment(R.layout.fragment_order) {
 
     private lateinit var binding: FragmentOrderBinding
 
@@ -31,8 +32,8 @@ class OrderFragment: Fragment(R.layout.fragment_order) {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUsers().observe(this, Observer {users ->
-            with(binding){
+        viewModel.getUsers().observe(this, Observer { users ->
+            with(binding) {
                 user = users.first()
             }
         })
@@ -40,5 +41,13 @@ class OrderFragment: Fragment(R.layout.fragment_order) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        with(binding) {
+            (activity as AppCompatActivity).setSupportActionBar(toolBar)
+            (activity as AppCompatActivity).supportActionBar?.let {
+                it.setDisplayHomeAsUpEnabled(true)
+                it.setDisplayShowHomeEnabled(true)
+            }
+        }
     }
 }

@@ -9,13 +9,26 @@
             name="item"
             type="com.example.iikoapi.entities.ChildRemove" />
 
+        <variable
+            name="position"
+            type="java.lang.Integer" />
+
+        <variable
+            name="action"
+            type="com.example.iikoapi.utils.OnItemClickListener"/>
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingVertical="15dp"
-        app:onClickListener="@{() -> checkBox.performClick()}">
+        app:listener="@{action}"
+        app:item="@{item}"
+        app:position="@{position}"
+        app:checkBox="@{checkBox}">
+<!--        app:onClickListener="@{() -> checkBox.performClick()}">-->
 
         <com.example.iikoapi.views.CustomCheckBoxModifier
             android:id="@+id/checkBox"
@@ -34,7 +47,7 @@
             android:lines="2"
             android:text="@{item.item.name}"
             android:textColor="@color/black"
-            android:textSize="17dp"
+            android:textSize="17sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/checkBox"

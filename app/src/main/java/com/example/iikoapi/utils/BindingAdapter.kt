@@ -4,14 +4,17 @@ package com.example.iikoapi.utils
 
 import android.graphics.Rect
 import android.view.View
+import android.widget.CheckBox
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.iikoapi.R
+import com.example.iikoapi.entities.ChildRemove
 import com.example.iikoapi.entities.ExpandableState
 import com.example.iikoapi.entities.GroupProducts
 import com.example.iikoapi.entities.datatype.Image
@@ -19,6 +22,8 @@ import com.example.iikoapi.entities.menu.Modifier
 import com.example.iikoapi.entities.nomenclature.Product
 import com.example.iikoapi.utils.adapters.CustomItemDecoration
 import com.example.iikoapi.utils.adapters.GeneralAdapter
+import com.example.iikoapi.views.CustomCheckBox
+import com.example.iikoapi.views.CustomCheckBoxModifier
 import com.google.android.material.tabs.TabLayout
 import net.cachapa.expandablelayout.ExpandableLayout
 
@@ -133,6 +138,27 @@ object BindingAdapter {
     @BindingAdapter(value = ["app:double"])
     fun setUpDouble(view: TextView, double: Double) {
         view.text = double.toInt().toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:listener", "app:item", "app:position", "app:checkBox"])
+    fun setOnRemoveClickListener(view: ConstraintLayout, listener: OnItemClickListener<*>, item: ChildRemove, position: Int, checkBox: CustomCheckBoxModifier) {
+        view.setOnClickListener {
+            (listener as OnItemClickListener<ChildRemove>).onClick(view, item, position)
+            checkBox.performClick()
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["app:removeModifiers"])
+    fun addBasketDiscription(view: TextView, removeModifiers: List<Modifier>?) {
+        var s = ""
+        removeModifiers?.let {
+            it.forEach {
+                s += it.name
+            }
+        }
+        view.text = s
     }
 
 }

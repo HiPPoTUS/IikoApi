@@ -45,11 +45,12 @@
         <include
             layout="@layout/layout_profile_info"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:visibility="@{user == null ? View.GONE : View.VISIBLE}"
             app:layout_constraintTop_toBottomOf="@id/image"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:user="@{user}"
-            tools:visibility="gone" />
+            tools:visibility="visible" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"

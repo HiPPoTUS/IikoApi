@@ -62,4 +62,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         val action = MainFragmentDirections.actionMainFragmentToAuthorisationFragment(isOrder)
         findNavController().navigate(action)
     }
+
+    fun openOrderFragment(){
+        findNavController().navigate(R.id.action_mainFragment_to_orderFragment)
+    }
 }

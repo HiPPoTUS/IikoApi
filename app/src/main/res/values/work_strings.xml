@@ -35,6 +35,7 @@
     <string name="profile_fragment_phone">Телефон</string>
     <string name="profile_fragment_name">Имя*</string>
     <string name="profile_fragment_b_day">День родж.</string>
+    <string name="profile_fragment_logout">Выйти</string>
     <string name="profile_fragment_sex">Пол</string>
     <string name="profile_fragment_mail">Эл. адрес</string>
     <string name="profile_fragment_get_push">Получать PUSH-уведомления</string>
@@ -47,5 +48,12 @@
     <string name="user_creation_fragment_registration">Зарегистрироваться</string>
 
     <string name="order_fragment_title">Оформление</string>
+    <string name="order_fragment_takeaway">С собой</string>
+    <string name="order_fragment_in_cafe">В кафе</string>
+    <string name="order_fragment_where">Где забрать</string>
+    <string name="order_fragment_now">Сей час</string>
+    <string name="order_fragment_by_the_time">Ко времени</string>
+    <string name="order_fragment_continue">далее</string>
+    <string name="order_fragment_total_price">ИТОГО К ОПЛАТЕ</string>
 
 </resources>

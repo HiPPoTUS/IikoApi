@@ -10,6 +10,7 @@ import com.example.iikoapi.entities.start.MenuIdBody
 import com.example.iikoapi.entities.start.OrganisationIdBody
 import com.example.iikoapi.entities.start.Terminal
 import com.example.iikoapi.profile.UserInfo
+import retrofit2.Response
 import retrofit2.http.*
 
 
@@ -29,6 +30,9 @@ interface Api {
 
     @POST("v1/auth/token/login/")
     suspend fun login(@Body body: LoginRequest): LoginResponse
+
+    @POST("v1/auth/token/logout/")
+    suspend fun logOutUser(@Header("Authorization") token: String): Response<Unit>
 
     @GET("v1/users/me/")
     suspend fun getUserInfo(@Header("Authorization") token: String): UserInfo
